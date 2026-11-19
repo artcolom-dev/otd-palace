@@ -1,0 +1,436 @@
+/* The phone, first: how the site answers a finger and fits a phone's edges. Loaded last, so it fine-tunes the shared
+   rules. (the internal research notes says what each part is for.) */
+
+/* ---------- touch ---------- */
+
+/* No double-tap zoom anywhere, so a tap is a tap at once (no wait to see whether a second one follows); pinch zoom
+   stays. touch-action is not inherited, but a touch is allowed only what every box up to the page allows. */
+html {
+  touch-action: manipulation;
+}
+
+/* Pressed at once, eased back: whatever a control does under the finger (the shared dim of motion.css, or its own
+   pressed look) lands the moment the finger does, and only the release eases. Weighty enough to beat a control's own
+   ":active" transition (.icb, .tabs button...); it changes no look, only when the look arrives. */
+:root :is(a[href], button, summary, [role="button"], [role="tab"], [role="switch"], [role="radio"], label[for]):active {
+  transition-duration: 0ms;
+}
+
+/* 44 px for every control a thumb aims at on a phone, the boxed buttons and the fields too (42 and 40 elsewhere). */
+:is(.app.phone, dialog.sheet) .btn {
+  height: 44px;
+}
+
+:is(.app.phone, dialog.sheet) .impr input {
+  min-height: 44px;
+}
+
+/* Controls are not text: a long press on a tab, a button or a switch does not start a selection or the link menu. */
+@media (hover: none) and (pointer: coarse) {
+  :where(button, [role="switch"], [role="tab"], .tabbar, .top .brand, .chip, .sortbtn) {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  :where(.tabbar a, .top .brand) {
+    -webkit-touch-callout: none;
+  }
+}
+
+/* The page owns its pull-down on a phone (pull to refresh on Today and Deals): the browser's own reload pull and the
+   rubber band at the top are off, so the two never fire together. Inner scrollers keep their scroll to themselves. */
+html:has(.app.phone) {
+  overscroll-behavior-y: none;
+}
+
+/* ---------- a phone's edges ---------- */
+
+/* With viewport-fit=cover the page runs under a notch or a home-screen app's status bar: the frame steps in by the
+   safe-area insets (all 0 in a browser tab held upright). */
+.app.phone,
+.app.desk {
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+/* The bar scrolls 12 px away with the page and then holds: 56 px at the top of a page, 44 px (Real's header) while
+   reading, with no script, no layout shift and nothing redrawn. From a home screen it also covers the status bar. */
+.app.phone .top,
+.app.loading .top {
+  top: -12px;
+  height: calc(56px + env(safe-area-inset-top, 0px));
+  padding-top: calc(6px + env(safe-area-inset-top, 0px));
+}
+
+/* Where the browser ties an animation to the scroll, the bar's contents ride its 12 px: centred in 56 px at the top of
+   the page, centred in 44 px while reading (else 3 px off either way, which is fine). Transform only, on the
+   compositor; nothing for a visitor who asks for less motion. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .app.phone .top > * {
+      animation: bar-settle linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 12px;
+    }
+  }
+}
+
+@keyframes bar-settle {
+  from {
+    transform: translateY(-3px);
+  }
+  to {
+    transform: translateY(3px);
+  }
+}
+
+/* ---------- bottom sheets ---------- */
+
+/* The grip is the handle: a 44 px band across the top of the sheet that a thumb drags down (the sheet follows, then
+   snaps back or goes). The browser does not scroll under it. */
+dialog.sheet .grab {
+  position: relative;
+  touch-action: none;
+}
+
+dialog.sheet .grab::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 160px;
+  height: 44px;
+  translate: -50% -50%;
+}
+
+dialog.sheet .shd {
+  touch-action: pan-x pinch-zoom; /* the title row drags the sheet too */
+}
+
+/* While a sheet is up, the page under it holds still, as under a native sheet: a finger on the dimmed page above it
+   (or a scroll that runs past the sheet's own end) no longer moves what was being read. The page keeps its place. */
+html:has(dialog.sheet[open]) {
+  overflow: hidden;
+}
+
+/* At the top of its content, a pull moves the sheet, not a bounce of the content inside it. */
+dialog.sheet .sheet-in {
+  overscroll-behavior-y: none;
+}
+
+/* Resting at a tall sheet's middle stop, its content holds still: any vertical drag moves the sheet. */
+dialog.sheet[data-middle] .sheet-in {
+  overflow: hidden;
+}
+
+/* While a finger moves it: a layer of its own, and no transition behind the finger. */
+dialog.sheet[data-drag] {
+  will-change: transform;
+  transition: none;
+}
+
+/* ---------- pull to refresh ---------- */
+
+/* The chip that comes down under the bar: a ring that fills as the pull goes, turns accent when letting go will
+   refresh, and turns while the refresh runs. Transform and opacity only; under reduced motion it fades, never spins. */
+.ptr {
+  position: fixed;
+  top: calc(56px + env(safe-area-inset-top, 0px)); /* the bar's foot: a pull starts only at the top of the page */
+  left: 50%;
+  z-index: 9;
+  width: 36px;
+  height: 36px;
+  margin-left: -18px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line-hi);
+  color: var(--color-muted);
+  opacity: 0;
+  transform: translateY(-48px) scale(0.6);
+  pointer-events: none;
+}
+
+.ptr svg {
+  grid-area: 1 / 1;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The arrow turns with the pull and points up once letting go will refresh; the arc replaces it while it runs. */
+.ptr-arrow {
+  transform: rotate(var(--ptr-turn, 0deg));
+}
+
+.ptr-spin,
+.ptr[data-state="busy"] .ptr-arrow {
+  opacity: 0;
+}
+
+.ptr[data-state="busy"] .ptr-spin {
+  opacity: 1;
+}
+
+.ptr[data-armed] {
+  color: var(--color-accent);
+  border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-line-hi));
+}
+
+.ptr[data-state="settle"],
+.ptr[data-state="busy"] {
+  transition:
+    transform var(--dur-slow) var(--ease-out),
+    opacity var(--dur-base) var(--ease-out);
+}
+
+.ptr[data-state="busy"] .ptr-spin {
+  animation: ptr-spin 0.8s linear infinite;
+}
+
+@keyframes ptr-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ptr[data-state="busy"] .ptr-spin {
+    animation: none;
+  }
+}
+
+/* ---------- long lists ---------- */
+
+/* A held list grows by 60 rows at each "Show more" (a big account holds thousands): rows off screen are not laid out
+   or painted until they come near. Each keeps the height it last had, so the scroll bar does not jump. */
+.passes-page.phone .mlist > .mp {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 57px;
+}
+
+/* ---------- what the phone QA pass found cut (the internal research notes) ---------- */
+
+/* The live pill's word shows whole or not at all, never "De…": where the bar has no room for it (a visitor's bar,
+   which carries Continue with Discord, up to 406 px; any bar up to 340 px) the pill keeps its dot and the word goes to
+   a screen reader. Paused keeps its words, which wrap (layout.css). */
+@media (max-width: 406px) {
+  .app.phone .top.with-discord .live:not(.paused) .lw {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 340px) {
+  .app.phone .top .live:not(.paused) .lw {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* Under 320 px (a 390 phone at Safari's 150 %), the brand keeps its mark and gives up its name, so the buttons stay on
+   the screen. */
+@media (max-width: 319px) {
+  .app.phone .top .brand .bn {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* A deal's row on a narrow phone: beside the price and its chip the name had 36 px at 320 ("Pa…"), so there the price
+   goes under the name and the name has the row's width; the facts line wraps rather than cut the usual price. */
+@media (max-width: 374px) {
+  /* The name's and the price's columns, counted from the end (the percent is last), so the rule holds with or
+     without a column of its own for the rank. */
+  .app.phone .list .prow .nm {
+    grid-column: -4 / -2;
+  }
+
+  .app.phone .list .prow .money {
+    grid-row: 2;
+    grid-column: -4 / -2;
+    justify-self: start;
+  }
+
+  .app.phone .list .prow :is(.pav, .pc, .rk) {
+    grid-row: 1 / span 4;
+  }
+
+  .app.phone .list .prow.lv4 :is(.pav, .pc, .rk) {
+    grid-row: 1 / span 5;
+  }
+
+  .app.phone .list .prow .ln {
+    white-space: normal;
+  }
+}
+
+/* A pass's row: "pays back by end of" takes two short lines, and the row's lines wrap rather than run under it ("NBA
+   2024-2") or end in "12,…". The season itself never breaks (PassList.tsx). */
+.app.phone .prow.pass .pc small {
+  max-width: 7.5em;
+  white-space: normal;
+}
+
+.app.phone .prow.pass .ln,
+.app.phone .prow.pass .ln .rar {
+  white-space: normal;
+}
+
+.app.phone .prow.pass .ln .rar {
+  flex-wrap: wrap;
+  row-gap: 0;
+}
+
+.prow.pass .ln .season {
+  white-space: nowrap;
+}
+
+/* A name with no place to break (a 35-letter surname) breaks anywhere rather than push the page sideways. */
+.fg-pass b {
+  overflow-wrap: anywhere;
+}
+
+/* Safari zooms the page into a field whose text is under 16 px, and stays zoomed: on a touch screen every field is
+   16 px (the wide layout held sideways too). */
+@media (hover: none), (pointer: coarse) {
+  :is(.impr, .search) input {
+    font-size: 16px;
+  }
+}
+
+/* A popover (the wide layout, which a phone held sideways gets) closes when the page scrolls, so one taller than the
+   window lost its bottom (a linked member's account: the perks, Delete my data). It scrolls inside itself instead. */
+.pop {
+  max-height: calc(100dvh - 16px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* Scrolled, its title row stays at the top: the close button in reach, and its focus ring (drawn outside it) whole
+   under the popover's edge instead of cut there first. The row carries the popover's top padding, so at rest nothing
+   moves. */
+.pop:has(> .pophd) {
+  padding-top: 0;
+}
+
+.pop > .pophd {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 12px 0 6px;
+  margin-bottom: -6px;
+  background: var(--color-surface);
+}
+
+/* The top tile's two buttons shared their row half and half, so "Open in Real" broke onto two lines in its 44 px
+   button (WebKit at 320 and 360 px). Each takes the room its words need, on one line; with no room for both, the second
+   goes under the first. */
+.tops.phone .go .btn {
+  flex: 1 1 auto;
+  white-space: nowrap;
+}
+
+/* ---------- what the polish pass after it settled (the internal research notes, "Polish, 18 November") ---------- */
+
+/* Earn more Rax on a touch screen: the level tabs (36 px) and the two sum fields (42 px inside their 44 px box) take
+   the 44 px a thumb is given everywhere else. */
+@media (pointer: coarse) {
+  .earn-tabs button {
+    height: 44px;
+  }
+
+  .earn-calc .bbf {
+    height: 46px; /* its 1 px border on each side: the field itself is 44 */
+  }
+}
+
+/* The wide layout on a touch screen (a phone held sideways, a tablet): its controls were desktop-sized, 32 to 36 px
+   (the level and budget choices, the chips, Sort, the boxed links, the dismiss buttons) and 42 px fields. A coarse
+   pointer gets the phone's 44 px; a mouse keeps the compact desktop. Text links and the ⓘ keep their size and the
+   shared 44 px tap area drawn around them (base.css); so do the table's sort headers. */
+@media (pointer: coarse) {
+  :is(.app.desk, .pop) :is(.seg button, .lvl button, .tabs button, .mvtabs button, .mini button, .chips button, .views button, .sortbtn, .tgl, .lnk, .btn, .menu button, .impr input, .search, .rchip, .rarer) {
+    min-height: 44px;
+  }
+
+  :is(.app.desk, .pop) :is(.icb, .x, .star.lg) {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* A field whose box is not its label: the field itself fills the 44 px (its box's border outside it). */
+  .app.desk span.bbf {
+    height: 46px;
+  }
+}
+
+/* The welcome on a phone: its two links kept one line, so under 320 px (Safari's page zoom) they made the words wider
+   than their column and the close button sat on the end of "Tap a deal to open it in Real.". With no room for both,
+   the second link goes under the first. */
+.app.phone .welcome-body {
+  flex-wrap: nowrap;
+}
+
+.app.phone .welcome-acts {
+  flex-wrap: wrap;
+}
+
+/* Safari's page zoom past 150 % (a 390 phone laid out at 260 px), on Passes: with no room beside the heading ("Best
+   passes"), Sort goes under it rather than off the screen; the seasons' row (All seasons, Past, Current, then "Can be
+   built within 3 weeks") puts its toggle under the seasons rather than push the page 22 px wider. */
+.passes-page.phone :is(.sh, .psec .frow) {
+  flex-wrap: wrap;
+  row-gap: 4px;
+}
+
+/* Each gives way down to its longest word and only then takes a line of its own, so from 320 px up the rows stay as
+   they were. */
+.passes-page.phone .sh > h2 {
+  flex: 1 1 0;
+  min-width: min-content;
+}
+
+.passes-page.phone .psec .tgl {
+  min-width: min-content;
+}
+
+/* The locked teaser's title sits in the Deals section and took the no-wrap of the section's own heading: "38 more
+   deals are hidden" ran 50 px past a 260 px screen. It wraps. */
+.deals .unlock-title {
+  white-space: normal;
+}
+
+/* The live pill as its dot alone (the rules above that give its word to a screen reader): the dot sat in the pill's
+   outline, a 23 x 30 px capsule that read as something empty or failed to load. There it drops the outline and is a
+   round dot, like a status light; its word ("Demo", "Live") still goes to a screen reader. */
+@media (max-width: 406px) {
+  .app.phone .top.with-discord .live:not(.paused) {
+    border-color: transparent;
+    padding-inline: 4px;
+  }
+}
+
+@media (max-width: 340px) {
+  .app.phone .top .live:not(.paused) {
+    border-color: transparent;
+    padding-inline: 4px;
+  }
+}

@@ -1,0 +1,2870 @@
+/* OTD Palace layout: the shell (sidebar and top bar on desktop, top bar, controls and tab bar on a phone), the
+   hero with its drawn cards, and the deals as a table or as row links. Phone under 768 px; the sidebar shell from
+   768 px; the table from 1024 px; the right rail beside the main column from 1100 px. */
+
+/* ---------- desktop shell ---------- */
+.app.desk {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.side {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
+  scrollbar-width: none;
+  background: var(--color-side);
+  border-right: 1px solid var(--color-line);
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px 18px;
+}
+
+.side .brand {
+  height: 60px;
+  padding: 0 6px;
+  flex: none;
+}
+
+.side nav {
+  margin-top: 12px;
+}
+
+.side nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 44px;
+  padding: 0 14px;
+  margin-bottom: 4px;
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: var(--weight-strong);
+  font-size: 15px;
+  transition: background-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), opacity var(--dur-fast);
+}
+
+@media (hover: hover) {
+  .side nav a:hover {
+    background: var(--color-hover);
+  }
+}
+
+.side nav a[aria-current] {
+  background: none;
+  color: var(--color-accent);
+}
+
+.side nav a .n {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: var(--weight-strong);
+  color: var(--color-faint);
+}
+
+.side nav a[aria-current] .n {
+  color: var(--color-accent);
+}
+
+.sec {
+  font-size: 12px;
+  font-weight: var(--weight-strong);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+  margin: 20px 10px 0;
+}
+
+.lbl {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--color-muted);
+  margin: 12px 10px 8px;
+}
+
+.lbl span {
+  color: var(--color-faint);
+  font-size: 12px;
+}
+
+.seg {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0 4px;
+  padding: 0;
+}
+
+.seg.four {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.seg button {
+  height: 36px;
+  font-size: 13.5px;
+}
+
+@media (hover: hover) {
+  .seg button:hover {
+    color: var(--color-accent-hover);
+  }
+}
+
+.app.desk .lvlmean {
+  margin: 7px 10px 0;
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--color-muted);
+}
+
+.side-end {
+  margin-top: auto;
+  padding-top: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.foot {
+  padding: 14px 8px 0;
+  border-top: 1px solid var(--color-line);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--color-faint);
+}
+
+.community {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: none;
+  font-size: 13.5px;
+  font-weight: var(--weight-strong);
+  line-height: 1.3;
+  text-decoration: none;
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .community:hover {
+    border-color: var(--color-accent);
+  }
+}
+
+.community .i {
+  color: var(--color-accent);
+}
+
+.community .i.end {
+  width: 14px;
+  height: 14px;
+  margin-left: auto;
+  color: var(--color-muted);
+}
+
+/* Top bar */
+.main {
+  min-width: 0;
+}
+
+.bar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 22px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.search {
+  width: 300px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 9px 0 16px;
+  background: var(--color-surface);
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  color: var(--color-faint);
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+
+.search:focus-within {
+  border-color: var(--color-accent);
+}
+
+.search input {
+  flex: 1;
+  width: 0;
+  background: none;
+  border: 0;
+  outline: none;
+  color: var(--color-text);
+}
+
+kbd {
+  font: var(--weight-strong) 11.5px/1 var(--font-ui);
+  padding: 4px 7px;
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-sm);
+  color: var(--color-faint);
+}
+
+.trust {
+  font-size: 13.5px;
+  color: var(--color-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.trust b,
+.live b {
+  color: var(--color-text);
+  font-weight: var(--weight-strong);
+}
+
+.trust .dot {
+  vertical-align: 1px;
+  margin-right: 9px;
+}
+
+.dot {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-stale);
+  flex: none;
+}
+
+.dot.on {
+  background: var(--color-text);
+}
+
+.dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--color-text);
+  opacity: 0;
+}
+
+.paused {
+  color: var(--color-muted);
+}
+
+/* Strips above the page: the welcome is one line, its "How it works" inline */
+.welcome {
+  max-width: 1120px;
+  margin: 14px 22px 0;
+  padding: 2px 2px 2px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: none;
+}
+
+.welcome p {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 0;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.welcome-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.welcome-body p {
+  flex: 0 1 auto;
+}
+
+.welcome-acts {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.welcome p b {
+  color: var(--color-text);
+}
+
+.welcome .icb {
+  width: 36px;
+  height: 36px;
+  color: var(--color-muted);
+}
+
+.tlink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 2px;
+  vertical-align: top;
+  font-size: 13.5px;
+  font-weight: var(--weight-strong);
+  color: var(--color-accent);
+  white-space: nowrap;
+  border-radius: var(--radius-sm);
+}
+
+/* A 44 px tap on a one-line link, without making the line taller */
+.tlink::after {
+  content: "";
+  position: absolute;
+  inset: -12px -6px;
+}
+
+.tlink .i {
+  width: 15px;
+  height: 15px;
+  align-self: center;
+}
+
+.slot:empty {
+  display: none;
+}
+
+/* ---------- desktop page grid ---------- */
+.wrap {
+  padding: 18px 22px 40px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.wrap:has(.rcol > .slot:not(:empty)) {
+  grid-template-columns: minmax(0, 1fr) 272px;
+}
+
+.rcol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.rcol:not(:has(> .slot:not(:empty))) {
+  display: none;
+}
+
+.lcol,
+.page {
+  min-width: 0;
+  container-type: inline-size;
+}
+
+/* With nothing in the rail yet, the main column keeps a readable width instead of stretching. */
+.wrap:not(:has(.rcol > .slot:not(:empty))) .lcol {
+  max-width: 1120px;
+}
+
+.page.deals-page {
+  max-width: calc(1120px + 44px);
+}
+
+.wrap .slot[data-slot="since"] {
+  margin-bottom: 14px;
+}
+
+.page {
+  padding: 18px 22px 40px;
+}
+
+/* ---------- hero ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 272px;
+  gap: 22px;
+  align-items: center;
+}
+
+.hero.none {
+  display: block;
+  padding: 6px 0 2px;
+}
+
+/* No safe deal: the hero's place says so, what safe means, and the one change that helps */
+.hero.none .nohero :is(h1, h2) {
+  font: 700 22px/1.2 var(--font-display);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.hero.none .nohero p {
+  margin-top: 6px;
+  max-width: 62ch;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.hero.none > .lnk {
+  margin-top: 14px;
+}
+
+.htext {
+  min-width: 0;
+}
+
+.hname {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* The player's name: a name with no break in it wraps anywhere instead of running under the card, and a very
+   long one stops at three lines. */
+.hname h2 {
+  font-size: 40px;
+  line-height: 1.05;
+  font-weight: var(--weight-heavy);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 7px;
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.meta b {
+  color: var(--color-text);
+}
+
+/* In a row's meta line the rarity reads at the line's own weight; its swatch alone marks it. */
+.tr small .rar,
+.prow .ln .rar,
+.tmeta .rar {
+  gap: 5px;
+  font-weight: inherit;
+  vertical-align: -1px;
+}
+
+.meta .fit {
+  margin-left: 4px;
+}
+
+.how {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 17px;
+  font-weight: var(--weight-medium);
+}
+
+.how b {
+  font-weight: var(--weight-strong);
+}
+
+.how > .i {
+  color: var(--color-muted);
+}
+
+.when {
+  margin: 3px 0 0 26px;
+  font-size: 13.5px;
+  color: var(--color-muted);
+}
+
+.facts {
+  display: flex;
+  margin-top: 12px;
+}
+
+.facts > div + div {
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 1px solid var(--color-line);
+}
+
+.facts p {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.facts p b {
+  font-size: 19px;
+  font-weight: var(--weight-strong);
+  color: var(--color-text);
+  margin-right: 2px;
+  letter-spacing: -0.01em;
+}
+
+.facts p b.good {
+  color: var(--color-good);
+}
+
+.facts small {
+  margin-top: 1px;
+  font-size: 12.5px;
+  color: var(--color-faint);
+  white-space: nowrap;
+}
+
+.why {
+  margin-top: 10px;
+  max-width: 70ch;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.why b {
+  color: var(--color-text);
+}
+
+.btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+/* The drawn cards */
+.art {
+  min-width: 0;
+}
+
+.fan {
+  position: relative;
+  height: 186px;
+  width: 272px;
+  margin: 0 auto;
+}
+
+.card {
+  position: absolute;
+  top: 22px;
+  width: 98px;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--c);
+  overflow: hidden;
+  background: linear-gradient(
+    155deg,
+    color-mix(in srgb, var(--c) 40%, var(--color-bg)),
+    color-mix(in srgb, var(--c) 14%, var(--color-bg)) 62%,
+    color-mix(in srgb, var(--c) 28%, var(--color-bg))
+  );
+  box-shadow: 0 18px 28px -16px rgb(0 0 0 / 0.85);
+}
+
+.card::before,
+.card::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 150%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--c) 30%, transparent);
+}
+
+.card::after {
+  width: 92%;
+}
+
+.card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.card.l {
+  left: 4px;
+  transform: rotate(-9deg);
+}
+
+.card.rt {
+  right: 4px;
+  transform: rotate(9deg);
+}
+
+.card.l .ct {
+  justify-content: flex-start;
+  gap: 6px;
+}
+
+.card.rt .ct {
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+/* The side cards show about 70px past the middle one: their rarity name ("Legendary", "Uncommon") must fit there. */
+.card.l .strip {
+  text-align: left;
+  padding-left: 6px;
+  font-size: 10px;
+}
+
+.card.rt .strip {
+  text-align: right;
+  padding-right: 6px;
+  font-size: 10px;
+}
+
+.card.m {
+  top: 0;
+  left: 80px;
+  width: 112px;
+  height: 162px;
+  z-index: 2;
+  box-shadow: 0 22px 34px -16px rgb(0 0 0 / 0.9);
+}
+
+.ct {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 7px 9px 0;
+  font-size: 12px;
+  font-weight: var(--weight-strong);
+  color: var(--color-text); /* the rarity is the border and the wash; the words stay at full contrast on every one */
+}
+
+.ct b {
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.jn {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  font-size: 40px;
+  font-weight: var(--weight-heavy);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: color-mix(in srgb, var(--c) 20%, var(--color-text));
+}
+
+.m .jn {
+  font-size: 50px;
+}
+
+/* The photo inside the card's rarity frame (CardFace): the cut-out stands on the name strip, the frame around it
+   stays the card's identity. Without a photo the card keeps its monogram. */
+.jn.face {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.jn.face img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 100%;
+}
+
+.strip {
+  background: color-mix(in srgb, var(--c) 20%, var(--color-bg));
+  color: var(--color-text);
+  text-align: center;
+  font-weight: var(--weight-strong);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  padding: 7px 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-top: 1px solid color-mix(in srgb, var(--c) 55%, transparent);
+  text-transform: uppercase;
+}
+
+.m .strip {
+  font-size: 11.5px;
+}
+
+.art figcaption {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--color-faint);
+}
+
+/* A narrower main column (the right rail beside it): one card, no reasons line on short screens. */
+@container (max-width: 860px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) 124px;
+    gap: 18px;
+  }
+  .fan {
+    width: 124px;
+    height: 166px;
+  }
+  .card.l,
+  .card.rt {
+    display: none;
+  }
+  .card.m {
+    left: 6px;
+  }
+  .facts > div + div {
+    margin-left: 16px;
+    padding-left: 16px;
+  }
+}
+
+@media (max-height: 840px) {
+  .why {
+    display: none;
+  }
+}
+
+/* ---------- deals ---------- */
+.deals {
+  margin-top: 18px;
+  scroll-margin-top: 72px;
+}
+
+.page > .deals {
+  margin-top: 0;
+}
+
+.dhead {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.deals h2,
+.deals h1 {
+  font-size: 19px;
+  font-weight: var(--weight-strong);
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: var(--color-muted);
+}
+
+.page > .deals h1 {
+  font-size: 24px;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tabs button {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 34px;
+  padding: 0 11px;
+  font-size: 15px;
+}
+
+.tabs button .i {
+  width: 14px;
+  height: 14px;
+  color: var(--color-accent);
+  fill: currentColor;
+}
+
+@media (hover: hover) {
+  .tabs button:hover {
+    color: var(--color-accent-hover);
+  }
+}
+
+
+/* Deals by rarity (components/RarityStrip): All, then Real's eight rarities in one row that scrolls sideways when it does
+   not fit, the "And rarer" switch at its end. A chip is the rarity's swatch, Real's name and a quiet count; picked, it
+   takes the rarity's colour as its border and wash (the words keep the text colour, as on a drawn card). A chip with no
+   deal stays in place, quiet, so the row never jumps. The locked strip (a visitor's) leads with what it takes. */
+.rstrip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  margin-top: 8px;
+}
+
+.rchips {
+  display: flex;
+  gap: 5px;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 3px 2px; /* room for the focus ring inside the scrolling row */
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.rchips::-webkit-scrollbar {
+  display: none;
+}
+
+.rchip {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--color-text);
+  font-size: 13px;
+  font-weight: var(--weight-strong);
+  white-space: nowrap;
+  transition: border-color var(--dur-base) var(--ease-out), background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+}
+
+.rchip .n {
+  font-weight: var(--weight-medium);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-faint);
+}
+
+.rchip[aria-checked="true"] {
+  border-color: var(--c, var(--color-accent));
+  background: color-mix(in srgb, var(--c, var(--color-accent)) 20%, var(--color-bg));
+}
+
+.rchip[aria-checked="true"] .n {
+  color: var(--color-text);
+}
+
+/* "And rarer": the rarer chips are in too, said by a softer border of their own colour. */
+.rchip.inrange {
+  border-color: color-mix(in srgb, var(--c) 60%, var(--color-line-hi));
+  background: color-mix(in srgb, var(--c) 8%, var(--color-bg));
+}
+
+.rchip.zero {
+  color: var(--color-faint);
+}
+
+.rchip.zero .sw {
+  border-color: color-mix(in srgb, var(--c) 45%, var(--color-bg));
+  background: none;
+}
+
+.rchip:active {
+  opacity: var(--press);
+}
+
+.rarer {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: var(--color-muted);
+  font-size: 13px;
+  font-weight: var(--weight-strong);
+  white-space: nowrap;
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.rtrack {
+  position: relative;
+  width: 28px;
+  height: 16px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-line-hi);
+  transition: background-color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+
+.rtrack::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-muted);
+  transition: transform var(--dur-base) var(--ease-out), background-color var(--dur-base) var(--ease-out);
+}
+
+.rarer[aria-checked="true"] {
+  color: var(--color-text);
+}
+
+.rarer[aria-checked="true"] .rtrack {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+
+.rarer[aria-checked="true"] .rtrack::after {
+  transform: translateX(12px);
+  background: var(--color-on-accent);
+}
+
+.rarer:disabled {
+  color: var(--color-faint);
+  cursor: default;
+}
+
+.rarer:disabled .rtrack::after {
+  background: var(--color-line-hi);
+}
+
+/* A visitor's strip: the lead line above the chips, so all eight fit beside the sidebar. */
+.rstrip-locked {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.rlead {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: var(--weight-strong);
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.rlead .i {
+  width: 14px;
+  height: 14px;
+  color: var(--color-accent);
+}
+
+@media (hover: hover) {
+  .rchip:hover {
+    border-color: var(--c, var(--color-accent));
+  }
+  .rarer:not(:disabled):hover {
+    color: var(--color-accent-hover);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rchip,
+  .rarer,
+  .rtrack,
+  .rtrack::after {
+    transition: none;
+  }
+}
+
+.sortbtn {
+  margin-left: auto;
+  flex: none;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px 0 12px;
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-md);
+  background: none;
+  color: var(--color-text);
+  font-size: 13px;
+  font-weight: var(--weight-strong);
+  white-space: nowrap;
+  transition: border-color var(--dur-base);
+}
+
+.sortbtn span {
+  color: var(--color-faint);
+  font-weight: var(--weight-medium);
+}
+
+.sortnote {
+  margin: 4px 0 0;
+  padding: 8px 12px 6px;
+  border-top: 1px solid var(--color-line);
+  font-size: 12.5px;
+  color: var(--color-muted);
+}
+
+.sortbtn .i {
+  width: 15px;
+  height: 15px;
+  color: var(--color-muted);
+}
+
+@media (hover: hover) {
+  .sortbtn:hover {
+    border-color: var(--color-muted);
+  }
+}
+
+.frow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.fchip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 2px 0 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-line-hi);
+  background: var(--color-surface);
+  font-size: 13.5px;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.fchip b {
+  color: var(--color-text);
+}
+
+.fchip .icb {
+  width: 32px;
+  height: 32px;
+}
+
+.fchip .icb .i {
+  width: 15px;
+  height: 15px;
+  color: var(--color-muted);
+}
+
+.tblwrap {
+  position: relative;
+}
+
+/* The table */
+.tbl {
+  position: relative;
+  margin-top: 8px;
+  --cols: minmax(0, 1fr) 70px 60px 64px 62px 90px 34px 68px 100px;
+  transition: opacity var(--dur-slow) var(--ease-out), filter var(--dur-slow) var(--ease-out);
+}
+
+.tbl.lvl-new {
+  --cols: minmax(0, 1fr) 78px 76px 70px 104px 100px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: var(--cols);
+  column-gap: 7px;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.thead {
+  min-height: 30px;
+  font-size: 11px;
+  font-weight: var(--weight-strong);
+  color: var(--color-muted);
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hs {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: inherit;
+  font-weight: var(--weight-strong);
+  text-align: right;
+  line-height: 1.15;
+  border-radius: var(--radius-sm);
+  transition: color var(--dur-base);
+  text-transform: inherit;
+  letter-spacing: inherit;
+}
+
+.hs.on {
+  color: var(--color-accent);
+}
+
+@media (hover: hover) {
+  .hs:hover {
+    color: var(--color-text);
+  }
+}
+
+.hs .i {
+  width: 13px;
+  height: 13px;
+  stroke-width: 2.2;
+}
+
+.r {
+  justify-self: end;
+  text-align: right;
+}
+
+.tr {
+  min-height: 52px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-top: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  font-size: 14px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+@media (hover: hover) {
+  .tr:hover {
+    background: var(--color-hover);
+  }
+}
+
+.c-pl {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.pltx {
+  min-width: 0;
+  flex: 1;
+}
+
+.pltx small {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+
+.nm {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-weight: var(--weight-strong);
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.nmt {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+/* Beside a name in a narrow column the note gives way first ("no profit after f…"), so the name stays whole. */
+.nm .noprofit {
+  display: block;
+  flex: 0 100 auto;
+  min-width: 5ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.015em;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.cell small {
+  font-size: 12px;
+}
+
+.clockbox {
+  position: relative;
+  display: inline-block;
+}
+
+.clock {
+  font-size: 13px;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.clock.soon {
+  color: var(--color-text);
+  font-weight: var(--weight-strong);
+}
+
+.clock.hot {
+  color: var(--color-accent);
+  font-weight: var(--weight-strong);
+}
+
+/* "checked 12 m ago": under the clock, so a row never grows wider for it. */
+.seen {
+  display: block;
+  font-size: 11.5px;
+  line-height: 1.3;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.plus {
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  margin-bottom: 1px;
+  font-size: 11.5px;
+  line-height: 1;
+  font-weight: var(--weight-strong);
+  padding: 3px 6px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.c-act {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.open {
+  height: 32px;
+  padding: 0 9px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  background: none;
+  font-size: 13px;
+  font-weight: var(--weight-strong);
+  text-decoration: none;
+  color: var(--color-accent);
+  white-space: nowrap;
+  transition: background-color var(--dur-base), opacity var(--dur-fast);
+}
+
+.open:active {
+  opacity: var(--press);
+}
+
+.open .i {
+  width: 13px;
+  height: 13px;
+  stroke-width: 2.2;
+}
+
+@media (hover: hover) {
+  .open:hover {
+    background: color-mix(in srgb, var(--color-accent) 14%, transparent);
+  }
+}
+
+.open.done {
+  color: var(--color-muted);
+  border-style: dashed;
+  border-color: var(--color-line-hi);
+}
+
+.qr {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-line);
+  color: var(--color-muted);
+  flex: none;
+  transition: color var(--dur-base), border-color var(--dur-base);
+}
+
+@media (hover: hover) {
+  .qr:hover {
+    color: var(--color-text);
+    border-color: var(--color-line-hi);
+  }
+}
+
+.qr .i {
+  width: 16px;
+  height: 16px;
+}
+
+.v-af.thin {
+  font-weight: var(--weight-medium);
+}
+
+.tr.gone {
+  border-bottom-style: dashed;
+  border-bottom-color: var(--color-line-hi);
+}
+
+.tr.gone :is(b, .nmt, .pct, small) {
+  color: var(--color-faint);
+  font-weight: var(--weight-medium);
+}
+
+.tr.gone .pav,
+.prow.gone .pav {
+  --c: var(--color-stale);
+}
+
+.tr.gone .pav img,
+.prow.gone .pav img {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+
+.tr .reason {
+  grid-column: span 3;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  padding-left: 4px;
+  font-size: 12.5px;
+  line-height: 1.25;
+  color: var(--color-muted);
+}
+
+.lvl-new .reason {
+  grid-column: span 1;
+  padding-left: 0;
+}
+
+.reason .i {
+  width: 15px;
+  height: 15px;
+}
+
+/* The pill: in the table's header row on desktop, floating above the tab bar on a phone. */
+.pillbox {
+  pointer-events: none;
+}
+
+.pillbox.in-table {
+  position: absolute;
+  left: 84px;
+  top: 8px;
+  z-index: 3;
+}
+
+.pillbox.floating {
+  position: fixed;
+  left: 50%;
+  bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  translate: -50% 0;
+  z-index: 12;
+}
+
+.app.desk .pillbox.floating {
+  bottom: 24px;
+}
+
+/* "Removed X · Undo" (components/UndoBar): a raised bar floating above the tab bar (bottom centre on desktop), the page
+   still tappable around it, over the new-deals pill's spot for its few seconds. Its live region stays in the page,
+   empty, between offers. */
+.undobar {
+  position: fixed;
+  left: 50%;
+  bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  translate: -50% 0;
+  z-index: 13;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  pointer-events: none;
+}
+
+.app.desk .undobar {
+  bottom: 24px;
+}
+
+.undo-in {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 48px;
+  padding: 2px 4px 2px 16px;
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 14px;
+  box-shadow: 0 10px 24px -8px rgb(0 0 0 / 0.85);
+}
+
+.undo-tx {
+  min-width: 0;
+  padding: 6px 0;
+  line-height: 1.3;
+  overflow-wrap: anywhere; /* a long name takes a second line, never an ellipsis */
+}
+
+.undo-go {
+  flex: none;
+  min-width: 64px;
+  height: 44px;
+  padding: 0 12px;
+  border-radius: var(--radius-md);
+  color: var(--color-accent);
+  font-weight: var(--weight-strong);
+}
+
+.pill {
+  pointer-events: auto;
+  height: 30px;
+  padding: 0 13px 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-weight: var(--weight-strong);
+  font-size: 13px;
+  white-space: nowrap;
+  box-shadow: 0 10px 24px -8px rgb(0 0 0 / 0.85);
+  transition: background-color var(--dur-base);
+}
+
+@media (hover: hover) {
+  .pill:hover {
+    background: var(--color-accent-hover);
+  }
+}
+
+.pill .i {
+  width: 15px;
+  height: 15px;
+  stroke-width: 2.4;
+}
+
+.floating .pill {
+  height: 44px;
+  padding: 0 16px 0 13px;
+  font-size: 14px;
+  box-shadow: 0 12px 26px -8px rgb(0 0 0 / 0.9);
+}
+
+.tfoot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+  padding: 0 12px;
+  font-size: 12.5px;
+  color: var(--color-faint);
+}
+
+.tfoot p {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 78ch;
+}
+
+/* Fewer columns as the main column narrows: Bids first, then per rating pt. */
+@container (max-width: 860px) {
+  .tbl {
+    --cols: minmax(0, 1fr) 62px 56px 58px 60px 88px 64px 104px;
+  }
+  .tbl.lvl-new {
+    --cols: minmax(0, 1fr) 72px 68px 66px 96px 100px;
+  }
+  .tbl .c-bids {
+    display: none;
+  }
+  .tbl:not(.lvl-new) .reason {
+    grid-column: span 2;
+  }
+  .grid {
+    column-gap: 7px;
+    padding: 0 10px;
+  }
+  .tabs button {
+    padding: 0 8px;
+  }
+  .open {
+    padding: 0 5px;
+  }
+}
+
+@container (max-width: 700px) {
+  .tbl {
+    --cols: minmax(0, 1fr) 62px 58px 60px 88px 64px 104px;
+  }
+  .tbl .c-ppt {
+    display: none;
+  }
+  .dhead {
+    flex-wrap: wrap;
+  }
+}
+
+/* The rows as links (phone and tablet) */
+.list {
+  list-style: none;
+  padding: 0;
+  margin-top: 4px;
+  transition: opacity var(--dur-slow) var(--ease-out), filter var(--dur-slow) var(--ease-out);
+}
+
+.prow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) auto 54px;
+  column-gap: 9px;
+  row-gap: 1px;
+  align-items: center;
+  padding: 11px 8px;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  margin: 0 -8px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.prow:active {
+  background: var(--color-hover);
+}
+
+/* Today's list under the top three carries each row's rank (4, 5, 6 ...), on a phone too. */
+.rk {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-raise);
+  color: var(--color-muted);
+  font: 800 12.5px/1 var(--font-ui);
+  font-variant-numeric: tabular-nums;
+}
+
+.rk:empty {
+  background: transparent;
+}
+
+/* In the rows, the rank rides on the face's top corner, as the top three's numbers sit on their cards' corners: the
+   name keeps the room a column of its own would take (a phone showed "Patrick Mah..." beside a rank column). A ring of
+   the page's black parts it from the face; it never takes a tap from the row. */
+.list.ranked .prow .rk {
+  position: relative;
+  z-index: 1;
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  align-self: center;
+  justify-self: start;
+  width: 20px;
+  height: 20px;
+  translate: -6px -13px;
+  color: var(--color-text);
+  font-size: 11px;
+  box-shadow: 0 0 0 2px var(--color-bg);
+  pointer-events: none;
+}
+
+.list.ranked .prow .rk:empty {
+  box-shadow: none;
+}
+
+.list.ranked .prow.lv4 .rk {
+  grid-row: 1 / span 4;
+}
+
+.prow .rl {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 0;
+}
+
+.prow .rl:focus-visible {
+  outline-offset: -2px;
+}
+
+.prow .pav {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  align-self: center;
+}
+
+.prow.lv4 .pav,
+.prow.lv4 .pc {
+  grid-row: 1 / span 4;
+}
+
+.prow .nm {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 14.5px;
+}
+
+.prow .star {
+  position: relative;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  margin: -13px -12px -13px -8px;
+  background: none;
+}
+
+.prow .star .i {
+  width: 16px;
+  height: 16px;
+}
+
+.money {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14.5px;
+}
+
+.ln {
+  position: relative;
+  grid-column: 2 / 4;
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--color-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.01em;
+}
+
+.ln b {
+  color: var(--color-text);
+}
+
+.ln .thin,
+.ln .thinl {
+  color: var(--color-faint);
+  font-weight: var(--weight-medium);
+}
+
+.ln .loss {
+  color: var(--color-bad);
+}
+
+/* Top-aligned: the clock stays on the row's line ("UFC 2023 · listed 3 h ago") and "checked" hangs under it. On the
+   baseline, the box's last line ("checked") would take the row's line and push the clock up onto a line of its own. */
+.ln .clockbox {
+  position: static;
+  vertical-align: top;
+}
+
+.ln .clock {
+  font-size: 12.5px;
+}
+
+.ln .plus {
+  right: 0;
+  bottom: auto;
+  top: 50%;
+  translate: 0 -50%;
+}
+
+.pc {
+  grid-column: 4;
+  grid-row: 1 / span 3;
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  text-align: right;
+}
+
+.pc b {
+  font: 700 17px/1 var(--font-display);
+  color: var(--color-good);
+}
+
+.pc b.grey {
+  color: var(--color-faint);
+}
+
+.pc small {
+  font-size: 12px;
+}
+
+.pc > .i {
+  width: 15px;
+  height: 15px;
+  margin-top: 1px;
+  color: var(--color-muted);
+}
+
+.prow.gone {
+  border-bottom-style: dashed;
+  border-bottom-color: var(--color-line-hi);
+}
+
+.prow.gone :is(.nmt, b, .pc b) {
+  color: var(--color-faint);
+  font-weight: var(--weight-medium);
+}
+
+.ln.reason {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text);
+}
+
+.ln.reason .i {
+  width: 14px;
+  height: 14px;
+  color: var(--color-muted);
+}
+
+.terms {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin: 2px -16px 0;
+  padding: 0 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.terms::-webkit-scrollbar {
+  display: none;
+}
+
+.terms > span {
+  flex: none;
+  font-size: 12.5px;
+  color: var(--color-faint);
+  margin-right: 4px;
+}
+
+.term {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 44px;
+  padding: 0 7px;
+  font-size: 13px;
+  font-weight: var(--weight-medium);
+  color: var(--color-text);
+  text-decoration: underline dotted var(--color-faint);
+  text-underline-offset: 4px;
+  white-space: nowrap;
+}
+
+.term .i {
+  width: 14px;
+  height: 14px;
+  color: var(--color-faint);
+}
+
+/* ---------- loading ---------- */
+.skeleton {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 16px;
+  max-width: 1100px;
+  /* Tall enough that the footer under it starts below the fold: when the view arrives it moves out of sight, not
+     out of the page the visitor is looking at (layout shift stays 0.000 on a phone). */
+  min-block-size: 100svh;
+}
+
+/* Your plan is a short page: its placeholder is as short, so the footer under it stays where it will be. */
+.skeleton[data-view="plan"] {
+  min-block-size: 440px;
+}
+
+.sk {
+  background: var(--color-row);
+  border-radius: var(--radius-lg);
+}
+
+.sk-hero {
+  height: 180px;
+  margin-bottom: 10px;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+}
+
+.sk-row {
+  height: 54px;
+}
+
+.app.loading .top {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+/* A first load whose polls keep failing: it says so above the grey blocks, offers Retry, and keeps the footer. */
+.loadfail {
+  max-width: 1068px; /* the skeleton's width inside its 16 px padding */
+  margin: 16px 16px 0;
+  padding: 14px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: none;
+}
+
+.loadfail p {
+  flex: 1 1 260px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.loadfail b {
+  color: var(--color-text);
+  font-weight: var(--weight-strong);
+}
+
+.loadfail .btn {
+  min-height: 44px;
+}
+
+/* A page that broke: Try again and Reload, 44 px to the finger whatever the frame around them. */
+.crash .lnk {
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+}
+
+.app.loading .legal {
+  max-width: 1100px;
+}
+
+/* Sample data: one thin line on every tab, above the page, so no one takes the sample for the market */
+.demo-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 22px;
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-side);
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--color-muted);
+}
+
+.demo-banner p {
+  margin: 0;
+}
+
+.demo-banner b {
+  color: var(--color-text);
+  font-weight: var(--weight-strong);
+}
+
+.demo-banner .i {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+
+/* ---------- tablet: the sidebar shell, rows as links ---------- */
+@media (max-width: 1360px) {
+  .app.desk {
+    grid-template-columns: 216px minmax(0, 1fr);
+  }
+  .side {
+    padding: 0 12px 16px;
+  }
+  .side .brand {
+    font-size: 19px;
+    gap: 9px;
+  }
+  .seg button {
+    font-size: 13px;
+  }
+  .bar {
+    padding: 0 16px;
+    gap: 16px;
+  }
+  .search {
+    width: 248px;
+  }
+  .wrap,
+  .page {
+    padding: 16px 16px 32px;
+    gap: 16px;
+  }
+  .wrap:has(.rcol > .slot:not(:empty)) {
+    grid-template-columns: minmax(0, 1fr) 248px;
+  }
+  .welcome {
+    margin: 14px 16px 0;
+  }
+}
+
+@media (max-width: 1099px) {
+  .wrap:has(.rcol > .slot:not(:empty)) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .search {
+    width: 200px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .app.desk {
+    grid-template-columns: 200px minmax(0, 1fr);
+  }
+  /* Four things in the top bar no longer fit one row at this width: the bar wraps rather than pushing the page wide. */
+  .bar {
+    height: auto;
+    min-height: 60px;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    padding-block: 8px;
+  }
+  .seg.four {
+    padding: 3px;
+  }
+  .seg.four button {
+    font-size: 12px;
+    letter-spacing: -0.01em;
+  }
+  .foot {
+    flex-wrap: wrap;
+    gap: 6px 10px;
+  }
+  .hname h2 {
+    font-size: 34px;
+  }
+  .app.desk .list {
+    max-width: 720px;
+  }
+}
+
+/* ---------- phone ---------- */
+.app.phone {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 6px 0 16px;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.top .brand {
+  margin-right: auto;
+  gap: 9px;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+
+.top .mark {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-md);
+}
+
+.live {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 30px;
+  padding: 6px 11px;
+  line-height: 1.2;
+  border-radius: var(--radius-pill);
+  background: none;
+  border: 1px solid var(--color-line-hi);
+  font-size: 12.5px;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.live .dot {
+  width: 7px;
+  height: 7px;
+}
+
+/* Paused, the pill says it all ("Paused · prices may have changed"): the brand keeps its mark and gives up its
+   name, and on the narrowest phones the words wrap onto a second line rather than run off the bar. */
+.app.phone .top.paused .brand .bn {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The bar with the Discord button keeps the same right margin as the page (it sat 2 px from the screen's edge). */
+.app.phone .top.with-discord {
+  padding-right: 12px;
+}
+
+/* The free site's Continue with Discord needs room in the bar: the brand keeps its name, the live pill keeps its dot and
+   its word ("Live", "Demo") and says how long ago to a screen reader only (under 380 px, the word too). */
+.app.phone .top.with-discord .live .ago {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 380px) {
+  /* The narrowest phones: the pill keeps its dot, the words go to a screen reader. */
+  .app.phone .top.with-discord .live .lw {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+.app.phone .top.paused .live {
+  min-width: 0;
+  white-space: normal;
+  text-wrap: balance;
+}
+
+.app.phone .demo-banner {
+  padding: 7px 16px;
+}
+
+.app.phone .welcome {
+  margin: 8px 16px 0;
+  padding: 0 0 0 12px;
+  gap: 4px;
+}
+
+.app.phone .welcome p {
+  padding: 0;
+}
+
+.app.phone .welcome {
+  align-items: flex-start;
+}
+
+.app.phone .welcome-body {
+  flex-direction: column;
+  align-items: stretch;
+  padding-top: 8px;
+}
+
+/* Line two: the two links, each a full 44 px tall tap */
+.app.phone .welcome-acts {
+  gap: 4px;
+}
+
+.app.phone .welcome-acts .tlink {
+  min-height: 44px;
+  margin: 0;
+  padding-right: 14px;
+}
+
+.app.phone .welcome .icb {
+  width: 44px;
+  height: 44px;
+}
+
+.ctrl {
+  display: flex;
+  gap: 8px;
+  padding: 8px 16px 0;
+}
+
+.lvl {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0;
+}
+
+.lvl button {
+
+  height: 44px;
+  font-size: 14px;
+}
+
+.lvl button span {
+  position: relative;
+}
+
+
+.chip {
+  height: 52px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  border-radius: var(--radius-md);
+  background: none;
+  border: 1px solid var(--color-line-hi);
+  font-size: 13.5px;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.chip b {
+  color: var(--color-text);
+}
+
+.chip .i {
+  width: 15px;
+  height: 15px;
+  color: var(--color-faint);
+}
+
+.app.phone .lvlmean {
+  padding: 7px 16px 0;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.app.phone .main {
+  flex: 1;
+  padding: 10px 16px 20px;
+}
+
+.app.phone .page {
+  padding: 0;
+}
+
+.app.phone .slot:not(:empty) {
+  margin-bottom: 12px;
+}
+
+/* The hero as a card */
+.hero.phone {
+  display: block;
+  position: relative;
+  background: none;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-xl);
+  padding: 12px 14px 14px;
+}
+
+.hero-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.htx {
+  min-width: 0;
+}
+
+.hero.phone .hname {
+  gap: 0;
+}
+
+.hero.phone .hname h2 {
+  font-size: 24px;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+
+.hero.phone .meta {
+  column-gap: 6px;
+  row-gap: 4px;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.hero.phone .meta .fit {
+  margin-left: 0;
+}
+
+/* Every ⓘ on a phone: 22 px to the eye, a 44 px tap around it */
+.app.phone .ib {
+  position: relative;
+  z-index: 3; /* its tap area stays above the hero's drawn card */
+}
+
+.app.phone .ib::after {
+  content: "";
+  position: absolute;
+  inset: -11px;
+  border-radius: 50%;
+}
+
+/* In the hero's lines it takes no more height than the text beside it */
+.hero.phone .ib {
+  margin-block: -4px;
+}
+
+.hcard {
+  position: relative;
+  width: 66px;
+  height: 94px;
+  flex: none;
+}
+
+.fan.single {
+  width: 100%;
+  height: 100%;
+}
+
+/* The small card of a phone's hero: its name in the same capitals, a size down so a seven-letter name fits. */
+.fan.single .strip {
+  padding: 5px 2px;
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+}
+
+.hcard .card {
+  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-md);
+  border-width: 2.5px;
+  transform: none;
+  box-shadow: 0 12px 20px -10px rgb(0 0 0 / 0.85);
+}
+
+.hcard .card::after {
+  display: none;
+}
+
+.hcard .card::before {
+  width: 120%;
+}
+
+.hcard .ct {
+  padding: 4px 6px 0;
+  font-size: 11px;
+}
+
+.hcard .ct span {
+  display: none;
+}
+
+.hcard .ct b {
+  font-size: 11px;
+}
+
+.hcard .jn {
+  font-size: 30px;
+}
+
+.hcard .strip {
+  font-size: 11px;
+  padding: 3px 2px;
+}
+
+.hero.phone .how {
+  gap: 7px;
+  margin-top: 8px;
+  font-size: 15.5px;
+}
+
+.hero.phone .how > .i {
+  width: 17px;
+  height: 17px;
+}
+
+/* On a phone the two halves of the line ("pays about … a year", "pays back by end of …") sit one above the other. */
+.hero.phone .how .hl {
+  display: block;
+}
+
+.hero.phone .how .hsep {
+  display: none;
+}
+
+.hero.phone .when {
+  margin: 1px 0 0 24px;
+  font-size: 12.5px;
+}
+
+.hero.phone .facts {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px solid var(--color-line);
+}
+
+.hero.phone .facts > div + div {
+  margin-left: 12px;
+  padding-left: 12px;
+}
+
+.hero.phone .facts p {
+  display: block;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.hero.phone .facts p b {
+  display: block;
+  margin: 0;
+  font: 700 19px/1.15 var(--font-display);
+}
+
+.hero.phone .facts .ib {
+  vertical-align: middle;
+}
+
+.hero.phone .facts small {
+  font-size: 12px;
+}
+
+.hero.phone > .btn {
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+  height: 44px;
+  font-size: 15px;
+}
+
+.app.phone .hero.none {
+  padding: 14px;
+}
+
+.app.phone .hero.none .nohero :is(h1, h2) {
+  font-size: 20px;
+}
+
+.app.phone .hero.none > .lnk {
+  margin-top: 12px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+}
+
+.app.phone .deals {
+  margin-top: 12px;
+}
+
+.app.phone .dhead {
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.app.phone .deals h2,
+.app.phone .deals h1 {
+  font-size: 19px;
+  letter-spacing: 0;
+}
+
+.app.phone .sortbtn {
+  height: 44px;
+  border-radius: var(--radius-lg);
+}
+
+.dmeta {
+  margin-top: 2px;
+  font-size: 12.5px;
+  color: var(--color-muted);
+}
+
+.dmeta b {
+  color: var(--color-text);
+}
+
+.app.phone .tabs {
+  margin: 6px -16px 0;
+  padding: 0 16px;
+  gap: 2px;
+}
+
+.app.phone .tabs button {
+  height: 44px;
+  padding: 0 12px;
+  font-size: 17px;
+}
+
+/* The rarity strip on a phone: thumb-sized chips in a row that runs to both edges of the screen and scrolls sideways;
+   "And rarer" gets a line of its own under them once a rarity is picked (beside the chips it left them two to see),
+   and a visitor's lead line sits above its chips. */
+.app.phone .rstrip {
+  flex-wrap: wrap;
+  margin: 6px -16px 0 0;
+  gap: 0;
+}
+
+.app.phone .rchips {
+  flex-basis: 100%;
+  margin-left: -16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  scroll-padding-inline: 16px;
+}
+
+.app.phone .rarer:disabled {
+  display: none;
+}
+
+.app.phone .rchip {
+  height: 44px;
+  padding: 0 14px;
+  font-size: 15px;
+}
+
+.app.phone .rarer {
+  height: 44px;
+  padding: 0;
+  font-size: 15px;
+}
+
+.app.phone .rstrip-locked {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 2px;
+  margin-right: -16px;
+}
+
+
+
+.app.phone .fchip {
+  height: 46px;
+  padding-right: 0;
+}
+
+.app.phone .fchip .icb {
+  width: 44px;
+  height: 44px;
+}
+
+.app.phone .tfoot {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 0;
+  margin-top: 14px;
+}
+
+.app.phone .empty {
+  border-radius: var(--radius-lg);
+}
+
+.app.phone .empty .lnk {
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+}
+
+.nextstep {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: var(--color-muted);
+}
+
+.nextstep .i {
+  width: 16px;
+  height: 16px;
+  color: var(--color-accent);
+}
+
+.app.phone .community {
+  margin-top: 14px;
+}
+
+.legal {
+  margin: 14px 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--color-faint);
+}
+
+/* A phone's "new deals" pill floats 88 px above the bottom, over the page's last lines: the footer links end above it,
+   so Privacy and Sign out are never under the pill. */
+.app.phone .legal {
+  margin-bottom: 62px;
+}
+
+.tabbar {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  height: calc(74px + env(safe-area-inset-bottom, 0px));
+  background: var(--color-side);
+  border-top: 1px solid var(--color-line);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 6px 8px calc(16px + env(safe-area-inset-bottom, 0px));
+}
+
+.tabbar a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: 12px;
+  font-weight: var(--weight-strong);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.tabbar a span {
+  width: 52px;
+  height: 30px;
+  border-radius: var(--radius-pill);
+  display: grid;
+  place-items: center;
+  transition: background-color var(--dur-base) var(--ease-out), color var(--dur-base);
+}
+
+.tabbar .i {
+  width: 20px;
+  height: 20px;
+}
+
+.tabbar [aria-current] {
+  color: var(--color-accent);
+}
+
+.tabbar [aria-current] span {
+  background: none;
+  color: inherit;
+}
+
+@media (max-width: 380px) {
+  .top .brand {
+    font-size: 16px;
+  }
+  .app.phone .tlink .i {
+    display: none;
+  }
+  .live {
+    padding: 6px 9px;
+  }
+  .chip {
+    padding: 0 10px;
+  }
+}
+
+/* Free rax right now: one line a challenge, the reward and the time left under it. */
+.frl {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.frl li {
+  display: grid;
+  gap: 2px;
+  font-size: 13.5px;
+  line-height: 1.4;
+}
+
+.frr {
+  color: var(--color-accent);
+  font-weight: var(--weight-strong);
+}
+
+.frt {
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+/* Deal pings: a real switch. The switch drawn is the site's one switch (.knob in alerts.css, as in the alerts sheet);
+   the button here only gives it a 44 px tap area without making the card taller. */
+.community .cm-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.community .cm-text small {
+  font-size: 11.5px;
+  font-weight: var(--weight-medium);
+  color: var(--color-muted);
+}
+
+.community.member.on {
+  border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-line));
+}
+
+.switch {
+  flex: none;
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  margin: -9px 0 -9px auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: none;
+  cursor: pointer;
+}
+
+.switch:focus-visible {
+  outline: none;
+}
+
+.switch:focus-visible .knob {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.switch:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* A deal's card builds a pass the site tracks (components/DealPassLine): a "Pass" pill that opens the pass, then the
+   card's share of the next rarity, what it pays and the offer, in the row's quiet type. It wraps (unlike the other
+   lines) and lets the pill's 44 px tap area out; in the phone row the pill sits above the row's link, as the star. */
+.dpass {
+  display: block;
+  margin-top: 3px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--color-muted);
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.dpass-chip {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 6px;
+  padding: 2px 8px 3px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-raise);
+  box-shadow: inset 0 0 0 1px var(--color-accent);
+  color: var(--color-accent);
+  font: var(--weight-strong) 11.5px/1 var(--font-ui);
+  letter-spacing: 0.01em;
+  vertical-align: 1px;
+  cursor: pointer;
+}
+
+.dpass-chip::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100%, 44px);
+  height: max(100%, 44px);
+  translate: -50% -50%;
+}
+
+.dpass-pay {
+  color: var(--color-text);
+  font-weight: var(--weight-medium);
+}
+
+.dpass .ib {
+  z-index: 2;
+}
+
+.pltx .dpass {
+  max-width: 62ch;
+  font-size: 12px;
+}
+
+/* "Pass deals" at the top of Deals (components/PassDeals): passes whose cards on sale build a paying rarity for less
+   than usual. Small and quiet, hairlines on the black ground, so the deals stay the page's heart. Rows on a phone,
+   three cards side by side on the wide layout. */
+.pdeals {
+  margin: 0 0 22px;
+}
+
+.pdeals-hd h2 {
+  margin: 0;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+}
+
+.pdeals-hd p {
+  margin: 2px 0 6px;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.pdeals-list {
+  list-style: none;
+  margin: 0 0 6px;
+  padding: 0;
+}
+
+.pdeals-list > li {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.pdeal {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  column-gap: 9px;
+  row-gap: 1px;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 0;
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pdeal .pav {
+  grid-row: 1 / span 3;
+  align-self: start;
+}
+
+.pdeal > .i {
+  grid-column: 3;
+  grid-row: 1;
+  width: 16px;
+  height: 16px;
+  color: var(--color-muted);
+}
+
+.pdeal-t {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  font-size: 14.5px;
+}
+
+.pdeal-s,
+.pdeal-p {
+  grid-column: 2 / 4;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.pdeal-p {
+  color: var(--color-text);
+}
+
+.pdeal-o {
+  margin: -4px 0 10px 41px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.app.desk .pdeals-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.app.desk .pdeals-list > li {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: 0 12px;
+}
+
+.app.desk .pdeal-o {
+  margin-left: 0;
+}
+
+@media (hover: hover) {
+  .pdeal:hover .pdeal-t b {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}

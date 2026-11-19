@@ -1,0 +1,86 @@
+/* Paused data. The rule of this sheet: nothing that is text fades with opacity. Data that may be out of date still
+   has to be readable, so text keeps colour tokens of at least 4.5:1 on every surface it sits on and only gives up
+   its green; photos fade, drawn cards and faces lose their colour, and icons take a muted token. */
+
+/* The deals as a table or a list. The rows keep their links: the live line and the hero say the data is paused. */
+.stale .pav {
+  --c: var(--color-stale);
+  filter: grayscale(1);
+}
+
+.stale .pav img {
+  opacity: 0.5;
+}
+
+/* Icons stay on a token (muted: 6:1 and more on a row), never faded: some of them name a control. */
+.stale .i {
+  color: var(--color-muted);
+}
+
+.stale .star[aria-pressed="true"] .i {
+  color: var(--color-accent);
+}
+
+.stale :is(.pct, .pc b, .how-chip.start) {
+  color: var(--color-muted);
+}
+
+/* A best-deal block, whatever its layout (see components/Paused.tsx): its root carries data-stale, its words sit in
+   data-stale-quiet and its pictures in data-stale-dim. The drawn cards carry numbers and names, so they lose their
+   colour rather than fade. "Open in Real" keeps working but steps down from the accent, described by the
+   "Paused · prices may have changed" line right above it. */
+[data-stale] [data-stale-dim] {
+  filter: grayscale(1);
+  transition: filter var(--dur-slow) var(--ease-out);
+}
+
+[data-stale] [data-stale-quiet] :is(h1, h2, h3, b, strong, .good, .thin, .loss):not(.paused-note *) {
+  color: var(--color-muted);
+}
+
+/* Today's top tiles: the "% under" pill gives up its green, its words stay readable. */
+[data-stale] .tpct {
+  background: var(--color-raise);
+  color: var(--color-muted);
+}
+
+/* Moving today: the change gives up its green or red, the faces lose their colour. */
+[data-stale] .chg {
+  color: var(--color-muted);
+}
+
+[data-stale] .mvlist .pav {
+  filter: grayscale(1);
+}
+
+[data-stale] .btn.fill {
+  background: var(--color-raise);
+  color: var(--color-text);
+  box-shadow: inset 0 0 0 1px var(--color-line-hi);
+}
+
+@media (hover: hover) {
+  [data-stale] .btn.fill:hover {
+    background: var(--color-hover);
+  }
+}
+
+.paused-note {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 12px 0 0;
+  font-size: 13.5px;
+  color: var(--color-text);
+}
+
+.paused-note b {
+  font-weight: var(--weight-strong);
+}
+
+.paused-note .i {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  color: var(--color-muted);
+}

@@ -1,0 +1,491 @@
+/* Alerts: the bell, the settings sheet (phone) or panel (desktop), and the notice on Deals when a notification's
+   deal is gone. The one moment that moves on its own is the row a notification points at, lighting up. */
+
+/* ---------- the bell ---------- */
+.app.phone .top .bell {
+  position: relative;
+  width: 44px;
+  height: 44px;
+}
+
+/* The bell sits flush against the search button (each keeps its 44 px), and the bar gives back a few pixels so a
+   360 px phone still fits the brand, the live pill and both buttons. */
+.app.phone .top {
+  padding-right: 2px;
+}
+
+.app.phone .top .bell {
+  margin-right: -6px;
+}
+
+.app.phone .top .live {
+  padding: 6px 9px;
+  gap: 6px;
+  min-width: 0; /* the pill gives way before a button leaves the screen */
+}
+
+.app.phone .top .live .lw {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* With the bell, the account and the search, three buttons share the bar: the pill keeps its dot and its word
+   ("Live", "Demo"), and the age is left to screen readers. Paused, it says its whole sentence as before. */
+.app.phone .top:has(.bell) .live .ago {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Up to 400 px the name and the pill are a size smaller, so the widest age a live pill shows ("28s ago": past 30 s
+   it reads Paused) fits beside two buttons too. */
+@media (max-width: 400px) {
+  .app.phone .top .brand {
+    font-size: 16.5px;
+  }
+
+  .app.phone .top .live {
+    padding: 6px 7px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  .app.phone .top {
+    gap: 4px;
+    padding-left: 12px;
+  }
+
+  .app.phone .top .bell {
+    margin-right: -4px;
+  }
+
+  .app.phone .top .brand {
+    gap: 7px;
+    font-size: 15px;
+  }
+
+  .app.phone .top .live {
+    padding: 6px 5px;
+    gap: 4px;
+    font-size: 12px;
+  }
+}
+
+.bell.on::after {
+  content: "";
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-bg);
+}
+
+.side-alerts {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: none;
+  font-size: 13.5px;
+  font-weight: var(--weight-strong);
+  color: var(--color-text);
+  text-align: left;
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .side-alerts:hover {
+    border-color: var(--color-line-hi);
+  }
+}
+
+.side-alerts .i {
+  width: 18px;
+  height: 18px;
+  color: var(--color-muted);
+}
+
+.side-alerts .st {
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: var(--weight-strong);
+  color: var(--color-faint);
+  background: var(--color-raise);
+}
+
+.side-alerts.on .st {
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+}
+
+.side-alerts.on .i {
+  color: var(--color-accent);
+}
+
+/* ---------- the sheet and the panel ---------- */
+.drawer:has(.alerts) {
+  width: 440px;
+}
+
+.alerts {
+  display: contents;
+}
+
+.al-hd {
+  align-items: center;
+}
+
+.al-mark {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.al-mark .i {
+  width: 21px;
+  height: 21px;
+}
+
+.al-lead {
+  margin: 4px 0 14px;
+  max-width: 46ch;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.drawer .al-lead {
+  margin-top: 16px;
+}
+
+.al-master .al-on {
+  width: 100%;
+}
+
+.al-master .al-row {
+  border-top: 0;
+  padding-top: 4px;
+}
+
+.alerts .btn {
+  height: 48px;
+}
+
+.alerts .btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.al-msg {
+  margin: 10px 0 0;
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+.al-msg:empty {
+  margin: 0;
+}
+
+.al-sec {
+  margin-top: 18px;
+}
+
+.al-sec h3 {
+  margin-bottom: 2px;
+  font-size: 15.5px;
+  font-weight: var(--weight-strong);
+  letter-spacing: -0.01em;
+}
+
+/* A setting that is on or off: the whole row is the switch. */
+.alerts .al-row {
+  width: 100%;
+  min-height: 60px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 0;
+  border-top: 1px solid var(--color-line);
+  text-align: left;
+  color: var(--color-text);
+}
+
+.alerts .al-row:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.al-txt {
+  display: grid;
+  gap: 2px;
+}
+
+.al-txt b {
+  font-size: 14.5px;
+  font-weight: var(--weight-strong);
+  line-height: 1.3;
+}
+
+.al-txt span {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+/* The site's one switch: any role="switch" button with a .knob inside (the alerts sheet rows, Deal pings). */
+.knob {
+  position: relative;
+  width: 44px;
+  height: 26px;
+  border-radius: var(--radius-pill);
+  background: var(--color-line-hi);
+  border: 1px solid transparent;
+  transition: background-color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+
+.knob::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-text);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.45);
+  transition: transform var(--dur-base) var(--ease-out), background-color var(--dur-base) var(--ease-out);
+}
+
+[role="switch"][aria-checked="true"] .knob {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+[role="switch"][aria-checked="true"] .knob::after {
+  transform: translateX(18px);
+  background: var(--color-on-accent);
+}
+
+.al-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--color-faint);
+}
+
+.al-hint .i {
+  width: 14px;
+  height: 14px;
+}
+
+.al-hours {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  padding: 0 0 12px;
+}
+
+.al-sel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: var(--color-muted);
+}
+
+.alerts select {
+  height: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.al-box {
+  padding: 12px 14px;
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-lg);
+  background: none;
+}
+
+.al-box b {
+  font-size: 14.5px;
+  line-height: 1.3;
+}
+
+.al-box p {
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.al-box .inst.inline {
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  margin-top: 12px;
+  background: var(--color-surface);
+}
+
+.al-foot {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-line);
+}
+
+.al-live {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--color-faint);
+}
+
+.al-live .dot {
+  background: var(--color-good);
+}
+
+.alerts .al-del {
+  justify-self: start;
+  min-height: 44px;
+  padding: 0;
+  color: var(--color-fall);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- the notice on Deals ---------- */
+.alert-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 12px 4px 12px 14px;
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-lg);
+  background: none;
+}
+
+.alert-note .al-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+}
+
+.an-txt {
+  flex: 1;
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.an-txt b {
+  font-size: 14.5px;
+  line-height: 1.3;
+}
+
+.an-txt p {
+  margin-top: 4px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.an-txt p b {
+  font-size: inherit;
+  color: var(--color-text);
+}
+
+/* The line that names a player starts with the face (a fixed 28 px square, so the line keeps its height). */
+.an-txt p.an-who {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.an-who > span {
+  min-width: 0;
+}
+
+.an-act {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.alert-note .lnk {
+  min-height: 44px;
+  padding: 0 14px;
+}
+
+.alert-note .icb {
+  width: 44px;
+  height: 44px;
+}
+
+/* ---------- the row a notification points at ---------- */
+.tr.alerted,
+.prow.alerted,
+.tile.alerted {
+  background-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  box-shadow: inset 0 0 0 1.5px var(--color-accent);
+  animation: alert-light var(--dur-hold) var(--ease-out) both;
+}
+
+@keyframes alert-light {
+  from {
+    background-color: color-mix(in srgb, var(--color-accent) 34%, transparent);
+    box-shadow: inset 0 0 0 3px var(--color-accent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tr.alerted,
+  .prow.alerted,
+  .tile.alerted {
+    animation: none;
+  }
+
+  .knob,
+  .knob::after {
+    transition: none;
+  }
+}
+
+/* The account button sits flush against the search button like the bell, so the bar still fits a 360 px phone. */
+.app.phone .top .accbtn {
+  margin-right: -6px;
+}
+
+@media (max-width: 400px) {
+  .app.phone .top .accbtn {
+    margin-right: -8px;
+  }
+}

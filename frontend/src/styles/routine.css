@@ -1,0 +1,1076 @@
+/* The player's path: "Your day" (a daily checklist), "Your first pass", "Your next rax", the 12-month plan, and the
+   "How Real works" sheet. Tokens only; every width that depends on data is a custom property set through the CSSOM
+   and every moving thing runs on the motion tokens (0 ms for a visitor who asks for less motion). */
+
+/* ---------- Your day ---------- */
+.rtn .ph {
+  align-items: center;
+}
+
+/* How many of today's things are done: the count, and one pill each (components/Meter.tsx). */
+.rtn-prog {
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+  flex: none;
+}
+.rtn-prog b {
+  font: 800 15px/1 var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+.rtn-prog small {
+  display: inline;
+  font: inherit;
+  font-weight: var(--weight-strong);
+  color: var(--color-faint);
+}
+
+
+
+
+
+.rtn-streak {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.rtn-grace {
+  padding: 2px 9px;
+  border: 1px dashed var(--color-line-hi);
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+.rtn-grace[data-state="ready"] {
+  color: var(--color-text);
+}
+
+.rtn-list {
+  display: grid;
+  gap: 0;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rtn-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  align-items: center;
+  border-top: 1px solid var(--color-line);
+}
+
+.rtn-item:first-child {
+  border-top: 0;
+}
+
+.rtn-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 6px 0;
+  cursor: pointer;
+}
+
+/* The real checkbox stays in the page, for the keyboard and for screen readers; the drawn box stands in for it. */
+.rtn-row input {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.rtn-box {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-line-hi);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  transition: background-color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+
+.rtn-box svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--color-on-accent);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The tick draws itself once, in 200 ms. */
+.rtn-box path {
+  stroke-dasharray: 18;
+  stroke-dashoffset: 18;
+  transition: stroke-dashoffset var(--dur-base) var(--ease-out);
+}
+
+.rtn-row input:checked + .rtn-box {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+
+.rtn-row input:checked + .rtn-box path {
+  stroke-dashoffset: 0;
+}
+
+.rtn-row input:focus-visible + .rtn-box {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.rtn-txt {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.rtn-txt b {
+  font-size: 14px;
+  font-weight: var(--weight-strong);
+  line-height: 1.3;
+}
+
+.rtn-txt small {
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.rtn-item.on .rtn-txt b {
+  color: var(--color-muted);
+}
+
+.rtn-go {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  color: var(--color-muted);
+  transition: background-color var(--dur-base) var(--ease-out);
+}
+
+.rtn-go .i {
+  width: 16px;
+  height: 16px;
+}
+
+@media (hover: hover) {
+  .rtn-go:hover {
+    background: var(--color-raise);
+    color: var(--color-text);
+  }
+}
+
+.rtn-trap {
+  grid-column: 1 / -1;
+  margin: -2px 0 8px 36px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-faint);
+}
+
+.rtn-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-line);
+}
+
+.rtn-foot small {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-faint);
+}
+
+.rtn-foot .lnk {
+  min-height: 44px;
+}
+
+.rtn-back {
+  min-height: 44px;
+  align-self: flex-start;
+}
+
+/* ---------- Your first pass ---------- */
+.fg-pass {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.fg-pass p {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.fg-pass b {
+  font-size: 14.5px;
+  font-weight: var(--weight-strong);
+}
+
+.fg-pass small {
+  font-size: 12.5px;
+  color: var(--color-muted);
+}
+
+.fg-pays {
+  margin-top: 8px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.fg-pays b {
+  color: var(--color-text);
+  font-weight: var(--weight-strong);
+}
+
+.fg-field,
+.snw-field {
+  margin-top: 10px;
+}
+
+.fg-bar {
+  margin-top: 10px;
+}
+
+
+/* Offers: the same first pass for less, a tinted tip. */
+.fg-offer {
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  background: var(--color-raise);
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--color-text);
+}
+
+.fg-offer .ib,
+.fg-pays .ib,
+.fg-pass small .ib {
+  vertical-align: -5px;
+}
+
+.fg-say {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.fg-daily {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: var(--color-muted);
+}
+
+.fg-hint {
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-faint);
+}
+
+.fg-go {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 12px;
+}
+
+/* ---------- Your next rax ---------- */
+.nrx-order {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px dashed var(--color-line-hi);
+  border-radius: var(--radius-lg);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.nrx-order b {
+  color: var(--color-text);
+  font-weight: var(--weight-strong);
+}
+
+.nrx-order ol {
+  display: grid;
+  gap: 2px;
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.nrx-list {
+  display: grid;
+  gap: 0;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: nrx;
+}
+
+.nrx-list > li {
+  counter-increment: nrx;
+}
+
+.nrx-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 10px;
+  width: calc(100% + 16px);
+  min-height: 56px;
+  padding: 12px 8px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--color-text);
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--dur-base) var(--ease-out), opacity var(--dur-fast);
+  margin: 0 -8px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+@media (hover: hover) {
+  .nrx-row:hover {
+    background: var(--color-hover);
+  }
+}
+
+.nrx-main {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.nrx-main b {
+  font-size: 14px;
+  font-weight: var(--weight-strong);
+  line-height: 1.3;
+}
+
+.nrx-main b::before {
+  content: counter(nrx) ". ";
+  content: counter(nrx) ". " / ""; /* the list already numbers the rows for a screen reader: no stray "." */
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.nrx-main small {
+  font-size: 12.5px;
+  color: var(--color-muted);
+}
+
+.nrx-ret {
+  font-size: 13px;
+  font-weight: var(--weight-strong);
+}
+
+.nrx-meta {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-faint);
+}
+
+.nrx-cost {
+  display: grid;
+  text-align: right;
+  font: 700 15px/1.2 var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.nrx-cost small {
+  font: 500 11.5px/1.2 var(--font-ui);
+  color: var(--color-muted);
+}
+
+.nrx-none,
+.nrx-foot {
+  margin-top: 10px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--color-faint);
+}
+
+.nrx-none {
+  color: var(--color-muted);
+}
+
+/* ---------- The 12-month plan ---------- */
+.snw-res {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.snw-steps {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.snw-steps b {
+  color: var(--color-text);
+  font-weight: var(--weight-strong);
+}
+
+.snw-chart {
+  display: block;
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  overflow: visible;
+}
+
+.snw-grid {
+  stroke: var(--color-line);
+  stroke-width: 1;
+}
+
+.snw-area {
+  fill: var(--color-accent);
+  fill-opacity: 0.14;
+  stroke: none;
+}
+
+.snw-line {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+}
+
+.snw-dot {
+  fill: var(--color-bg);
+  stroke: var(--color-accent);
+  stroke-width: 2;
+}
+
+.snw-tick,
+.snw-axis {
+  fill: var(--color-muted);
+  font: var(--weight-medium) 10px var(--font-ui);
+  font-variant-numeric: tabular-nums;
+}
+
+.snw-axis {
+  fill: var(--color-faint);
+}
+
+.snw-tab summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 13px;
+  font-weight: var(--weight-strong);
+  cursor: pointer;
+  color: var(--color-accent);
+}
+
+/* The plan's first steps, behind the same disclosure as its table. */
+.snw-tab .snw-steps {
+  margin: 2px 0 12px;
+}
+
+.snw-tab table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.snw-tab th,
+.snw-tab td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--color-line);
+  text-align: right;
+  font-weight: var(--weight-medium);
+}
+
+.snw-tab thead th:first-child,
+.snw-tab tbody th {
+  text-align: left;
+}
+
+/* ---------- How Real works ---------- */
+.hws {
+  display: contents;
+}
+
+.drawer:has(.hws) {
+  width: 480px;
+}
+
+/* The header is a title alone: one column, not the pass card's picture and title. */
+.hws .dwhd {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.how-search {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.how-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.how-box:focus-within {
+  border-color: var(--color-accent);
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.how-box .i {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--color-muted);
+}
+
+.how-box input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--color-text);
+  font: 16px/1 var(--font-ui);
+}
+
+.how-box input::placeholder {
+  color: var(--color-faint);
+}
+
+.how-list {
+  display: grid;
+  gap: 10px;
+}
+
+.how-item {
+  padding: 12px 14px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: none;
+  scroll-margin-top: 8px;
+}
+
+.how-item h3 {
+  font-size: 15px;
+  font-weight: var(--weight-strong);
+  line-height: 1.3;
+}
+
+.how-item p {
+  max-width: 62ch;
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+/* An answer's one way on (Real's own site, for someone new): a link under its text, a full tap target on a phone. */
+.how-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin-top: 2px;
+  font-size: 14px;
+  font-weight: var(--weight-strong);
+}
+
+.how-none,
+.how-note {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--color-faint);
+}
+
+/* The footer's link: a quiet word, with a 44 px tap that takes no more room than the line. */
+.howlink {
+  position: relative;
+  font-size: 12.5px;
+  font-weight: var(--weight-strong);
+  color: var(--color-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+
+.howlink::after {
+  content: "";
+  position: absolute;
+  inset: -14px -8px;
+}
+
+@media (hover: hover) {
+  .howlink:hover {
+    color: var(--color-text);
+  }
+}
+
+/* The footers hold one more link now: they may wrap. */
+.legal,
+.foot {
+  flex-wrap: wrap;
+}
+
+.wrap .slot[data-slot="next"],
+.pwrap .lcol > .panel {
+  margin-top: 16px;
+}
+
+.how-more {
+  margin: 8px 0 0;
+}
+
+.slot[data-slot="panels"] > .rtn-back {
+  margin-top: 10px;
+}
+
+/* A visitor who asks for less motion gets the tick at once (the bars and pills run on the motion tokens, 0 ms). */
+@media (prefers-reduced-motion: reduce) {
+  .rtn-box,
+  .rtn-box path {
+    transition: none;
+  }
+}
+
+/* ---------- Earn more rax ---------- */
+/* Today's card: this month's one season move, and the way into the guide. */
+.earn-top {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.earn-top b {
+  font-weight: var(--weight-strong);
+}
+
+.earn-ph {
+  font-size: 12px;
+  font-weight: var(--weight-strong);
+  color: var(--color-accent);
+}
+
+.earn-move {
+  margin-top: 2px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--color-text);
+}
+
+.earncard .earn-go {
+  margin-top: 10px;
+  min-height: 36px;
+}
+
+/* The day's panels (checklist, first pass, this month) stand apart like every other panel of the rail. */
+.slot[data-slot="day"]:not(:empty) {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* The guide: sections in the drawer's scrolling body, the How sheet's look. */
+.earn-sec {
+  padding: 16px 0 14px;
+  border-top: 1px solid var(--color-line);
+}
+
+.earn-sec:first-child {
+  border-top: 0;
+}
+
+.earn-sec h3 {
+  font: 700 16px/1.25 var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+.earn-note,
+.earn-hint {
+  max-width: 62ch;
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--color-faint);
+}
+
+.earn-hint {
+  color: var(--color-muted);
+}
+
+/* The four plans, one tab stop: the segmented look of Risers / Fallers, across the whole width. */
+.mvtabs.earn-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 10px;
+}
+
+.earn-tabs button {
+  height: 36px;
+  padding: 0 4px;
+  font-size: 13.5px;
+}
+
+.earn-plan {
+  margin-top: 12px;
+}
+
+.earn-who {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.earn-who b {
+  color: var(--color-text);
+  font-weight: var(--weight-strong);
+}
+
+.earn-steps {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding-left: 22px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.earn-steps li::marker {
+  color: var(--color-accent);
+  font-weight: var(--weight-strong);
+}
+
+.earn-est {
+  display: grid;
+  gap: 2px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: none;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.earn-est b {
+  font-weight: var(--weight-strong);
+}
+
+.earn-est span {
+  font-size: 12.5px;
+  color: var(--color-faint);
+}
+
+/* The season clock: one row per sport, the most urgent first; the why under the first row of each move. */
+.earn-clock {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+.earn-clock li {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 10px;
+  padding: 9px 0;
+  border-top: 1px solid var(--color-line);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.earn-clock li:first-child {
+  border-top: 0;
+}
+
+.earn-sp {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+}
+
+.earn-sp b {
+  font-weight: var(--weight-strong);
+}
+
+/* The accent marks only a window that closes soon; every other state is said in a quiet colour. */
+.earn-clock li:not([data-soon]) .earn-ph {
+  color: var(--color-muted);
+}
+
+.earn-mv {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  color: var(--color-text);
+}
+
+.earn-mv small {
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.earn-mis {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.earn-tag {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 1px 6px;
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: var(--weight-strong);
+  color: var(--color-text);
+}
+
+/* The two sums, side by side where there is room. */
+.earn-calcs {
+  display: grid;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.earn-calc {
+  min-width: 0;
+  margin: 0;
+  padding: 12px 14px 14px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: none;
+}
+
+.earn-calc legend {
+  float: left;
+  width: 100%;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: var(--weight-strong);
+}
+
+.earn-lbl {
+  display: block;
+  clear: both;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.earn-out {
+  display: grid;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.earn-out p {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.earn-out b {
+  color: var(--color-text);
+  font-weight: var(--weight-strong);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.earn-out .earn-sub {
+  display: block;
+  font-size: 13px;
+}
+
+.sheet .earn-sec {
+  padding: 14px 0 12px;
+}
+
+/* ---------- Right now (components/RightNow.tsx) ---------- */
+.rn .ph {
+  align-items: center;
+}
+
+.rn-toggle {
+  min-height: 44px;
+  padding: 0 4px;
+}
+
+.rn-clock,
+.rn-sum {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.rn-moves {
+  display: grid;
+  gap: 0;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rn-move {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.rn-move:last-child {
+  border-bottom: 0;
+}
+
+.rn-n {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-pill);
+  background: var(--color-hover);
+  font: 800 12px/1 var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.rn-move:first-child .rn-n {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.rn-body {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.rn-body b {
+  font-size: 14px;
+  font-weight: var(--weight-strong);
+  line-height: 1.3;
+}
+
+.rn-why {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.rn-worth {
+  font-size: 12.5px;
+  font-weight: var(--weight-strong);
+  color: var(--color-text);
+}
+
+/* Offers: the same move for less, a tinted tip under it. */
+.rn-tip {
+  margin-top: 3px;
+  padding: 6px 8px;
+  border-radius: var(--radius-md);
+  background: var(--color-raise);
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--color-text);
+}
+
+.rn-body b .ib,
+.rn-tip .ib {
+  margin-left: 2px;
+  vertical-align: -5px;
+}
+
+.rn-idle,
+.rn-coming,
+.rn-streak,
+.rn-gloss {
+  margin: 8px 0 0;
+}
+
+/* "Support the Palace": the three steps to give Rax, numbered, in the answers' own type; the account's name stands out. */
+.support-steps {
+  max-width: 62ch;
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.support-steps li + li {
+  margin-top: 6px;
+}
+
+.support-name {
+  color: var(--color-text);
+  font-weight: var(--weight-strong);
+  overflow-wrap: anywhere;
+}
+
+.support-steps .tlink {
+  min-height: 0;
+  font-size: inherit;
+}
+
+.support-said:empty {
+  display: none;
+}

@@ -1,0 +1,67 @@
+[
+ {
+  "id": "discord-sign-in",
+  "date": "2026-11-14",
+  "title": "Sign in with Discord",
+  "body": "The site opens with one click from Discord. You land signed in and already in the server. Nothing to remember, and we never see your password."
+ },
+ {
+  "id": "deal-and-otd-posts",
+  "date": "2026-11-15",
+  "title": "Deals and On This Day picks in Discord",
+  "body": "The best new deals appear in #live-deals as they come, and the day's best passes land in #otd-picks around 15:00 UTC. Every deal shows what you keep after fees."
+ },
+ {
+  "id": "slash-commands",
+  "date": "2026-11-15",
+  "title": "Slash commands",
+  "body": "Type /deals, /price, /otd, /fees or /start in the server. Only you see the answer, unless you tick share. /help lists them all."
+ },
+ {
+  "id": "linked-accounts",
+  "date": "2026-11-16",
+  "title": "Link your Real account",
+  "body": "Link your Real username on the site and the advice becomes yours: tips skip what you already own. Linking also gives you roles (Linked, your sports, your size) and a members-only lounge.",
+  "link": "/"
+ },
+ {
+  "id": "economy-fixes-nov",
+  "date": "2026-11-16",
+  "title": "The site now counts what you keep",
+  "body": "General passes earn nothing On This Day, so we stopped suggesting them. Passes are ranked by how fast they pay back, and every deal is judged after Real's 10% fee and the 10 rax listing fee. Fewer ideas, better ones.",
+  "link": "/#passes",
+  "announce": true
+ },
+ {
+  "id": "link-in-discord",
+  "date": "2026-11-17",
+  "title": "Link your account without leaving Discord",
+  "body": "Type /link with your Real username and you get your roles on the spot. /me shows your account, /unlink takes it back. In #welcome, one tap on a button turns Deal Alerts and your sports on or off. Questions now live in the new #questions forum.",
+  "link": "/",
+  "announce": true
+ },
+ {
+  "id": "your-plan",
+  "date": "2026-11-16",
+  "title": "Your plan: what your passes can pay a year",
+  "body": "Link your Real account and the site shows what your passes can pay On This Day in a year, your account type from Starter to Giant, and the one move that grows it. Your role in this server follows your type. New to Real? Pick \"I haven't started\" for the first steps.",
+  "link": "/#plan",
+  "announce": true
+ },
+ {
+  "id": "privacy-notice",
+  "date": "2026-11-16",
+  "title": "Privacy notice and Delete my data",
+  "body": "We keep your Discord name and the few things you ask us to remember, nothing else, and we sell nothing. Read exactly what we keep, and delete it all in one tap from your account panel on the site.",
+  "link": "/privacy",
+  "announce": true
+ },
+ {
+  "id": "otd-palace",
+  "date": "2026-11-17",
+  "title": "New name: OTD Palace, at otdpalace.com",
+  "body": "Same team, new name and address, and the site is now free for everyone with no login: the best deals, the price moves, the best passes and a coach for small accounts. Sign in with Discord (also free) to unlock every deal and filter, link your Real account for your own plan, and get deals pinged. On a phone it pulls to refresh, fits one hand and vibrates on Android. Old links still work. If someone writes to you as Palace staff, it is not us: the team never DMs first.",
+  "link": "/",
+  "announce": true
+ }
+]

@@ -1,0 +1,24 @@
+# The Docker build context is an allowlist: everything is left out, then only what the image build reads is let
+# back in. Keep it in step with the COPY lines of the
+# Dockerfile.
+*
+
+!requirements.txt
+!server.py
+!advisor
+!frontend/package.json
+!frontend/package-lock.json
+!frontend/index.html
+!frontend/tsconfig.json
+!frontend/vite.config.ts
+!frontend/public
+!frontend/src
+
+# Left out even inside an allowed directory.
+advisor/static
+frontend/src/test
+frontend/src/**/*.test.ts
+frontend/src/**/*.test.tsx
+**/__pycache__
+**/*.pyc
+**/.DS_Store

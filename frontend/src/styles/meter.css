@@ -1,0 +1,62 @@
+/* The meter: one track, one fill, for every "how far" on the site (see components/Meter.tsx). Tokens only. The fill is
+   a full-width bar CUT to its share with clip-path, so its ends stay round at every value (a width or a scaleX would
+   squash them), nothing is laid out again while it moves, and a value of 0 draws nothing at all, not a dot.
+   --fill is a registered number: that lets it glide when the value changes and grow from 0 the first time the bar
+   is shown. A browser without @property simply shows the bar at its value. The durations are tokens, 0 ms for a
+   visitor who asks for less motion, so the bar is then just there. */
+@property --fill {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+.meter {
+  --meter-color: var(--color-accent);
+  position: relative;
+  display: block;
+  inline-size: 100%;
+  block-size: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-line-hi);
+  transition: --fill var(--dur-glide) var(--ease-out);
+}
+.meter[data-size="s"] {
+  block-size: 6px;
+}
+.meter[data-tone="quiet"] {
+  --meter-color: var(--color-muted);
+}
+.meter > i {
+  position: absolute;
+  inset: 0;
+  background: var(--meter-color);
+  clip-path: inset(0 calc((1 - var(--fill)) * 100%) 0 0 round 999px);
+  animation: meter-in var(--dur-enter) var(--ease-out) backwards;
+}
+@keyframes meter-in {
+  from {
+    --fill: 0;
+  }
+}
+/* On the light theme the orange on its grey track is 2.6:1: a hair line round the track keeps the bar's edge in sight. */
+:root[data-theme="light"] .meter,
+:root[data-theme="light"] .pips > i:not(.lit) {
+  background: var(--color-raise);
+  box-shadow: inset 0 0 0 1px var(--color-line-hi);
+}
+/* Pips: today's checklist as one short pill for each thing to do, lit as it is done. */
+.pips {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.pips > i {
+  display: block;
+  inline-size: 14px;
+  block-size: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-line-hi);
+  transition: background-color var(--dur-base) var(--ease-out);
+}
+.pips > i.lit {
+  background: var(--color-accent);
+}

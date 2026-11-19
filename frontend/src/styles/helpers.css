@@ -1,0 +1,778 @@
+/* The helpers: share, similar deals, what can I do with…, and selling a card. Tokens only; every width that depends on
+   data (a bar) is a custom property set through the CSSOM. */
+
+/* ---------- Share ---------- */
+.share .i {
+  color: var(--color-muted);
+}
+
+.share.done {
+  border-color: var(--color-good);
+  color: var(--color-good);
+}
+
+.share.done .i {
+  color: var(--color-good);
+}
+
+.tile .share.iconly {
+  width: 44px;
+  padding: 0;
+}
+
+.sharerow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.sharerow .btn {
+  min-height: 44px;
+}
+
+.sharelink {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  font-size: 12.5px;
+  color: var(--color-muted);
+}
+
+.sharelink input {
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: 14px/1 var(--font-ui);
+}
+
+.tile .sharelink {
+  flex-basis: 100%;
+}
+
+/* ---------- A deal as a link row ---------- */
+.dl {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto 16px;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: none;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: background-color var(--dur-base), border-color var(--dur-base);
+}
+
+@media (hover: hover) {
+  .dl:hover {
+    background: var(--color-hover);
+    border-color: var(--color-line-hi);
+  }
+}
+
+.dl > .i {
+  width: 14px;
+  height: 14px;
+  color: var(--color-muted);
+}
+
+.dln,
+.dlp {
+  display: grid;
+  min-width: 0;
+}
+
+.dlp {
+  text-align: right;
+}
+
+.dlnm {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: var(--weight-strong);
+}
+
+.dlm,
+.dlu {
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+.dlm {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dlpr {
+  font: 700 15px/1.2 var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.dlpr .dlu {
+  font: 500 12px/1 var(--font-ui);
+}
+
+.dlpc {
+  font-size: 12px;
+  font-weight: var(--weight-strong);
+  color: var(--color-good);
+}
+
+.dlpc.grey {
+  color: var(--color-faint);
+}
+
+/* ---------- Similar deals ---------- */
+.twins {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--color-line-hi);
+}
+
+.twh {
+  margin-bottom: 6px;
+  font-size: 12.5px;
+  font-weight: var(--weight-strong);
+  color: var(--color-muted);
+}
+
+.twins ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.c-tw,
+.tw-row {
+  grid-column: 1 / -1;
+}
+
+/* Inside a dimmed gone row the faces keep their own rarity: the similar deals are live. */
+.gone .twins .pav.rar-0 { --c: var(--rarity-0); }
+.gone .twins .pav.rar-1 { --c: var(--rarity-1); }
+.gone .twins .pav.rar-2 { --c: var(--rarity-2); }
+.gone .twins .pav.rar-3 { --c: var(--rarity-3); }
+.gone .twins .pav.rar-4 { --c: var(--rarity-4); }
+.gone .twins .pav.rar-5 { --c: var(--rarity-5); }
+.gone .twins .pav.rar-6 { --c: var(--rarity-6); }
+.gone .twins .pav.rar-7 { --c: var(--rarity-7); }
+
+.gone .twins .pav img {
+  filter: none;
+  opacity: 1;
+}
+
+.op .tw-row {
+  margin-top: 2px;
+}
+
+.alert-note .twins {
+  margin-top: 10px;
+}
+
+/* ---------- What can I do with… ---------- */
+/* One column that may shrink below its content: a long sentence wraps inside a narrow rail or popover. */
+.bb,
+.bbres,
+.bbrows,
+.sell,
+.sellres,
+.selfacts,
+.sellbars,
+.twins ul {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.bb {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.bbf {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  transition: border-color var(--dur-base);
+}
+
+.bbf:focus-within {
+  border-color: var(--color-accent);
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.bbf input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--color-text);
+  font: 700 20px/1 var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.bbf input::placeholder {
+  color: var(--color-faint);
+}
+
+.bbf span {
+  color: var(--color-muted);
+  font-weight: var(--weight-strong);
+}
+
+.bbhint,
+.bbnote {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.bbnote {
+  font-size: 12px;
+  color: var(--color-faint);
+}
+
+.bbres {
+  display: grid;
+  gap: 10px;
+}
+
+.bbsay {
+  font-size: 14.5px;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.bbrows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.bbmore {
+  font-size: 12.5px;
+  color: var(--color-muted);
+}
+
+.bbtot {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-line);
+}
+
+.bbtot dt {
+  font-size: 12px;
+  color: var(--color-faint);
+}
+
+.bbtot dd {
+  margin: 0;
+  font: 700 17px/1.2 var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.bbtot .good {
+  color: var(--color-good);
+}
+
+.bbpass {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px dashed var(--color-line-hi);
+  border-radius: var(--radius-lg);
+}
+
+.bbpass p {
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.bbpass b {
+  color: var(--color-text);
+  font-weight: var(--weight-strong);
+}
+
+.buddybtn {
+  height: 36px;
+  flex: none;
+}
+
+/* ---------- Selling a card ---------- */
+.sell {
+  display: grid;
+  gap: 12px;
+}
+
+.sellform {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
+}
+
+.sellform label:first-child {
+  grid-column: 1 / -1;
+}
+
+.sellform label {
+  display: grid;
+  gap: 4px;
+  font-size: 12.5px;
+  font-weight: var(--weight-strong);
+  color: var(--color-muted);
+}
+
+.sellform select {
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: 500 16px/1 var(--font-ui);
+}
+
+.sellform select:disabled {
+  color: var(--color-faint);
+}
+
+.sellres {
+  display: grid;
+  gap: 12px;
+}
+
+.sellsay {
+  font-size: 14.5px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.sellsay b {
+  font: 800 20px/1.2 var(--font-display);
+  color: var(--color-accent);
+}
+
+.selfacts {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.selfacts dt {
+  font-size: 12px;
+  color: var(--color-faint);
+}
+
+.selfacts dd {
+  margin: 0;
+  font-size: 14px;
+}
+
+.selfacts small {
+  display: block;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.selfacts small.thin {
+  color: var(--color-fall);
+}
+
+.sellbars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.sb {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "label chance" "track track";
+  gap: 6px 10px;
+}
+
+.sbl {
+  grid-area: label;
+  font-weight: var(--weight-strong);
+  font-size: 14px;
+}
+
+.sbl small {
+  display: block;
+  font-weight: var(--weight-medium);
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+.sbv {
+  grid-area: chance;
+  font-size: 13px;
+  font-weight: var(--weight-strong);
+  text-align: right;
+}
+
+.sbt {
+  grid-area: track;
+}
+
+
+.sellnote {
+  font-size: 12px;
+  color: var(--color-faint);
+}
+
+.sellbtn {
+  margin-top: 10px;
+}
+
+.sellrow {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-line);
+}
+
+.sellrow .lnk,
+.sellbtn {
+  min-height: 44px;
+}
+
+/* In the rail and the strip a row has no room for the arrow: the name needs it. */
+:is(.panel, .pnl, .opened, .alert-note) .dl {
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+}
+
+:is(.panel, .pnl, .opened, .alert-note) .dl > .i {
+  display: none;
+}
+
+/* Link your Real account: the top bar's button in the accent, the card on Today with only its icon and button in it (one framed thing per screen: the best deal), the sheet's field. */
+.accbtn.lnk.box {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+.accbtn.icb {
+  color: var(--color-accent);
+}
+
+.panel.acccard {
+  border-color: var(--color-line-hi);
+}
+
+.acccard h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.acccard h2 svg {
+  color: var(--color-accent);
+}
+
+.accf {
+  margin: 8px 0 4px;
+}
+
+.accsheet {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* The header's "Link your Real account" popover: wide enough for the field and its button, never wider than the panel. */
+.pop:has(.accsheet) {
+  width: min(340px, calc(100vw - 16px));
+}
+
+.accbtn.lnk.box {
+  height: 36px;
+  flex: none;
+}
+
+/* The link's box: the field (or the chip once linked), the small "Look up someone else", a member's perks. */
+.lbox {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.lchip {
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-md);
+  background: none;
+  min-width: 0;
+}
+
+.lchip-t {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 13.5px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.lchip-t svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--color-good);
+}
+
+.lchip-b {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lookup {
+  display: grid;
+  gap: 6px;
+}
+
+.lookup > .lnk {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 32px;
+  font-size: 13px;
+  color: var(--color-accent);
+}
+
+/* To the finger: 44 px on a phone, where the link sits in a sheet. */
+.app.phone .lookup > .lnk,
+.sheet .lookup > .lnk {
+  min-height: 44px;
+}
+
+.lookup > .lnk svg.up {
+  transform: rotate(180deg);
+}
+
+/* Discord perks: what linking unlocks for a member, each with its state. */
+.perks {
+  display: grid;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-line);
+}
+
+.perks.adv {
+  display: block;
+}
+
+.perks.adv > summary {
+  margin: -8px 0 0;
+  color: var(--color-text);
+  font-size: 13px;
+  font-weight: var(--weight-strong);
+}
+
+.perk-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  font-weight: var(--weight-medium);
+  color: var(--color-muted);
+}
+
+.perk-all svg {
+  width: 14px;
+  height: 14px;
+  color: var(--color-good);
+}
+
+.perks.adv[open] > ul {
+  margin-top: 6px;
+}
+
+.perks h3 {
+  font-size: 13px;
+  font-weight: var(--weight-strong);
+}
+
+.perks ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.perk {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.perk svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--color-faint);
+}
+
+.perk.on {
+  color: var(--color-text);
+}
+
+.perk.on svg {
+  color: var(--color-good);
+}
+
+.perk-s {
+  color: var(--color-muted);
+}
+
+.perk-ping {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 36px;
+  font-size: 13.5px;
+  cursor: pointer;
+}
+
+.perk-ping input {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  accent-color: var(--color-accent);
+}
+
+.perk-ping input:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.perk-ping:has(input:disabled) {
+  cursor: default;
+  color: var(--color-muted);
+}
+
+/* A deal of a pass held at its rarity or higher; a pass row the visitor holds. */
+.owntag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 5px;
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-sm);
+  font-size: 11.5px;
+  font-weight: var(--weight-strong);
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+small.own,
+.ln.own {
+  color: var(--color-good);
+  font-weight: var(--weight-strong);
+}
+
+.imp-h {
+  font-size: 13px;
+  font-weight: var(--weight-strong);
+}
+
+.acc-linked {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  flex-basis: 100%;
+}
+
+.acc-linked svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--color-good);
+}
+
+/* An unlink the server did not take: said in the chip itself, where the eyes are. */
+.lchip-err {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--color-bad);
+  overflow-wrap: anywhere;
+}
+
+.bbpasses,
+.bbdeals {
+  display: grid;
+  gap: 4px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-line);
+}
+
+.bbdeals {
+  gap: 8px;
+}
+
+.bbh {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 13px;
+  font-weight: var(--weight-strong);
+  color: var(--color-muted);
+}
+
+/* Offers: the cheaper way to the same passes, set apart from the estimates around it. */
+.bboffer {
+  margin-top: 4px;
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  background: var(--color-raise);
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--color-text);
+  text-wrap: pretty;
+}
+
+.bboffer .ib {
+  vertical-align: -5px;
+}
+
+.bbwhat {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}

@@ -1,0 +1,69 @@
+/* The tags a deal can carry about its player (hurt, and how well his cards resell) and the two small notes about the first.
+   Tokens only. The shape says
+   it without colour: a filled dot for a player who most likely misses the next game, a ring for one who may play. */
+.inj {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: var(--weight-strong);
+  padding: 2px 6px 3px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+.inj::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.inj[data-tone="hurt"] {
+  color: var(--color-fall);
+  background: color-mix(in srgb, var(--color-fall) 12%, transparent);
+}
+.inj[data-tone="maybe"] {
+  color: var(--color-muted);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--color-line-hi);
+}
+.inj[data-tone="maybe"]::before {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px currentColor;
+}
+/* What the level left out, and which sports the notes cover: quiet lines under the list. */
+.hurtnote,
+.injcov {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+.hurtnote {
+  color: var(--color-text);
+}
+/* How well a player's cards resell: a quiet outlined tag, no colour of its own. A solid outline says it resells well,
+   a dashed one that it is slow, so the shape carries it. */
+.resold {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: var(--weight-strong);
+  padding: 2px 6px 3px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  background: transparent;
+  color: var(--color-muted);
+  box-shadow: inset 0 0 0 1px var(--color-line-hi);
+}
+.resold[data-tone="well"] {
+  color: var(--color-text);
+}
+.resold[data-tone="slow"] {
+  box-shadow: none;
+  border: 1px dashed var(--color-line-hi);
+  padding: 1px 5px 2px;
+}

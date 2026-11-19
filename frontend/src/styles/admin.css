@@ -1,0 +1,727 @@
+/* The private admin panel (views/AdminView.tsx): the site's look, black ground, hairlines, one accent, tabular
+   figures; phone first, two columns of sections from a wide screen. Loaded with the panel's own chunk only. */
+
+.adm {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--gutter) var(--space-10);
+  padding-top: max(var(--space-4), env(safe-area-inset-top));
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-variant-numeric: tabular-nums;
+}
+
+.adm-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.adm-h1 {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-heavy);
+  line-height: 1.2;
+}
+
+.adm-h2 {
+  margin: 0 0 var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-strong);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.adm-h3 {
+  margin: var(--space-5) 0 var(--space-2);
+  font-size: var(--text-md);
+  font-weight: var(--weight-strong);
+}
+
+.adm-note {
+  margin: 0 0 var(--space-3);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+
+.adm-msg {
+  margin: var(--space-8) 0;
+  font-size: var(--text-md);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.adm-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--color-accent);
+  font: inherit;
+  font-weight: var(--weight-strong);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.adm-btn:active {
+  opacity: var(--press);
+}
+
+.adm-btn:focus-visible,
+.adm-details summary:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Headline figures: two across on a phone, six on a wide screen. */
+.adm-tiles {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-4) 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4) var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.adm-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.adm-label {
+  font-size: 11px;
+  font-weight: var(--weight-strong);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.adm-figure {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-heavy);
+  line-height: 1.1;
+}
+
+.adm-sub {
+  font-size: var(--text-xs);
+  color: var(--color-faint);
+}
+
+.adm main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: var(--space-10);
+}
+
+.adm-section {
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--color-line);
+  min-width: 0;
+}
+
+/* Columns: a day or a week each. */
+.adm-cols {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  height: 140px;
+}
+
+.adm-col {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.adm-stack {
+  flex: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 1px;
+}
+
+.adm-seg {
+  display: block;
+  min-height: 0;
+}
+
+.adm-seg-0 {
+  background: var(--color-accent);
+}
+
+.adm-stack .adm-seg:last-child {
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+.adm-seg-1 {
+  background: var(--color-line-hi);
+}
+
+.adm-col:hover .adm-seg {
+  filter: brightness(1.25);
+}
+
+.adm-tick {
+  height: 18px;
+  padding-top: 4px;
+  display: flex;
+  justify-content: center;
+  font-size: 10px;
+  color: var(--color-faint);
+  white-space: nowrap;
+}
+
+.adm-tick-end {
+  justify-content: flex-end;
+}
+
+.adm-legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.adm-key {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.adm-key + .adm-key,
+.adm-legend .adm-key:not(:first-child) {
+  margin-left: var(--space-2);
+}
+
+/* Horizontal bars: a name, its figure, a hairline track under them. */
+.adm-bars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.adm-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  row-gap: 4px;
+  font-size: var(--text-md);
+}
+
+.adm-bar-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adm-bar-value {
+  font-weight: var(--weight-strong);
+}
+
+.adm-bar-extra {
+  color: var(--color-muted);
+  font-weight: var(--weight-medium);
+}
+
+.adm-bar-track {
+  grid-column: 1 / -1;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-row);
+  overflow: hidden;
+}
+
+.adm-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+}
+
+.adm-warn {
+  grid-column: 1 / -1;
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-bad);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+}
+
+.adm-tiles,
+.adm-wide {
+  grid-column: 1 / -1;
+}
+
+.adm-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+}
+
+/* Tables: figures on hairlines; a wide one scrolls inside its section, never the page. */
+.adm-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.adm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.adm-table th,
+.adm-table td {
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--color-line);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.adm-table th:first-child {
+  text-align: left;
+}
+
+.adm-table thead th {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.adm-table tbody th {
+  font-weight: var(--weight-medium);
+}
+
+/* Retention cells: one hue, stronger with the share. */
+.adm-cell[data-level="none"] {
+  color: var(--color-faint);
+}
+
+.adm-cell[data-level="0"] {
+  background: transparent;
+}
+
+.adm-cell[data-level="1"] {
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+}
+
+.adm-cell[data-level="2"] {
+  background: color-mix(in srgb, var(--color-accent) 24%, transparent);
+}
+
+.adm-cell[data-level="3"] {
+  background: color-mix(in srgb, var(--color-accent) 38%, transparent);
+}
+
+.adm-cell[data-level="4"] {
+  background: color-mix(in srgb, var(--color-accent) 55%, transparent);
+  color: var(--color-text);
+  font-weight: var(--weight-strong);
+}
+
+.adm-details {
+  margin-top: var(--space-3);
+}
+
+.adm-details summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-strong);
+  cursor: pointer;
+}
+
+.adm-line {
+  margin: 0;
+}
+
+.adm-line svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.adm-line polyline {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 2px;
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+}
+
+.adm-line circle {
+  fill: var(--color-accent);
+  stroke: var(--color-bg);
+  stroke-width: 2px;
+  vector-effect: non-scaling-stroke;
+}
+
+.adm-line figcaption {
+  margin-top: var(--space-2);
+}
+
+/* The tabs under the title: one row that scrolls sideways on a phone, never the page. */
+.adm-tabs {
+  display: flex;
+  gap: var(--space-1);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  margin: 0 calc(-1 * var(--gutter));
+  padding: var(--space-2) var(--gutter);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.adm-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.adm-tab {
+  flex: 0 0 auto;
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--color-muted);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-strong);
+  cursor: pointer;
+}
+
+.adm-tab[aria-selected="true"] {
+  border-color: var(--color-line-hi);
+  background: var(--color-row);
+  color: var(--color-text);
+}
+
+.adm-tab:focus-visible,
+.adm-input:focus-visible,
+.adm-mem:focus-visible,
+.adm-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Filters: a search field, a few ticks and pickers, wrapping on a phone. */
+.adm-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.adm-input {
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--text-sm);
+}
+
+input.adm-input {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.adm-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.adm-check input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-accent);
+}
+
+/* Faces: a Discord avatar, else initials on the row's grey. */
+.adm-face {
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--color-row);
+}
+
+.adm-face-none {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: var(--weight-strong);
+  color: var(--color-muted);
+}
+
+.adm-badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.adm-badge-off {
+  border-color: var(--color-bad);
+  color: var(--color-bad);
+}
+
+.adm-faint {
+  color: var(--color-faint);
+  font-weight: var(--weight-medium);
+}
+
+/* The members: a row each, a button that opens their timeline. Two lines on a phone, one on a wide screen. */
+.adm-members {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.adm-mem {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas: "face who figs" "face tags tags";
+  align-items: center;
+  gap: 4px var(--space-3);
+  padding: var(--space-3) 0;
+  border: 0;
+  border-bottom: 1px solid var(--color-line);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.adm-mem:hover {
+  background: var(--color-hover);
+}
+
+.adm-mem .adm-face {
+  grid-area: face;
+  align-self: start;
+}
+
+.adm-mem-who {
+  grid-area: who;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.adm-mem-name {
+  font-weight: var(--weight-strong);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adm-mem-sub {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adm-mem-figs {
+  grid-area: figs;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.adm-mem-figs span:first-child {
+  color: var(--color-text);
+  font-weight: var(--weight-strong);
+}
+
+.adm-mem-tags {
+  grid-area: tags;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.adm-more {
+  margin-top: var(--space-3);
+}
+
+/* One member: who they are, their figures, then their days. */
+.adm-who {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  margin-top: var(--space-4);
+}
+
+.adm-who .adm-h3 {
+  margin-top: 0;
+}
+
+.adm-h4 {
+  margin: var(--space-5) 0 var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-strong);
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+}
+
+.adm-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.adm-ev {
+  display: grid;
+  grid-template-columns: 3.2em minmax(0, 1fr) auto;
+  gap: var(--space-2);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--color-line);
+  font-size: var(--text-sm);
+}
+
+.adm-ev time {
+  color: var(--color-faint);
+}
+
+.adm-ev-lookup span:first-of-type,
+.adm-ev-discord span:first-of-type {
+  color: var(--color-accent);
+}
+
+.adm-ev-dev {
+  font-size: 11px;
+  color: var(--color-faint);
+}
+
+/* Tables with rows that open. */
+.adm-click {
+  cursor: pointer;
+}
+
+.adm-click:hover {
+  background: var(--color-hover);
+}
+
+.adm-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.adm-top-args {
+  max-width: 18em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--color-muted);
+}
+
+.adm-table td.adm-open {
+  padding: var(--space-3) 0;
+  text-align: left;
+  white-space: normal;
+}
+
+.adm-table .adm-wrap {
+  white-space: normal;
+  min-width: 14em;
+}
+
+.adm-status {
+  margin-top: var(--space-4);
+}
+
+.adm-people {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.adm-people .adm-mem-tags {
+  grid-area: auto;
+}
+
+.adm-people li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--color-line);
+}
+
+@media (min-width: 720px) {
+  .adm-mem {
+    grid-template-columns: auto minmax(0, 1.4fr) minmax(0, 1fr) auto;
+    grid-template-areas: "face who tags figs";
+  }
+
+  .adm-mem .adm-face {
+    align-self: center;
+  }
+}
+
+@media (min-width: 720px) {
+  .adm-tiles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .adm-pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .adm-tiles {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .adm main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

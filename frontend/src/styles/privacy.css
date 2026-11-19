@@ -1,0 +1,100 @@
+/* "Your data" in a member's account panel, and the quiet Privacy link of the footers. */
+.delete-data {
+  display: grid;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-line);
+  min-width: 0;
+}
+
+.delete-data :is(h2, h3) {
+  margin: 0;
+  font-size: 13.5px;
+}
+
+.delete-data .impn {
+  margin: 0;
+}
+
+.delete-data a {
+  color: var(--color-text);
+  text-underline-offset: 3px;
+}
+
+.del-open {
+  justify-self: start;
+  min-height: 44px;
+}
+
+.del-ask {
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-md);
+  background: var(--color-row);
+}
+
+.del-q {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+.del-b {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.del-b .lnk {
+  min-height: 44px;
+  padding: 0 16px;
+}
+
+.del-go {
+  border-color: var(--color-bad);
+  color: var(--color-fall);
+}
+
+.del-b .lnk:disabled {
+  opacity: 0.6;
+}
+
+.delete-data .lnk:focus-visible,
+.delete-data a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .del-go:hover {
+    background: var(--color-raise);
+  }
+}
+
+/* The gate screen's links to the notice: in the sentence, and a 44 px one in the footer. */
+.gate-privacy-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.gate-foot .gate-privacy-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 6px;
+}
+
+.gate-privacy-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .gate-privacy-link:hover {
+    color: var(--color-text);
+  }
+}

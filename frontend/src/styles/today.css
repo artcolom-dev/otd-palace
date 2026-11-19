@@ -1,0 +1,1572 @@
+/* Today's right column and the reasons to come back: price moves (also the Prices page), the pass worth getting,
+   "Since your last visit", "You opened… got one?", the saved total and the add-to-home-screen card. */
+
+/* ---------- the top three ---------- */
+/* The visitor's three best deals as tiles: the best one large, the next two short beside it (under it in a narrow
+   column, side by side). A round medal sits on each tile's top edge, ringed with the page so it reads as cut in. */
+.tops {
+  margin-bottom: 24px;
+}
+
+.tiles {
+  list-style: none;
+  margin: 0;
+  padding: 22px 0 0; /* room for the medals above the tiles' top edge */
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+}
+
+.tops[data-n="2"] .tiles {
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+}
+
+.tops[data-n="1"] .tiles {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.tile {
+  position: relative;
+  min-width: 0;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: var(--radius-xl);
+  background: none;
+  border: 1px solid var(--color-line);
+}
+
+.tile.best {
+  padding: 19px; /* its 2 px line keeps the content where the others have it */
+  border: 2px solid var(--color-accent);
+}
+
+.rank {
+  position: absolute;
+  top: -17px;
+  left: 18px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-raise);
+  color: var(--color-muted);
+  box-shadow: inset 0 0 0 1px var(--color-line-hi);
+  outline: 4px solid var(--color-bg);
+  font: 800 22px/1 var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.tile.best .rank {
+  top: -22px;
+  left: 17px;
+  width: 52px;
+  height: 52px;
+  font-size: 29px;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  box-shadow: none;
+}
+
+.ribbon {
+  position: absolute;
+  top: -12px;
+  left: 82px;
+  padding: 4px 11px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font: 800 12px/1.2 var(--font-ui);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ttop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.tile.best .ttop {
+  gap: 14px;
+  margin-top: 10px; /* clear of the medal */
+}
+
+/* A short tile: the face with its star, then the name and its line across the whole tile, so a narrow tile keeps
+   the name whole. */
+.tile.next .ttop {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "face star"
+    "name name"
+    "meta meta";
+  align-items: start;
+  row-gap: 8px;
+  margin-top: 6px;
+}
+
+.tile.next :is(.tid, .tname) {
+  display: contents;
+}
+
+.tile.next .tface {
+  grid-area: face;
+}
+
+.tile.next .tname .star {
+  grid-area: star;
+  justify-self: end;
+}
+
+.tile.next h3 {
+  grid-area: name;
+}
+
+.tile.next .tmeta {
+  grid-area: meta;
+  margin-top: -4px;
+}
+
+.tface {
+  flex: none;
+  display: grid;
+}
+
+.tid {
+  flex: 1;
+  min-width: 0;
+}
+
+.tname {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+
+/* A name: two lines at most, a long one without a break wraps anywhere and ends in an ellipsis. */
+.tile h3 {
+  min-width: 0;
+  font: 800 clamp(17px, 8cqi, 22px) / 1.1 var(--font-display);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.tile.best h3 {
+  font-size: clamp(24px, 8cqi, 34px);
+  letter-spacing: -0.02em;
+}
+
+.tname .star {
+  margin-top: 1px;
+}
+
+.tmeta {
+  margin-top: 4px;
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.tile.next .tmeta {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Plain inline (not inline-flex): the line keeps the height its line-height gives, whatever the font. */
+.tmeta .rar {
+  display: inline;
+}
+
+.tmeta .rar .sw {
+  margin-right: 6px;
+  vertical-align: -1px;
+}
+
+/* The best tile's line under the name and its clock sentence come in short lines of their own, so the tile is as
+   tall before the fonts arrive as after: nothing shifts when they swap in. */
+.tmeta .tml {
+  display: block;
+}
+
+/* A narrow best tile (1280 px, a 360 px phone): "fits your 1,000 max" takes a line of its own rather than wrapping,
+   so the tile is as tall whatever the device's face. */
+@container (max-width: 300px) {
+  .tile.best .tfit {
+    display: block;
+  }
+
+  .tile.best .tfit .sep {
+    display: none;
+  }
+}
+
+.tprice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 10px;
+  row-gap: 8px;
+  margin-top: 4px;
+}
+
+.tprice b {
+  font: 800 clamp(30px, 17cqi, 38px) / 0.95 var(--font-display);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.tile.best .tprice b {
+  font-size: clamp(46px, 15cqi, 64px);
+  letter-spacing: -0.02em;
+}
+
+.tprice .unit {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.tprice s {
+  font-size: 14px;
+  color: var(--color-faint);
+}
+
+.tile.best :is(.tprice .unit, .tprice s) {
+  font-size: 16px;
+}
+
+.tpills {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+/* On a short tile the pill takes a line of its own under the price, as on the best tile it follows it. */
+.tile.next .tpills {
+  flex-basis: 100%;
+}
+
+/* What the list's row would say of a short tile's deal, on its pill: "auction", "thin". Inside the pill, so it never
+   wraps onto a line of its own (the tile keeps its height when the fonts swap in). */
+.tmark {
+  margin-left: 6px;
+  font-size: 11.5px;
+  font-weight: var(--weight-strong);
+}
+
+.tmark::before {
+  content: "· ";
+}
+
+.tpct {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-good);
+  color: var(--color-bg);
+  font: 800 15px/1.3 var(--font-ui);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.tpct.grey {
+  background: var(--color-raise);
+  color: var(--color-muted);
+}
+
+.tsay {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.tsay b {
+  font-weight: var(--weight-strong);
+  color: var(--color-text);
+}
+
+.tsay .tclock {
+  display: block;
+  white-space: nowrap;
+}
+
+.tsay .clock {
+  font-size: inherit;
+}
+
+.tile .taken-line {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13.5px;
+  font-weight: var(--weight-strong);
+  color: var(--color-text);
+}
+
+.tile .taken-line .i {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  color: var(--color-accent);
+}
+
+.tile .paused-note {
+  margin: 0;
+}
+
+.tile .go {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.tile .btn {
+  height: 44px;
+}
+
+.tile.best .btn {
+  height: 46px;
+  padding: 0 14px;
+  font-size: 15px;
+}
+
+.tile .qrb {
+  width: 44px;
+  padding: 0;
+}
+
+/* A narrow best tile (1440 px and under, with the rail): beside Share, "Open on phone" keeps its words for screen readers and shows
+   its phone, so both buttons stay on one line; the price line packs tighter. */
+@container (max-width: 340px) {
+  .tile.best .qrl {
+    width: 46px;
+    padding: 0;
+  }
+
+  .tile.best .qrl span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+@container (max-width: 300px) {
+  .tile.best .tprice {
+    column-gap: 8px;
+  }
+
+  .tile.best .tprice .tpills {
+    flex-basis: 100%;
+  }
+
+  .tile.best :is(.tprice .unit, .tprice s) {
+    font-size: 14px;
+  }
+}
+
+/* A deal that just went away: its tile says why, its words go to a muted token (never faded, they stay readable),
+   its face fades and its buttons step down, then the next deals move up. */
+.tile :is(.tface, .tid, .tprice) {
+  transition: opacity var(--dur-slow) var(--ease-out), color var(--dur-slow) var(--ease-out);
+}
+
+.tile.taken .tface {
+  opacity: 0.4;
+}
+
+.tile.taken .tid,
+.tile.taken .tprice,
+.tile.taken .tid h3,
+.tile.taken .tprice b,
+.tile.taken .tprice s,
+.tile.taken .tprice .unit {
+  color: var(--color-muted);
+}
+
+.tile.taken .tpct {
+  background: var(--color-raise);
+  color: var(--color-muted);
+}
+
+.tile.taken .go .btn {
+  background: var(--color-raise);
+  color: var(--color-muted);
+  border-color: var(--color-line);
+  box-shadow: none;
+}
+
+/* A narrow column (a tablet, a phone): the best tile across the top, the next two side by side under it. */
+@container (max-width: 700px) {
+  .tiles {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    row-gap: 26px;
+  }
+
+  .tile.best,
+  .tops[data-n="2"] .tile.next {
+    grid-column: 1 / -1;
+  }
+}
+
+/* A phone */
+.tops.phone {
+  margin-bottom: 4px;
+}
+
+.tops.phone .tiles {
+  gap: 24px 10px;
+  padding-top: 20px;
+}
+
+.tops.phone .tile {
+  gap: 8px;
+  padding: 14px 12px 12px;
+  border-radius: var(--radius-xl);
+}
+
+.tops.phone .tile.best {
+  padding: 13px 13px 13px;
+}
+
+.tops.phone .rank {
+  top: -15px;
+  left: 12px;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+}
+
+.tops.phone .tile.best .rank {
+  top: -19px;
+  left: 11px;
+  width: 42px;
+  height: 42px;
+  font-size: 24px;
+}
+
+.tops.phone .ribbon {
+  top: -10px;
+  left: 64px;
+}
+
+.tops.phone .tile.next .ttop {
+  margin-top: 8px;
+}
+
+/* A short tile on a phone: the price and its unit, then the usual price, then the pill, each on a line of its own,
+   so the tile is as tall whatever the device's face (San Francisco, Roboto, Segoe UI). */
+.tops.phone .tile.next .tprice s {
+  flex-basis: 100%;
+  white-space: nowrap;
+}
+
+.tops.phone .tile.next .tpills {
+  flex-basis: 100%;
+}
+
+.tops.phone .tile.next :is(.tprice .unit, .tprice s) {
+  font-size: 13px;
+}
+
+.tops.phone .tile.best .ttop {
+  margin-top: 10px;
+}
+
+.tops.phone .tile.next h3 {
+  font-size: 16px;
+}
+
+.tops.phone .tile.best h3 {
+  font-size: 24px;
+}
+
+.tops.phone .tmeta {
+  font-size: 12.5px;
+}
+
+.tops.phone .tile.next .tprice b {
+  font-size: 28px;
+}
+
+.tops.phone .tile.best .tprice b {
+  font-size: 48px;
+}
+
+.tops.phone .tile.best .tsay {
+  font-size: 13.5px;
+}
+
+.tops.phone .go .btn {
+  flex: 1;
+}
+
+.app.phone .tile .btn {
+  min-height: 44px;
+}
+
+.app.phone .tile .star {
+  width: 44px;
+  height: 44px;
+  margin: -12px -12px -10px -8px; /* a 44 px tap that takes no more room than the name beside it */
+}
+
+/* ---------- the rail ---------- */
+.rcol .slot[data-slot="panels"] {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rcol .community {
+  font-size: 13px;
+}
+
+/* ---------- Risers / Fallers ---------- */
+.mvtabs {
+  display: flex;
+  flex: none;
+  padding: 0;
+  gap: 2px;
+}
+
+.mvtabs button {
+
+  height: 28px;
+  padding: 0 10px;
+  font-size: 13px;
+}
+
+@media (hover: hover) {
+  .mvtabs button[aria-selected="false"]:hover {
+    color: var(--color-accent-hover);
+  }
+}
+
+/* ---------- a move ---------- */
+.mvlist {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+}
+
+.mv {
+  position: relative;
+  display: grid;
+  grid-template-columns: 24px 28px minmax(0, 1fr) auto;
+  /* The face beside the name; the change sits beside the name; prices and sales take the full width under both. */
+  grid-template-areas:
+    "star face name chg"
+    "star face sub sub";
+  align-items: center;
+  column-gap: 8px;
+  padding: 6px 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.mv:first-child {
+  border-top: 0;
+}
+
+/* The whole row is the link to the player's deals; the star sits above it. */
+.mv .rl {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: var(--radius-md);
+}
+
+.mv .rl:focus-visible {
+  outline-offset: 0;
+}
+
+.mv .star {
+  grid-area: star;
+  z-index: 2;
+}
+
+.mv .pav {
+  grid-area: face;
+}
+
+.mvn {
+  grid-area: name;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.mvn b {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: var(--weight-strong);
+  color: var(--color-text);
+}
+
+.mvn .sp {
+  flex: none;
+  font-size: 12px;
+  font-weight: var(--weight-medium);
+  color: var(--color-faint);
+}
+
+.mvn small {
+  font-size: 12px;
+  color: var(--color-faint);
+  white-space: nowrap;
+}
+
+/* Prices, then sales: in a narrow rail the sales move under the prices rather than being cut. */
+.mvsub {
+  grid-area: sub;
+  min-width: 0;
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.mvp,
+.mvs {
+  white-space: nowrap;
+}
+
+/* The rail keeps the name whole rather than the sport beside it: the face takes that room. */
+.rcol .mvn .sp {
+  display: none;
+}
+
+.mvp em {
+  font-style: normal;
+  font-weight: var(--weight-strong);
+  color: var(--color-text);
+}
+
+.chg {
+  grid-area: chg;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font: 700 15px/1 var(--font-display);
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.chg .i {
+  width: 15px;
+  height: 15px;
+  stroke-width: 2.2;
+}
+
+.chg.up {
+  color: var(--color-good);
+}
+
+.chg.down {
+  color: var(--color-fall);
+}
+
+/* Drawn as one stroke of length 1, so it can draw itself in (lib/motion.ts plays the offset). */
+.draw path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+@media (hover: hover) {
+  .mv:hover .mvn b {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+.advice {
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-line);
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.mvempty {
+  padding: 10px 0 4px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+.plink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  min-height: 28px;
+  font-size: 13px;
+  font-weight: var(--weight-strong);
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.plink .i {
+  width: 15px;
+  height: 15px;
+}
+
+@media (hover: hover) {
+  .plink:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+/* ---------- Prices ---------- */
+.prices-page {
+  max-width: 980px;
+}
+
+.phead h1 {
+  font: 800 30px/1.1 var(--font-display);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.lede {
+  margin-top: 6px;
+  max-width: 62ch;
+  text-wrap: pretty;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.mvbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-top: 18px;
+}
+
+.mvbar .mvtabs button {
+  height: 34px;
+  padding: 0 14px;
+  font-size: 13.5px;
+}
+
+.mvbar .tabs {
+  flex: 1;
+  min-width: 0;
+}
+
+.prices-page .pnote {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: var(--color-faint);
+}
+
+.mvlist.full {
+  display: grid;
+  gap: 0;
+  margin-top: 8px;
+}
+
+.mv.full {
+  grid-template-columns: 28px 32px minmax(0, 1fr) 92px 140px 128px 64px;
+  grid-template-areas: "star face name chg prices sales go";
+  column-gap: 12px;
+  min-height: 56px;
+  padding: 8px 14px 8px 10px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  transition: background-color var(--dur-base) var(--ease-out);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.mv.full .rl {
+  border-radius: var(--radius-lg);
+}
+
+@media (hover: hover) {
+  .mv.full:hover {
+    background: var(--color-hover);
+  }
+  .mv.full:hover .mvgo {
+    color: var(--color-text);
+  }
+}
+
+.mv.full .mvn {
+  flex-wrap: wrap;
+  row-gap: 0;
+}
+
+.mv.full .mvn b {
+  font-size: 15px;
+}
+
+.mv.full .mvn small {
+  flex-basis: 100%;
+}
+
+.mv.full .mvsub {
+  display: contents;
+}
+
+.mv.full .mvsub .sep {
+  display: none;
+}
+
+.mv.full .mvp {
+  grid-area: prices;
+  font-size: 14px;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.mv.full .mvp em {
+  font-size: 16px;
+}
+
+.mv.full .mvs {
+  grid-area: sales;
+  font-size: 13px;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.mv.full .chg {
+  font-size: 17px;
+}
+
+.mvgo {
+  grid-area: go;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12.5px;
+  font-weight: var(--weight-strong);
+  color: var(--color-accent);
+  transition: color var(--dur-base);
+}
+
+.mvgo .i {
+  width: 14px;
+  height: 14px;
+}
+
+/* The curve of a move (components/MoveCurve.tsx): a column of its own between the sales and "Deals", only in a list
+   where some row has one to draw (.curved), so a list without curves is laid out exactly as before. */
+.mv.full.curved {
+  grid-template-columns: 28px 32px minmax(0, 1fr) 92px 140px 128px 136px 64px;
+  grid-template-areas: "star face name chg prices sales curve go";
+}
+
+.mv.full.curved.nostar {
+  grid-template-columns: 0 32px minmax(0, 1fr) 92px 140px 128px 136px 64px;
+}
+
+.mvc {
+  grid-area: curve;
+  display: grid;
+  justify-items: start;
+  gap: 2px;
+  min-width: 0;
+  color: var(--color-faint);
+}
+
+.mvc svg {
+  display: block;
+  overflow: visible;
+}
+
+.mvc path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mvc circle {
+  fill: currentColor;
+}
+
+.mvc .axis {
+  stroke: var(--color-line);
+  stroke-width: 1;
+}
+
+/* The last dot is the row's "today": the colour of the change the curve itself shows, first day to today. */
+.mvc.up .now {
+  fill: var(--color-good);
+}
+
+.mvc.down .now {
+  fill: var(--color-fall);
+}
+
+.mvcl {
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Between the stacked layout and the wide one, the curve takes the room of the "Deals" hint. */
+@container (max-width: 900px) {
+  .mv.full.curved {
+    grid-template-columns: 28px 32px minmax(0, 1fr) 92px 140px 128px 136px;
+    grid-template-areas: "star face name chg prices sales curve";
+  }
+  .mv.full.curved.nostar {
+    grid-template-columns: 0 32px minmax(0, 1fr) 92px 140px 128px 136px;
+  }
+  .mv.full.curved .mvgo {
+    display: none;
+  }
+}
+
+.prices-page .advice {
+  margin-top: 12px;
+  border-top: 0;
+  padding-top: 0;
+  max-width: 62ch;
+}
+
+@container (max-width: 720px) {
+  .mv.full {
+    grid-template-columns: 28px 32px minmax(0, 1fr) auto;
+    grid-template-areas:
+      "star face name chg"
+      "star face prices chg"
+      "star face sales chg";
+    column-gap: 10px;
+  }
+  .mv.full .mvgo {
+    display: none;
+  }
+}
+
+/* Stacked: the curve is one more line under the sales, drawing and caption side by side. */
+@container (max-width: 720px) {
+  .mv.full.curved,
+  .mv.full.curved.nostar {
+    grid-template-columns: 28px 32px minmax(0, 1fr) auto;
+    grid-template-areas:
+      "star face name chg"
+      "star face prices chg"
+      "star face sales chg"
+      "star face curve curve";
+  }
+  .mv.full.curved.nostar {
+    grid-template-columns: 0 32px minmax(0, 1fr) auto;
+  }
+  .mv.full .mvc {
+    display: flex;
+    flex-wrap: wrap; /* a very narrow row: the caption goes under the drawing, the page never scrolls sideways */
+    align-items: center;
+    gap: 2px 8px;
+    margin-top: 4px;
+  }
+}
+
+/* ---------- Pass worth getting ---------- */
+/* The pass's face (a fixed 40 px square) leads; the words keep the rest of the width. */
+.pp-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.pp-top .pav {
+  margin-top: 2px;
+}
+
+.pp-who {
+  flex: 1;
+  min-width: 0;
+}
+
+.ppn {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.ppn h3 {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 15px;
+  font-weight: var(--weight-strong);
+  letter-spacing: -0.01em;
+}
+
+.pp-top small {
+  display: block;
+  margin-top: 1px;
+  font-size: 12.5px;
+  color: var(--color-muted);
+}
+
+.pp-top small .sw {
+  vertical-align: -1px;
+  margin-right: 3px;
+}
+
+.pp-top .tg {
+  margin: 4px 4px 0 0;
+}
+
+.pay {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.pay strong {
+  margin-left: 2px;
+  font: 700 21px/1.1 var(--font-display);
+  letter-spacing: -0.015em;
+  color: var(--color-text);
+}
+
+.ppline {
+  margin-top: 10px;
+  padding-top: 9px;
+  border-top: 1px solid var(--color-line);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.ppline b {
+  font-weight: var(--weight-strong);
+  color: var(--color-text);
+}
+
+.pplinks {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 16px;
+}
+
+/* ---------- Since your last visit ---------- */
+.since {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 3px 3px 3px 14px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: none;
+  font-size: 13.5px;
+  color: var(--color-muted);
+}
+
+.since > .i {
+  width: 16px;
+  height: 16px;
+  color: var(--color-accent);
+  fill: currentColor;
+}
+
+.since p {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.since b {
+  font-weight: var(--weight-strong);
+  color: var(--color-text);
+}
+
+.since .icb {
+  width: 36px;
+  height: 36px;
+  color: var(--color-muted);
+}
+
+/* ---------- You opened… got one? ---------- */
+.opened {
+  padding: 12px 16px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-xl);
+  background: none;
+}
+
+.opened h2 {
+  font-size: 17px;
+  line-height: 1.25;
+  font-weight: var(--weight-strong);
+  letter-spacing: 0;
+  color: var(--color-muted);
+}
+
+.opened ul {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+}
+
+.op {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.op:first-child {
+  border-top: 0;
+}
+
+.op > span:not(.pav) {
+  min-width: 0;
+}
+
+.op b {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: var(--weight-strong);
+}
+
+.op small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+.op.done > .i {
+  justify-self: center;
+  width: 18px;
+  height: 18px;
+  color: var(--color-good);
+}
+
+.op.done span[role="status"] {
+  grid-column: 2 / -1;
+}
+
+.got {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-accent);
+  background: none;
+  font-size: 13px;
+  font-weight: var(--weight-strong);
+  color: var(--color-accent);
+  white-space: nowrap;
+  transition: border-color var(--dur-base) var(--ease-out), background-color var(--dur-base);
+}
+
+@media (hover: hover) {
+  .got:hover {
+    background: color-mix(in srgb, var(--color-accent) 14%, transparent);
+  }
+}
+
+.opfoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-line);
+}
+
+.opfoot p {
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--color-faint);
+}
+
+.opfoot .lnk {
+  margin-right: -10px;
+}
+
+/* ---------- the saved total ---------- */
+.savings {
+  margin: 14px 0 0;
+  padding: 11px 14px 12px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: none;
+}
+
+.savings p {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.savings strong {
+  font: 700 24px/1.15 var(--font-display);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--dur-glide) var(--ease-out);
+}
+
+.savings strong.hot {
+  color: var(--color-accent);
+}
+
+.savings .ib {
+  align-self: center;
+  margin-left: auto;
+}
+
+.savings small {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--color-faint);
+}
+
+.savings.phone {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin: 8px 0 0;
+  padding: 0 4px 0 12px;
+  font-size: 14px;
+}
+
+.savings.phone > .i {
+  color: var(--color-good);
+}
+
+.savings.phone span {
+  flex: 1;
+  min-width: 0;
+}
+
+.savings.phone strong {
+  font-size: 20px;
+}
+
+/* ---------- add to home screen ---------- */
+.inst {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 10px 4px 10px 12px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-xl);
+  background: none;
+}
+
+.inst .mark {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.inst .mark .i {
+  width: 22px;
+  height: 22px;
+}
+
+.inst h2 {
+  font-size: 14.5px;
+  line-height: 1.25;
+  font-weight: var(--weight-strong);
+  letter-spacing: -0.01em;
+}
+
+.inst p {
+  margin-top: 2px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.inst p .i {
+  width: 15px;
+  height: 15px;
+  margin: 0 2px;
+  vertical-align: -2px;
+  color: var(--color-text);
+}
+
+.inst .btn {
+  height: 44px;
+  padding: 0 16px;
+}
+
+/* ---------- "See all deals" under a phone's 5 ---------- */
+.seeall {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid var(--color-accent);
+  background: none;
+}
+
+/* ---------- a phone ---------- */
+
+.app.phone .mvtabs button {
+  height: 44px;
+  padding: 0 14px;
+  font-size: 15px;
+}
+
+.app.phone .mv {
+  grid-template-columns: 28px 28px minmax(0, 1fr) auto;
+  min-height: 48px;
+  column-gap: 6px;
+  padding: 4px 0;
+}
+
+/* The free site has no follow stars (they come with Discord): a move row gives the star's column up. */
+.mv.nostar {
+  grid-template-columns: 0 28px minmax(0, 1fr) auto;
+}
+
+.mv.full.nostar {
+  grid-template-columns: 0 32px minmax(0, 1fr) 92px 140px 128px 64px;
+}
+
+.app.phone .mv.nostar {
+  grid-template-columns: 0 28px minmax(0, 1fr) auto;
+  column-gap: 8px;
+}
+
+.app.phone .mv .star {
+  width: 44px;
+  height: 44px;
+  margin: 0 -8px 0 -12px;
+  background: none;
+}
+
+.app.phone .mv .star .i {
+  width: 16px;
+  height: 16px;
+}
+
+.app.phone .mvn b {
+  font-size: 14.5px;
+}
+
+.app.phone .chg {
+  font-size: 16px;
+}
+
+.app.phone .mv.full {
+  grid-template-columns: 28px 32px minmax(0, 1fr) auto;
+  grid-template-areas:
+    "star face name chg"
+    "star face sub chg";
+  min-height: 64px;
+  padding: 8px 12px 8px 8px;
+}
+
+/* A phone's row with a curve: one more line under the prices, drawing and caption side by side. */
+.app.phone .mv.full.curved,
+.app.phone .mv.full.curved.nostar {
+  grid-template-columns: 28px 32px minmax(0, 1fr) auto;
+  grid-template-areas:
+    "star face name chg"
+    "star face sub chg"
+    "star face curve curve";
+}
+
+.app.phone .mv.full.curved.nostar {
+  grid-template-columns: 0 32px minmax(0, 1fr) auto;
+}
+
+.app.phone .mv.full .mvc {
+  display: flex;
+  flex-wrap: wrap; /* at 320 px the caption goes under the drawing: the page never scrolls sideways */
+  align-items: center;
+  gap: 2px 8px;
+  margin-top: 4px;
+}
+
+/* A phone keeps prices and sales on one line under the name, as in the panel */
+.app.phone .mv.full .mvsub {
+  display: block;
+  grid-area: sub;
+}
+
+.app.phone .mv.full .mvsub .sep {
+  display: inline;
+}
+
+.app.phone .mv.full .mvp,
+.app.phone .mv.full .mvs {
+  font-size: 13px;
+}
+
+.app.phone .mv.full .mvp em {
+  font-size: 14.5px;
+}
+
+.app.phone .mv.full .mvgo {
+  display: none;
+}
+
+.app.phone .phead h1 {
+  font-size: 24px;
+}
+
+.app.phone .lede {
+  font-size: 14px;
+}
+
+.app.phone .mvbar {
+  margin-top: 14px;
+}
+
+.app.phone .mvbar .mvtabs {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.app.phone .plink {
+  min-height: 44px;
+  margin-top: 2px;
+  font-size: 13.5px;
+}
+
+.app.phone .got {
+  height: 44px;
+  padding: 0 14px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+}
+
+.app.phone .opened {
+  padding: 8px 12px 6px 14px;
+  border-radius: var(--radius-lg);
+}
+
+.app.phone .opened h2 {
+  font-size: 15px;
+}
+
+.app.phone .op b {
+  font-size: 14.5px;
+}
+
+.app.phone .op small {
+  font-size: 12.5px;
+}
+
+.app.phone .opfoot .lnk {
+  min-height: 44px;
+}
+
+.app.phone .since {
+  align-items: flex-start;
+  padding: 0 0 0 12px;
+  gap: 8px;
+}
+
+.app.phone .since > .i {
+  margin-top: 14px;
+}
+
+.app.phone .since > .pav {
+  margin-top: 7px; /* centred on the first line of the note */
+}
+
+.app.phone .since p {
+  padding: 11px 0;
+  white-space: normal;
+  line-height: 1.4;
+}
+
+.app.phone .since .lnk {
+  min-height: 44px;
+}
+
+.app.phone .since .icb {
+  width: 44px;
+  height: 44px;
+}
+
+.app.phone .inst .icb {
+  width: 44px;
+  height: 44px;
+  color: var(--color-muted);
+}
+
+.app.phone .inst .btn {
+  height: 44px;
+}
+
+.app.phone .seeall {
+  min-height: 44px;
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+}
+
+.app.phone .passpick .pay strong {
+  font-size: 22px;
+}
+
+/* Less motion: the totals change colour at once; the arrows only fade in (lib/motion.ts). */
+@media (prefers-reduced-motion: reduce) {
+  .savings strong,
+  .mvtabs button,
+  .mv.full,
+  .got {
+    transition: none;
+  }
+}

@@ -1,0 +1,3457 @@
+{
+ "about": "Rung pricing on the feed's build rate and the shelf's live auctions, server and browser on the same passes. `rows` are the feed's pass rows (three shaped on the live probe of 2026-11-18, names as labels, ids made up), `as_of` the snapshot's moment (10 minutes after the shelves were read), `otd` what the server serves for them (advisor/snapshot.py _otd_json, without picks and starters), `rules` and `budgets` as served. `expect.passes` is what both sides must find for each pass: its build rate, its rungs' costs, and the cards on sale toward Common and Rare; `expect.pass_deals` the pass deals each level finds with its default budget, nothing held, every sport.",
+ "as_of": "2026-11-18T23:16:20Z",
+ "rules": {
+  "claims_per_sport_day": 2,
+  "ladders": {
+   "player": [
+    [
+     "general",
+     0,
+     1
+    ],
+    [
+     "common",
+     10,
+     2
+    ],
+    [
+     "uncommon",
+     30,
+     3
+    ],
+    [
+     "rare",
+     80,
+     4
+    ],
+    [
+     "epic",
+     180,
+     10
+    ],
+    [
+     "legendary",
+     380,
+     25
+    ],
+    [
+     "mystic",
+     1380,
+     75
+    ],
+    [
+     "iconic",
+     3380,
+     150
+    ]
+   ],
+   "fighter": [
+    [
+     "general",
+     0,
+     1
+    ],
+    [
+     "common",
+     10,
+     1.2
+    ],
+    [
+     "uncommon",
+     30,
+     1.4
+    ],
+    [
+     "rare",
+     80,
+     1.6
+    ],
+    [
+     "epic",
+     180,
+     2
+    ],
+    [
+     "legendary",
+     380,
+     5
+    ],
+    [
+     "mystic",
+     1380,
+     10
+    ],
+    [
+     "iconic",
+     3380,
+     20
+    ]
+   ],
+   "team": [
+    [
+     "general",
+     0,
+     1
+    ],
+    [
+     "common",
+     30,
+     1.2
+    ],
+    [
+     "uncommon",
+     90,
+     1.4
+    ],
+    [
+     "rare",
+     240,
+     1.6
+    ],
+    [
+     "epic",
+     540,
+     2
+    ],
+    [
+     "legendary",
+     1140,
+     2.5
+    ],
+    [
+     "mystic",
+     4140,
+     4
+    ],
+    [
+     "iconic",
+     10140,
+     6
+    ]
+   ]
+  },
+  "player_limit_per_mult": 500,
+  "no_limit": {
+   "player": [
+    "iconic"
+   ],
+   "fighter": [
+    "iconic"
+   ]
+  },
+  "team_limits": {
+   "common": 1500,
+   "uncommon": 2500,
+   "rare": 4000,
+   "epic": 6000,
+   "legendary": 12000,
+   "mystic": 24000,
+   "iconic": 128000
+  },
+  "fighter_limits": {
+   "common": 1500,
+   "uncommon": 3000,
+   "rare": 6000,
+   "epic": 12000,
+   "legendary": 24000,
+   "mystic": 48000
+  },
+  "limit_estimated_kinds": [],
+  "limit_estimated_sports": [
+   "soccer"
+  ],
+  "no_limit_horizon_years": 3,
+  "payback_horizon_years": 5,
+  "mint_cost": {
+   "player": 200,
+   "team": 800,
+   "fighter": 800
+  },
+  "sport_months": {
+   "mlb": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "nba": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "nfl": [
+    9,
+    10,
+    11,
+    12,
+    1,
+    2
+   ],
+   "nhl": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "wnba": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "ufc": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "soccer": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "golf": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "cfb": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    1
+   ],
+   "cbb": [
+    11,
+    12,
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "sport_days": {
+   "mlb": [
+    205,
+    135
+   ],
+   "nba": [
+    210,
+    78
+   ],
+   "nfl": [
+    62,
+    18
+   ],
+   "nhl": [
+    195,
+    82
+   ],
+   "wnba": [
+    130,
+    50
+   ],
+   "ufc": [
+    250,
+    25
+   ],
+   "soccer": [
+    230,
+    47
+   ],
+   "golf": [
+    180,
+    20
+   ],
+   "cfb": [
+    55,
+    13
+   ],
+   "cbb": [
+    145,
+    33
+   ]
+  },
+  "weekly_days": {
+   "nfl": [
+    18,
+    0.78
+   ],
+   "cfb": [
+    14,
+    0.8
+   ],
+   "golf": [
+    43,
+    1.0
+   ]
+  },
+  "same_weekdays": {
+   "golf": 0.7
+  },
+  "projection_below": 0.9,
+  "full_at": 0.85,
+  "ignore_ask_above": 5,
+  "ignore_ask_min_sales": 5,
+  "starter_tiers": [
+   "common",
+   "uncommon"
+  ],
+  "top": 10,
+  "budget_presets": [
+   1000,
+   5000,
+   20000,
+   null
+  ],
+  "no_otd_tiers": [
+   "general"
+  ],
+  "later": {
+   "window_months": 3,
+   "share_below": 0.1,
+   "start_share": 0.02
+  }
+ },
+ "budgets": {
+  "new": 1000,
+  "regular": 5000,
+  "pro": null
+ },
+ "why": {
+  "nba:2027:player:9001": "Wembanyama NBA 2027 as the feed will send it: build cell common 5-7 at 30.36 (11 sales), the shelf's live auctions paying 38 to 60 a point, all firm (read 10 min ago, each ending within 2 h; one already over). No pass deal: nothing on the shelf is under the build rate.",
+  "nba:2027:player:9002": "The same pass as served today: no new fields, traded rate 38.46, a shelf of 40 and 50 floor openings (about 9 a point). The old maths calls it a pass deal; kept as the contrast.",
+  "nfl:2024:player:9003": "Gibbs NFL 2024: traded rate 164.38 carried by Mystic sales; the build cell is legendary 7+ at 29.17 (7 sales). Its only listing, a Mystic at 25,000, ends in 34 h: an opening, parked over 5x the build rate anyway.",
+  "nhl:2023:player:9004": "Matthews NHL 2023: build cell uncommon 5-7 at 20.34; accepted offers clear near 30 a point, above listings; its three listings end in about 6 h: openings.",
+  "mlb:2025:player:9005": "Measured by bucket and rarity, but no cell has 5 listing sales: the traded rate 22.0 stands in, thin; no pass deal may rest on it.",
+  "nba:2025:player:9006": "A row without the new fields: priced and served exactly as before.",
+  "nhl:2025:player:9007": "A pass deal the new maths finds and the old would not: three firm auctions (ending within 2 h) add 10 rating for 156, 15.6 a point against a build rate of 20; a cheaper card ending in 25 h is only an opening and is left out; the old shelf's targets, 40 a point, were dearer than the traded 30."
+ },
+ "rows": [
+  {
+   "key": "nba:2027:player:9001",
+   "sport": "nba",
+   "season": 2027,
+   "season_label": "2026-27",
+   "season_state": "current",
+   "player_id": 9001,
+   "player_name": "Wembanyama",
+   "team_id": null,
+   "position": null,
+   "kind": "player",
+   "base_1x": 812.4,
+   "season_progress": 0.18,
+   "game_days": 82,
+   "game_days_measured": false,
+   "month_share": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rate_traded": 38.46,
+   "rate_sales": 100,
+   "shelf": [
+    [
+     5.7,
+     300
+    ],
+    [
+     2.9,
+     160
+    ],
+    [
+     5.3,
+     270
+    ],
+    [
+     3.8,
+     200
+    ],
+    [
+     5.2,
+     280
+    ],
+    [
+     3.7,
+     190
+    ],
+    [
+     3.7,
+     190
+    ],
+    [
+     8.3,
+     500
+    ],
+    [
+     5.6,
+     310
+    ],
+    [
+     2.3,
+     110
+    ]
+   ],
+   "shelf_count": 694,
+   "mint_cost": 200,
+   "mintable": true,
+   "rate_bucket": "5-7",
+   "rates_by_bucket": {
+    "0-3": {
+     "rate": null,
+     "sales": 0,
+     "span_d": null,
+     "by_rarity": {},
+     "offers": {
+      "rate": null,
+      "sales": 0,
+      "span_d": null,
+      "by_rarity": {}
+     }
+    },
+    "3-5": {
+     "rate": 40.54,
+     "sales": 50,
+     "span_d": 0.1,
+     "by_rarity": {
+      "common": [
+       37.8,
+       32
+      ],
+      "uncommon": [
+       44.42,
+       10
+      ],
+      "rare": [
+       44.23,
+       8
+      ]
+     },
+     "offers": {
+      "rate": 9.38,
+      "sales": 50,
+      "span_d": 1.0,
+      "by_rarity": {
+       "common": [
+        9.52,
+        31
+       ],
+       "uncommon": [
+        8.7,
+        10
+       ],
+       "rare": [
+        8.51,
+        6
+       ],
+       "epic": [
+        8.0,
+        1
+       ],
+       "legendary": [
+        18.18,
+        2
+       ]
+      }
+     }
+    },
+    "5-7": {
+     "rate": 38.46,
+     "sales": 50,
+     "span_d": 0.1,
+     "by_rarity": {
+      "common": [
+       30.36,
+       11
+      ],
+      "uncommon": [
+       36.84,
+       24
+      ],
+      "rare": [
+       42.31,
+       7
+      ],
+      "epic": [
+       41.18,
+       5
+      ],
+      "legendary": [
+       52.24,
+       3
+      ]
+     },
+     "offers": {
+      "rate": 9.18,
+      "sales": 50,
+      "span_d": 1.0,
+      "by_rarity": {
+       "common": [
+        8.93,
+        23
+       ],
+       "uncommon": [
+        8.96,
+        13
+       ],
+       "rare": [
+        9.19,
+        6
+       ],
+       "epic": [
+        28.98,
+        4
+       ],
+       "legendary": [
+        12.31,
+        4
+       ]
+      }
+     }
+    },
+    "7+": {
+     "rate": null,
+     "sales": 0,
+     "span_d": null,
+     "by_rarity": {},
+     "offers": {
+      "rate": null,
+      "sales": 0,
+      "span_d": null,
+      "by_rarity": {}
+     }
+    }
+   },
+   "rate_build": 30.36,
+   "rate_build_from": {
+    "bucket": "5-7",
+    "rarity": "common",
+    "sales": 11
+   },
+   "shelf_auctions": {
+    "read_at": "2026-11-18T23:06:20Z",
+    "listings": [
+     [
+      2.9,
+      110,
+      110,
+      160,
+      1,
+      870,
+      false,
+      "common"
+     ],
+     [
+      5.2,
+      200,
+      200,
+      280,
+      1,
+      3582,
+      false,
+      "common"
+     ],
+     [
+      3.7,
+      150,
+      150,
+      190,
+      0,
+      3720,
+      false,
+      "common"
+     ],
+     [
+      3.7,
+      150,
+      150,
+      190,
+      0,
+      4530,
+      false,
+      "rare"
+     ],
+     [
+      5.6,
+      230,
+      230,
+      310,
+      0,
+      5880,
+      false,
+      "common"
+     ],
+     [
+      2.3,
+      110,
+      110,
+      110,
+      0,
+      6960,
+      false,
+      "common"
+     ],
+     [
+      5.3,
+      270,
+      270,
+      270,
+      0,
+      2862,
+      false,
+      "common"
+     ],
+     [
+      5.7,
+      300,
+      300,
+      300,
+      0,
+      0,
+      false,
+      "common"
+     ],
+     [
+      3.8,
+      200,
+      200,
+      200,
+      0,
+      3330,
+      false,
+      "common"
+     ],
+     [
+      8.3,
+      500,
+      500,
+      500,
+      0,
+      5478,
+      false,
+      "legendary"
+     ]
+    ]
+   }
+  },
+  {
+   "key": "nba:2027:player:9002",
+   "sport": "nba",
+   "season": 2027,
+   "season_label": "2026-27",
+   "season_state": "current",
+   "player_id": 9002,
+   "player_name": "Wembanyama as served today",
+   "team_id": null,
+   "position": null,
+   "kind": "player",
+   "base_1x": 812.4,
+   "season_progress": 0.18,
+   "game_days": 82,
+   "game_days_measured": false,
+   "month_share": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rate_traded": 38.46,
+   "rate_sales": 100,
+   "shelf": [
+    [
+     5.8,
+     50
+    ],
+    [
+     4.5,
+     40
+    ],
+    [
+     5.5,
+     50
+    ],
+    [
+     5.1,
+     50
+    ],
+    [
+     3.7,
+     40
+    ]
+   ],
+   "shelf_count": 694,
+   "mint_cost": 200,
+   "mintable": true
+  },
+  {
+   "key": "nfl:2024:player:9003",
+   "sport": "nfl",
+   "season": 2024,
+   "season_label": "2024",
+   "season_state": "past",
+   "player_id": 9003,
+   "player_name": "Gibbs",
+   "team_id": null,
+   "position": null,
+   "kind": "player",
+   "base_1x": 600.0,
+   "season_progress": 1.0,
+   "game_days": 17,
+   "game_days_measured": true,
+   "month_share": [
+    0.2,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.15,
+    0.25,
+    0.2,
+    0.2
+   ],
+   "rate_traded": 164.38,
+   "rate_sales": 80,
+   "shelf": [
+    [
+     7.3,
+     25000
+    ]
+   ],
+   "shelf_count": 1,
+   "mint_cost": 200,
+   "mintable": true,
+   "rate_bucket": "7+",
+   "rates_by_bucket": {
+    "0-3": {
+     "rate": null,
+     "sales": 0,
+     "span_d": null,
+     "by_rarity": {},
+     "offers": {
+      "rate": null,
+      "sales": 0,
+      "span_d": null,
+      "by_rarity": {}
+     }
+    },
+    "3-5": {
+     "rate": null,
+     "sales": 0,
+     "span_d": null,
+     "by_rarity": {},
+     "offers": {
+      "rate": null,
+      "sales": 0,
+      "span_d": null,
+      "by_rarity": {}
+     }
+    },
+    "5-7": {
+     "rate": null,
+     "sales": 0,
+     "span_d": null,
+     "by_rarity": {},
+     "offers": {
+      "rate": null,
+      "sales": 0,
+      "span_d": null,
+      "by_rarity": {}
+     }
+    },
+    "7+": {
+     "rate": 164.38,
+     "sales": 30,
+     "span_d": 90.0,
+     "by_rarity": {
+      "common": [
+       27.89,
+       2
+      ],
+      "uncommon": [
+       15.58,
+       1
+      ],
+      "rare": [
+       32.44,
+       2
+      ],
+      "legendary": [
+       29.17,
+       7
+      ],
+      "mystic": [
+       212.33,
+       18
+      ]
+     },
+     "offers": {
+      "rate": 36.24,
+      "sales": 50,
+      "span_d": 42.5,
+      "by_rarity": {
+       "common": [
+        41.1,
+        8
+       ],
+       "uncommon": [
+        42.3,
+        4
+       ],
+       "rare": [
+        40.97,
+        4
+       ],
+       "legendary": [
+        32.47,
+        31
+       ],
+       "mystic": [
+        136.99,
+        3
+       ]
+      }
+     }
+    }
+   },
+   "rate_build": 29.17,
+   "rate_build_from": {
+    "bucket": "7+",
+    "rarity": "legendary",
+    "sales": 7
+   },
+   "shelf_auctions": {
+    "read_at": "2026-11-18T23:06:20Z",
+    "listings": [
+     [
+      7.3,
+      25000,
+      25000,
+      25000,
+      0,
+      125406,
+      false,
+      "mystic"
+     ]
+    ]
+   }
+  },
+  {
+   "key": "nhl:2023:player:9004",
+   "sport": "nhl",
+   "season": 2023,
+   "season_label": "2023-24",
+   "season_state": "past",
+   "player_id": 9004,
+   "player_name": "Matthews",
+   "team_id": null,
+   "position": null,
+   "kind": "player",
+   "base_1x": 900.0,
+   "season_progress": 1.0,
+   "game_days": 82,
+   "game_days_measured": true,
+   "month_share": [
+    0.111112,
+    0.111111,
+    0.111111,
+    0.111111,
+    0.111111,
+    0.111111,
+    0.0,
+    0.0,
+    0.0,
+    0.111111,
+    0.111111,
+    0.111111
+   ],
+   "rate_traded": 19.12,
+   "rate_sales": 65,
+   "shelf": [
+    [
+     3.2,
+     130
+    ],
+    [
+     1.7,
+     70
+    ],
+    [
+     5.1,
+     210
+    ]
+   ],
+   "shelf_count": 3,
+   "mint_cost": 200,
+   "mintable": true,
+   "rate_bucket": "5-7",
+   "rates_by_bucket": {
+    "0-3": {
+     "rate": null,
+     "sales": 0,
+     "span_d": null,
+     "by_rarity": {},
+     "offers": {
+      "rate": null,
+      "sales": 0,
+      "span_d": null,
+      "by_rarity": {}
+     }
+    },
+    "3-5": {
+     "rate": null,
+     "sales": 0,
+     "span_d": null,
+     "by_rarity": {},
+     "offers": {
+      "rate": null,
+      "sales": 0,
+      "span_d": null,
+      "by_rarity": {}
+     }
+    },
+    "5-7": {
+     "rate": 19.12,
+     "sales": 15,
+     "span_d": 75.9,
+     "by_rarity": {
+      "common": [
+       15.56,
+       2
+      ],
+      "uncommon": [
+       20.34,
+       7
+      ],
+      "rare": [
+       19.04,
+       4
+      ],
+      "legendary": [
+       19.12,
+       2
+      ]
+     },
+     "offers": {
+      "rate": 29.49,
+      "sales": 50,
+      "span_d": 21.3,
+      "by_rarity": {
+       "common": [
+        39.22,
+        6
+       ],
+       "uncommon": [
+        30.54,
+        16
+       ],
+       "rare": [
+        26.43,
+        16
+       ],
+       "epic": [
+        28.08,
+        6
+       ],
+       "legendary": [
+        28.99,
+        6
+       ]
+      }
+     }
+    },
+    "7+": {
+     "rate": null,
+     "sales": 0,
+     "span_d": null,
+     "by_rarity": {},
+     "offers": {
+      "rate": null,
+      "sales": 0,
+      "span_d": null,
+      "by_rarity": {}
+     }
+    }
+   },
+   "rate_build": 20.34,
+   "rate_build_from": {
+    "bucket": "5-7",
+    "rarity": "uncommon",
+    "sales": 7
+   },
+   "shelf_auctions": {
+    "read_at": "2026-11-18T23:06:20Z",
+    "listings": [
+     [
+      3.2,
+      130,
+      130,
+      130,
+      0,
+      21156,
+      false,
+      "uncommon"
+     ],
+     [
+      1.7,
+      70,
+      70,
+      70,
+      0,
+      21156,
+      false,
+      "rare"
+     ],
+     [
+      5.1,
+      210,
+      210,
+      210,
+      0,
+      21156,
+      false,
+      "common"
+     ]
+    ]
+   }
+  },
+  {
+   "key": "mlb:2025:player:9005",
+   "sport": "mlb",
+   "season": 2025,
+   "season_label": "2025",
+   "season_state": "past",
+   "player_id": 9005,
+   "player_name": "Thin",
+   "team_id": null,
+   "position": null,
+   "kind": "player",
+   "base_1x": 500.0,
+   "season_progress": 1.0,
+   "game_days": 150,
+   "game_days_measured": true,
+   "month_share": [
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083337
+   ],
+   "rate_traded": 22.0,
+   "rate_sales": 6,
+   "shelf": [
+    [
+     4.0,
+     80
+    ]
+   ],
+   "shelf_count": 1,
+   "mint_cost": 200,
+   "mintable": true,
+   "rate_bucket": "3-5",
+   "rates_by_bucket": {
+    "0-3": {
+     "rate": null,
+     "sales": 0,
+     "span_d": null,
+     "by_rarity": {},
+     "offers": {
+      "rate": null,
+      "sales": 0,
+      "span_d": null,
+      "by_rarity": {}
+     }
+    },
+    "3-5": {
+     "rate": 22.0,
+     "sales": 6,
+     "span_d": 30.0,
+     "by_rarity": {
+      "common": [
+       18.0,
+       3
+      ],
+      "rare": [
+       40.0,
+       3
+      ]
+     },
+     "offers": {
+      "rate": null,
+      "sales": 0,
+      "span_d": null,
+      "by_rarity": {}
+     }
+    },
+    "5-7": {
+     "rate": null,
+     "sales": 0,
+     "span_d": null,
+     "by_rarity": {},
+     "offers": {
+      "rate": null,
+      "sales": 0,
+      "span_d": null,
+      "by_rarity": {}
+     }
+    },
+    "7+": {
+     "rate": null,
+     "sales": 0,
+     "span_d": null,
+     "by_rarity": {},
+     "offers": {
+      "rate": null,
+      "sales": 0,
+      "span_d": null,
+      "by_rarity": {}
+     }
+    }
+   },
+   "rate_build": null,
+   "rate_build_from": null,
+   "shelf_auctions": null
+  },
+  {
+   "key": "nba:2025:player:9006",
+   "sport": "nba",
+   "season": 2025,
+   "season_label": "2024-25",
+   "season_state": "past",
+   "player_id": 9006,
+   "player_name": "Plain",
+   "team_id": null,
+   "position": null,
+   "kind": "player",
+   "base_1x": 300.0,
+   "season_progress": 1.0,
+   "game_days": 80,
+   "game_days_measured": true,
+   "month_share": [
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083333,
+    0.083337
+   ],
+   "rate_traded": 10.0,
+   "rate_sales": 20,
+   "shelf": [
+    [
+     5.0,
+     40
+    ],
+    [
+     6.0,
+     48
+    ]
+   ],
+   "shelf_count": 2,
+   "mint_cost": 200,
+   "mintable": true
+  },
+  {
+   "key": "nhl:2025:player:9007",
+   "sport": "nhl",
+   "season": 2025,
+   "season_label": "2024-25",
+   "season_state": "past",
+   "player_id": 9007,
+   "player_name": "Firm",
+   "team_id": null,
+   "position": null,
+   "kind": "player",
+   "base_1x": 900.0,
+   "season_progress": 1.0,
+   "game_days": 82,
+   "game_days_measured": true,
+   "month_share": [
+    0.111112,
+    0.111111,
+    0.111111,
+    0.111111,
+    0.111111,
+    0.111111,
+    0.0,
+    0.0,
+    0.0,
+    0.111111,
+    0.111111,
+    0.111111
+   ],
+   "rate_traded": 30.0,
+   "rate_sales": 20,
+   "shelf": [
+    [
+     4.0,
+     160
+    ],
+    [
+     3.0,
+     120
+    ],
+    [
+     3.0,
+     120
+    ],
+    [
+     2.0,
+     80
+    ]
+   ],
+   "shelf_count": 4,
+   "mint_cost": 200,
+   "mintable": true,
+   "rate_bucket": "3-5",
+   "rates_by_bucket": {
+    "0-3": {
+     "rate": null,
+     "sales": 0,
+     "span_d": null,
+     "by_rarity": {},
+     "offers": {
+      "rate": null,
+      "sales": 0,
+      "span_d": null,
+      "by_rarity": {}
+     }
+    },
+    "5-7": {
+     "rate": null,
+     "sales": 0,
+     "span_d": null,
+     "by_rarity": {},
+     "offers": {
+      "rate": null,
+      "sales": 0,
+      "span_d": null,
+      "by_rarity": {}
+     }
+    },
+    "7+": {
+     "rate": null,
+     "sales": 0,
+     "span_d": null,
+     "by_rarity": {},
+     "offers": {
+      "rate": null,
+      "sales": 0,
+      "span_d": null,
+      "by_rarity": {}
+     }
+    },
+    "3-5": {
+     "rate": 30.0,
+     "sales": 20,
+     "span_d": 3.0,
+     "by_rarity": {
+      "common": [
+       20.0,
+       8
+      ],
+      "uncommon": [
+       32.0,
+       12
+      ]
+     },
+     "offers": {
+      "rate": 12.0,
+      "sales": 10,
+      "span_d": 4.0,
+      "by_rarity": {
+       "common": [
+        11.0,
+        6
+       ]
+      }
+     }
+    }
+   },
+   "rate_build": 20.0,
+   "rate_build_from": {
+    "bucket": "3-5",
+    "rarity": "common",
+    "sales": 8
+   },
+   "shelf_auctions": {
+    "read_at": "2026-11-18T23:06:20Z",
+    "listings": [
+     [
+      2.0,
+      20,
+      20,
+      30,
+      0,
+      90000,
+      false,
+      "common"
+     ],
+     [
+      4.0,
+      60,
+      60,
+      90,
+      1,
+      3000,
+      false,
+      "common"
+     ],
+     [
+      3.0,
+      48,
+      48,
+      70,
+      0,
+      4000,
+      false,
+      "common"
+     ],
+     [
+      3.0,
+      48,
+      48,
+      70,
+      0,
+      5000,
+      false,
+      "common"
+     ]
+    ]
+   }
+  }
+ ],
+ "expect": {
+  "passes": {
+   "nba:2027:player:9001": {
+    "build": {
+     "rate": 30.36,
+     "thin": false,
+     "bucket": "5-7",
+     "rarity": "common",
+     "sales": 11
+    },
+    "costs": {
+     "general": 200,
+     "common": 503.6,
+     "uncommon": 1110.8,
+     "rare": 2628.8,
+     "epic": 5664.8,
+     "legendary": 11736.8,
+     "mystic": 42096.799999999996,
+     "iconic": 102816.8
+    },
+    "on_sale": {
+     "common": {
+      "rating": 11.8,
+      "cost": 460,
+      "enough": true,
+      "firm": true
+     },
+     "rare": {
+      "rating": 40.8,
+      "cost": 1920,
+      "enough": false,
+      "firm": true
+     }
+    }
+   },
+   "nba:2027:player:9002": {
+    "build": {
+     "rate": 38.46,
+     "thin": false,
+     "bucket": null,
+     "rarity": null,
+     "sales": 100
+    },
+    "costs": {
+     "general": 200,
+     "common": 584.6,
+     "uncommon": 1353.8,
+     "rare": 3276.8,
+     "epic": 7122.8,
+     "legendary": 14814.800000000001,
+     "mystic": 53274.8,
+     "iconic": 130194.8
+    },
+    "on_sale": {
+     "common": {
+      "rating": 10.3,
+      "cost": 90,
+      "enough": true,
+      "firm": null
+     },
+     "rare": {
+      "rating": 24.6,
+      "cost": 230,
+      "enough": false,
+      "firm": null
+     }
+    }
+   },
+   "nfl:2024:player:9003": {
+    "build": {
+     "rate": 29.17,
+     "thin": false,
+     "bucket": "7+",
+     "rarity": "legendary",
+     "sales": 7
+    },
+    "costs": {
+     "common": 491.70000000000005,
+     "uncommon": 1075.1,
+     "rare": 2533.6000000000004,
+     "epic": 5450.6,
+     "legendary": 11284.6,
+     "mystic": 40454.600000000006,
+     "iconic": 98794.6
+    },
+    "on_sale": {
+     "common": {
+      "rating": 0.0,
+      "cost": 0,
+      "enough": false,
+      "firm": true
+     },
+     "rare": {
+      "rating": 0.0,
+      "cost": 0,
+      "enough": false,
+      "firm": true
+     }
+    }
+   },
+   "nhl:2023:player:9004": {
+    "build": {
+     "rate": 20.34,
+     "thin": false,
+     "bucket": "5-7",
+     "rarity": "uncommon",
+     "sales": 7
+    },
+    "costs": {
+     "common": 403.4,
+     "uncommon": 810.2,
+     "rare": 1827.2,
+     "epic": 3861.2,
+     "legendary": 7929.2,
+     "mystic": 28269.2,
+     "iconic": 68949.2
+    },
+    "on_sale": {
+     "common": {
+      "rating": 10.0,
+      "cost": 410,
+      "enough": true,
+      "firm": false
+     },
+     "rare": {
+      "rating": 10.0,
+      "cost": 410,
+      "enough": false,
+      "firm": false
+     }
+    }
+   },
+   "mlb:2025:player:9005": {
+    "build": {
+     "rate": 22.0,
+     "thin": true,
+     "bucket": "3-5",
+     "rarity": null,
+     "sales": 6
+    },
+    "costs": {
+     "common": 420.0,
+     "uncommon": 860.0,
+     "rare": 1960.0,
+     "epic": 4160.0,
+     "legendary": 8560.0,
+     "mystic": 30560.0,
+     "iconic": 74560.0
+    },
+    "on_sale": {
+     "common": {
+      "rating": 4.0,
+      "cost": 80,
+      "enough": false,
+      "firm": null
+     },
+     "rare": {
+      "rating": 4.0,
+      "cost": 80,
+      "enough": false,
+      "firm": null
+     }
+    }
+   },
+   "nba:2025:player:9006": {
+    "build": {
+     "rate": 10.0,
+     "thin": false,
+     "bucket": null,
+     "rarity": null,
+     "sales": 20
+    },
+    "costs": {
+     "common": 300.0,
+     "uncommon": 500.0,
+     "rare": 1000.0,
+     "epic": 2000.0,
+     "legendary": 4000.0,
+     "mystic": 14000.0,
+     "iconic": 34000.0
+    },
+    "on_sale": {
+     "common": {
+      "rating": 11.0,
+      "cost": 88,
+      "enough": true,
+      "firm": null
+     },
+     "rare": {
+      "rating": 11.0,
+      "cost": 88,
+      "enough": false,
+      "firm": null
+     }
+    }
+   },
+   "nhl:2025:player:9007": {
+    "build": {
+     "rate": 20.0,
+     "thin": false,
+     "bucket": "3-5",
+     "rarity": "common",
+     "sales": 8
+    },
+    "costs": {
+     "common": 400.0,
+     "uncommon": 800.0,
+     "rare": 1800.0,
+     "epic": 3800.0,
+     "legendary": 7800.0,
+     "mystic": 27800.0,
+     "iconic": 67800.0
+    },
+    "on_sale": {
+     "common": {
+      "rating": 12.0,
+      "cost": 176,
+      "enough": true,
+      "firm": false
+     },
+     "rare": {
+      "rating": 12.0,
+      "cost": 176,
+      "enough": false,
+      "firm": false
+     }
+    }
+   }
+  },
+  "pass_deals": {
+   "new": [
+    [
+     "nhl:2025:player:9007",
+     356.0
+    ],
+    [
+     "nba:2025:player:9006",
+     288.0
+    ]
+   ],
+   "regular": [
+    [
+     "nba:2027:player:9002",
+     290.4
+    ],
+    [
+     "nhl:2025:player:9007",
+     356.0
+    ],
+    [
+     "nba:2025:player:9006",
+     288.0
+    ]
+   ],
+   "pro": [
+    [
+     "nba:2027:player:9002",
+     290.4
+    ],
+    [
+     "nhl:2025:player:9007",
+     356.0
+    ],
+    [
+     "nba:2025:player:9006",
+     288.0
+    ]
+   ]
+  }
+ },
+ "otd": {
+  "as_of": "2026-11-18T23:16:20Z",
+  "sports": {
+   "mlb": {
+    "claim_days": 205,
+    "months": [
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   "nba": {
+    "claim_days": 210,
+    "months": [
+     10,
+     11,
+     12,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "nfl": {
+    "claim_days": 62,
+    "months": [
+     9,
+     10,
+     11,
+     12,
+     1,
+     2
+    ]
+   },
+   "nhl": {
+    "claim_days": 195,
+    "months": [
+     10,
+     11,
+     12,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   }
+  },
+  "markets": [
+   {
+    "key": "mlb:2025:player:9005",
+    "sport": "mlb",
+    "season": 2025,
+    "season_label": "2025",
+    "season_state": "past",
+    "player_id": 9005,
+    "player_name": "Thin",
+    "team_id": null,
+    "position": null,
+    "kind": "player",
+    "base_1x": 500.0,
+    "season_progress": 1.0,
+    "game_days": 150,
+    "game_days_measured": true,
+    "month_share": [
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083337
+    ],
+    "month_share_estimated": false,
+    "rate_traded": 22.0,
+    "rate_sales": 6,
+    "shelf": [
+     [
+      4.0,
+      80
+     ]
+    ],
+    "shelf_count": 1,
+    "mint_cost": 200,
+    "mintable": true,
+    "rate_bucket": "3-5",
+    "rate_build": null,
+    "rungs": [
+     {
+      "tier": "common",
+      "rating": 10,
+      "mult": 2,
+      "limit": 1000,
+      "limit_estimated": false,
+      "rating_to_add": 10,
+      "cost": 420,
+      "route": "mint+cards",
+      "year_rax": 1000,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 6.7,
+      "years_to_limit": 1.0,
+      "year_per_rax": 2.38,
+      "lifetime_per_rax": 2.38,
+      "pays_back": true,
+      "payback_months": 5.0,
+      "payback_month": "2027-04"
+     },
+     {
+      "tier": "uncommon",
+      "rating": 30,
+      "mult": 3,
+      "limit": 1500,
+      "limit_estimated": false,
+      "rating_to_add": 30,
+      "cost": 860,
+      "route": "mint+cards",
+      "year_rax": 1500,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 10.0,
+      "years_to_limit": 1.0,
+      "year_per_rax": 1.74,
+      "lifetime_per_rax": 1.74,
+      "pays_back": true,
+      "payback_months": 6.9,
+      "payback_month": "2027-06"
+     },
+     {
+      "tier": "rare",
+      "rating": 80,
+      "mult": 4,
+      "limit": 2000,
+      "limit_estimated": false,
+      "rating_to_add": 80,
+      "cost": 1960,
+      "route": "mint+cards",
+      "year_rax": 2000,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 13.3,
+      "years_to_limit": 1.0,
+      "year_per_rax": 1.02,
+      "lifetime_per_rax": 1.02,
+      "pays_back": true,
+      "payback_months": 11.8,
+      "payback_month": "2027-11"
+     },
+     {
+      "tier": "epic",
+      "rating": 180,
+      "mult": 10,
+      "limit": 5000,
+      "limit_estimated": false,
+      "rating_to_add": 180,
+      "cost": 4160,
+      "route": "mint+cards",
+      "year_rax": 5000,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 33.3,
+      "years_to_limit": 1.0,
+      "year_per_rax": 1.2,
+      "lifetime_per_rax": 1.2,
+      "pays_back": true,
+      "payback_months": 10.0,
+      "payback_month": "2027-09"
+     },
+     {
+      "tier": "legendary",
+      "rating": 380,
+      "mult": 25,
+      "limit": 12500,
+      "limit_estimated": false,
+      "rating_to_add": 380,
+      "cost": 8560,
+      "route": "mint+cards",
+      "year_rax": 12500,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 83.3,
+      "years_to_limit": 1.0,
+      "year_per_rax": 1.46,
+      "lifetime_per_rax": 1.46,
+      "pays_back": true,
+      "payback_months": 8.2,
+      "payback_month": "2027-07"
+     },
+     {
+      "tier": "mystic",
+      "rating": 1380,
+      "mult": 75,
+      "limit": 37500,
+      "limit_estimated": false,
+      "rating_to_add": 1380,
+      "cost": 30560,
+      "route": "mint+cards",
+      "year_rax": 37500,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 250.0,
+      "years_to_limit": 1.0,
+      "year_per_rax": 1.23,
+      "lifetime_per_rax": 1.23,
+      "pays_back": true,
+      "payback_months": 9.8,
+      "payback_month": "2027-09"
+     },
+     {
+      "tier": "iconic",
+      "rating": 3380,
+      "mult": 150,
+      "limit": null,
+      "limit_estimated": false,
+      "rating_to_add": 3380,
+      "cost": 74560,
+      "route": "mint+cards",
+      "year_rax": 75000,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 500.0,
+      "years_to_limit": null,
+      "year_per_rax": 1.01,
+      "lifetime_per_rax": 3.02,
+      "pays_back": true,
+      "payback_months": 11.9,
+      "payback_month": "2027-11"
+     }
+    ],
+    "best": "common",
+    "weak": [
+     "rare"
+    ],
+    "on_sale": {
+     "on_sale_rating": 4.0,
+     "on_sale_cost": 80,
+     "enough": false
+    }
+   },
+   {
+    "key": "nba:2025:player:9006",
+    "sport": "nba",
+    "season": 2025,
+    "season_label": "2024-25",
+    "season_state": "past",
+    "player_id": 9006,
+    "player_name": "Plain",
+    "team_id": null,
+    "position": null,
+    "kind": "player",
+    "base_1x": 300.0,
+    "season_progress": 1.0,
+    "game_days": 80,
+    "game_days_measured": true,
+    "month_share": [
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083337
+    ],
+    "month_share_estimated": false,
+    "rate_traded": 10.0,
+    "rate_sales": 20,
+    "shelf": [
+     [
+      5.0,
+      40
+     ],
+     [
+      6.0,
+      48
+     ]
+    ],
+    "shelf_count": 2,
+    "mint_cost": 200,
+    "mintable": true,
+    "rungs": [
+     {
+      "tier": "common",
+      "rating": 10,
+      "mult": 2,
+      "limit": 1000,
+      "limit_estimated": false,
+      "rating_to_add": 10,
+      "cost": 300,
+      "route": "mint+cards",
+      "year_rax": 600,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 7.5,
+      "years_to_limit": 1.67,
+      "year_per_rax": 2.0,
+      "lifetime_per_rax": 3.33,
+      "pays_back": true,
+      "payback_months": 6.0,
+      "payback_month": "2027-05"
+     },
+     {
+      "tier": "uncommon",
+      "rating": 30,
+      "mult": 3,
+      "limit": 1500,
+      "limit_estimated": false,
+      "rating_to_add": 30,
+      "cost": 500,
+      "route": "mint+cards",
+      "year_rax": 900,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 11.2,
+      "years_to_limit": 1.67,
+      "year_per_rax": 1.8,
+      "lifetime_per_rax": 3.0,
+      "pays_back": true,
+      "payback_months": 6.7,
+      "payback_month": "2027-06"
+     },
+     {
+      "tier": "rare",
+      "rating": 80,
+      "mult": 4,
+      "limit": 2000,
+      "limit_estimated": false,
+      "rating_to_add": 80,
+      "cost": 1000,
+      "route": "mint+cards",
+      "year_rax": 1200,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 15.0,
+      "years_to_limit": 1.67,
+      "year_per_rax": 1.2,
+      "lifetime_per_rax": 2.0,
+      "pays_back": true,
+      "payback_months": 10.0,
+      "payback_month": "2027-09"
+     },
+     {
+      "tier": "epic",
+      "rating": 180,
+      "mult": 10,
+      "limit": 5000,
+      "limit_estimated": false,
+      "rating_to_add": 180,
+      "cost": 2000,
+      "route": "mint+cards",
+      "year_rax": 3000,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 37.5,
+      "years_to_limit": 1.67,
+      "year_per_rax": 1.5,
+      "lifetime_per_rax": 2.5,
+      "pays_back": true,
+      "payback_months": 8.0,
+      "payback_month": "2027-07"
+     },
+     {
+      "tier": "legendary",
+      "rating": 380,
+      "mult": 25,
+      "limit": 12500,
+      "limit_estimated": false,
+      "rating_to_add": 380,
+      "cost": 4000,
+      "route": "mint+cards",
+      "year_rax": 7500,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 93.8,
+      "years_to_limit": 1.67,
+      "year_per_rax": 1.88,
+      "lifetime_per_rax": 3.12,
+      "pays_back": true,
+      "payback_months": 6.4,
+      "payback_month": "2027-05"
+     },
+     {
+      "tier": "mystic",
+      "rating": 1380,
+      "mult": 75,
+      "limit": 37500,
+      "limit_estimated": false,
+      "rating_to_add": 1380,
+      "cost": 14000,
+      "route": "mint+cards",
+      "year_rax": 22500,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 281.2,
+      "years_to_limit": 1.67,
+      "year_per_rax": 1.61,
+      "lifetime_per_rax": 2.68,
+      "pays_back": true,
+      "payback_months": 7.5,
+      "payback_month": "2027-07"
+     },
+     {
+      "tier": "iconic",
+      "rating": 3380,
+      "mult": 150,
+      "limit": null,
+      "limit_estimated": false,
+      "rating_to_add": 3380,
+      "cost": 34000,
+      "route": "mint+cards",
+      "year_rax": 45000,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 562.5,
+      "years_to_limit": null,
+      "year_per_rax": 1.32,
+      "lifetime_per_rax": 3.97,
+      "pays_back": true,
+      "payback_months": 9.1,
+      "payback_month": "2027-08"
+     }
+    ],
+    "best": "common",
+    "weak": [
+     "rare"
+    ],
+    "on_sale": {
+     "on_sale_rating": 11.0,
+     "on_sale_cost": 88,
+     "enough": true
+    }
+   },
+   {
+    "key": "nfl:2024:player:9003",
+    "sport": "nfl",
+    "season": 2024,
+    "season_label": "2024",
+    "season_state": "past",
+    "player_id": 9003,
+    "player_name": "Gibbs",
+    "team_id": null,
+    "position": null,
+    "kind": "player",
+    "base_1x": 600.0,
+    "season_progress": 1.0,
+    "game_days": 17,
+    "game_days_measured": true,
+    "month_share": [
+     0.2,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.15,
+     0.25,
+     0.2,
+     0.2
+    ],
+    "month_share_estimated": false,
+    "rate_traded": 164.38,
+    "rate_sales": 80,
+    "shelf": [
+     [
+      7.3,
+      25000
+     ]
+    ],
+    "shelf_count": 1,
+    "mint_cost": 200,
+    "mintable": true,
+    "rate_bucket": "7+",
+    "rate_build": 29.17,
+    "rate_build_from": {
+     "bucket": "7+",
+     "rarity": "legendary",
+     "sales": 7
+    },
+    "offers": [
+     [
+      "7+",
+      null,
+      36.24,
+      50,
+      164.38
+     ],
+     [
+      "7+",
+      "common",
+      41.1,
+      8,
+      null
+     ],
+     [
+      "7+",
+      "legendary",
+      32.47,
+      31,
+      29.17
+     ]
+    ],
+    "auctions": [
+     [
+      7.3,
+      25000,
+      0
+     ]
+    ],
+    "rungs": [
+     {
+      "tier": "common",
+      "rating": 10,
+      "mult": 2,
+      "limit": 1000,
+      "limit_estimated": false,
+      "rating_to_add": 10,
+      "cost": 492,
+      "route": "mint+cards",
+      "year_rax": 1000,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 70.6,
+      "years_to_limit": 0.83,
+      "year_per_rax": 2.03,
+      "lifetime_per_rax": 2.03,
+      "pays_back": true,
+      "payback_months": 2.0,
+      "payback_month": "2027-01"
+     },
+     {
+      "tier": "uncommon",
+      "rating": 30,
+      "mult": 3,
+      "limit": 1500,
+      "limit_estimated": false,
+      "rating_to_add": 30,
+      "cost": 1075,
+      "route": "mint+cards",
+      "year_rax": 1500,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 105.9,
+      "years_to_limit": 0.83,
+      "year_per_rax": 1.4,
+      "lifetime_per_rax": 1.4,
+      "pays_back": true,
+      "payback_months": 10.2,
+      "payback_month": "2027-09"
+     },
+     {
+      "tier": "rare",
+      "rating": 80,
+      "mult": 4,
+      "limit": 2000,
+      "limit_estimated": false,
+      "rating_to_add": 80,
+      "cost": 2534,
+      "route": "mint+cards",
+      "year_rax": 2000,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 141.2,
+      "years_to_limit": 0.83,
+      "year_per_rax": 0.79,
+      "lifetime_per_rax": 0.79,
+      "pays_back": false,
+      "payback_months": null,
+      "payback_month": null
+     },
+     {
+      "tier": "epic",
+      "rating": 180,
+      "mult": 10,
+      "limit": 5000,
+      "limit_estimated": false,
+      "rating_to_add": 180,
+      "cost": 5451,
+      "route": "mint+cards",
+      "year_rax": 5000,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 352.9,
+      "years_to_limit": 0.83,
+      "year_per_rax": 0.92,
+      "lifetime_per_rax": 0.92,
+      "pays_back": false,
+      "payback_months": null,
+      "payback_month": null
+     },
+     {
+      "tier": "legendary",
+      "rating": 380,
+      "mult": 25,
+      "limit": 12500,
+      "limit_estimated": false,
+      "rating_to_add": 380,
+      "cost": 11285,
+      "route": "mint+cards",
+      "year_rax": 12500,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 882.4,
+      "years_to_limit": 0.83,
+      "year_per_rax": 1.11,
+      "lifetime_per_rax": 1.11,
+      "pays_back": true,
+      "payback_months": 10.9,
+      "payback_month": "2027-10"
+     },
+     {
+      "tier": "mystic",
+      "rating": 1380,
+      "mult": 75,
+      "limit": 37500,
+      "limit_estimated": false,
+      "rating_to_add": 1380,
+      "cost": 40455,
+      "route": "mint+cards",
+      "year_rax": 37500,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 2647.1,
+      "years_to_limit": 0.83,
+      "year_per_rax": 0.93,
+      "lifetime_per_rax": 0.93,
+      "pays_back": false,
+      "payback_months": null,
+      "payback_month": null
+     },
+     {
+      "tier": "iconic",
+      "rating": 3380,
+      "mult": 150,
+      "limit": null,
+      "limit_estimated": false,
+      "rating_to_add": 3380,
+      "cost": 98795,
+      "route": "mint+cards",
+      "year_rax": 90000,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 5294.1,
+      "years_to_limit": null,
+      "year_per_rax": 0.91,
+      "lifetime_per_rax": 2.73,
+      "pays_back": true,
+      "payback_months": 12.5,
+      "payback_month": "2027-12"
+     }
+    ],
+    "best": "common",
+    "weak": [
+     "rare"
+    ],
+    "on_sale": {
+     "on_sale_rating": 0.0,
+     "on_sale_cost": 0,
+     "enough": false,
+     "firm": true
+    }
+   },
+   {
+    "key": "nhl:2023:player:9004",
+    "sport": "nhl",
+    "season": 2023,
+    "season_label": "2023-24",
+    "season_state": "past",
+    "player_id": 9004,
+    "player_name": "Matthews",
+    "team_id": null,
+    "position": null,
+    "kind": "player",
+    "base_1x": 900.0,
+    "season_progress": 1.0,
+    "game_days": 82,
+    "game_days_measured": true,
+    "month_share": [
+     0.111112,
+     0.111111,
+     0.111111,
+     0.111111,
+     0.111111,
+     0.111111,
+     0.0,
+     0.0,
+     0.0,
+     0.111111,
+     0.111111,
+     0.111111
+    ],
+    "month_share_estimated": false,
+    "rate_traded": 19.12,
+    "rate_sales": 65,
+    "shelf": [
+     [
+      3.2,
+      130
+     ],
+     [
+      1.7,
+      70
+     ],
+     [
+      5.1,
+      210
+     ]
+    ],
+    "shelf_count": 3,
+    "mint_cost": 200,
+    "mintable": true,
+    "rate_bucket": "5-7",
+    "rate_build": 20.34,
+    "rate_build_from": {
+     "bucket": "5-7",
+     "rarity": "uncommon",
+     "sales": 7
+    },
+    "offers": [
+     [
+      "5-7",
+      null,
+      29.49,
+      50,
+      19.12
+     ],
+     [
+      "5-7",
+      "common",
+      39.22,
+      6,
+      null
+     ],
+     [
+      "5-7",
+      "uncommon",
+      30.54,
+      16,
+      20.34
+     ],
+     [
+      "5-7",
+      "rare",
+      26.43,
+      16,
+      null
+     ],
+     [
+      "5-7",
+      "epic",
+      28.08,
+      6,
+      null
+     ],
+     [
+      "5-7",
+      "legendary",
+      28.99,
+      6,
+      null
+     ]
+    ],
+    "auctions": [
+     [
+      3.2,
+      130,
+      0
+     ],
+     [
+      1.7,
+      70,
+      0
+     ],
+     [
+      5.1,
+      210,
+      0
+     ]
+    ],
+    "rungs": [
+     {
+      "tier": "common",
+      "rating": 10,
+      "mult": 2,
+      "limit": 1000,
+      "limit_estimated": false,
+      "rating_to_add": 10,
+      "cost": 403,
+      "route": "mint+cards",
+      "year_rax": 1000,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 22.0,
+      "years_to_limit": 0.56,
+      "year_per_rax": 2.48,
+      "lifetime_per_rax": 2.48,
+      "pays_back": true,
+      "payback_months": 2.0,
+      "payback_month": "2027-01"
+     },
+     {
+      "tier": "uncommon",
+      "rating": 30,
+      "mult": 3,
+      "limit": 1500,
+      "limit_estimated": false,
+      "rating_to_add": 30,
+      "cost": 810,
+      "route": "mint+cards",
+      "year_rax": 1500,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 32.9,
+      "years_to_limit": 0.56,
+      "year_per_rax": 1.85,
+      "lifetime_per_rax": 1.85,
+      "pays_back": true,
+      "payback_months": 2.7,
+      "payback_month": "2027-02"
+     },
+     {
+      "tier": "rare",
+      "rating": 80,
+      "mult": 4,
+      "limit": 2000,
+      "limit_estimated": false,
+      "rating_to_add": 80,
+      "cost": 1827,
+      "route": "mint+cards",
+      "year_rax": 2000,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 43.9,
+      "years_to_limit": 0.56,
+      "year_per_rax": 1.09,
+      "lifetime_per_rax": 1.09,
+      "pays_back": true,
+      "payback_months": 4.6,
+      "payback_month": "2027-04"
+     },
+     {
+      "tier": "epic",
+      "rating": 180,
+      "mult": 10,
+      "limit": 5000,
+      "limit_estimated": false,
+      "rating_to_add": 180,
+      "cost": 3861,
+      "route": "mint+cards",
+      "year_rax": 5000,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 109.8,
+      "years_to_limit": 0.56,
+      "year_per_rax": 1.29,
+      "lifetime_per_rax": 1.29,
+      "pays_back": true,
+      "payback_months": 3.9,
+      "payback_month": "2027-03"
+     },
+     {
+      "tier": "legendary",
+      "rating": 380,
+      "mult": 25,
+      "limit": 12500,
+      "limit_estimated": false,
+      "rating_to_add": 380,
+      "cost": 7929,
+      "route": "mint+cards",
+      "year_rax": 12500,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 274.4,
+      "years_to_limit": 0.56,
+      "year_per_rax": 1.58,
+      "lifetime_per_rax": 1.58,
+      "pays_back": true,
+      "payback_months": 3.2,
+      "payback_month": "2027-02"
+     },
+     {
+      "tier": "mystic",
+      "rating": 1380,
+      "mult": 75,
+      "limit": 37500,
+      "limit_estimated": false,
+      "rating_to_add": 1380,
+      "cost": 28269,
+      "route": "mint+cards",
+      "year_rax": 37500,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 823.2,
+      "years_to_limit": 0.56,
+      "year_per_rax": 1.33,
+      "lifetime_per_rax": 1.33,
+      "pays_back": true,
+      "payback_months": 3.8,
+      "payback_month": "2027-03"
+     },
+     {
+      "tier": "iconic",
+      "rating": 3380,
+      "mult": 150,
+      "limit": null,
+      "limit_estimated": false,
+      "rating_to_add": 3380,
+      "cost": 68949,
+      "route": "mint+cards",
+      "year_rax": 135000,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 1646.3,
+      "years_to_limit": null,
+      "year_per_rax": 1.96,
+      "lifetime_per_rax": 5.87,
+      "pays_back": true,
+      "payback_months": 4.6,
+      "payback_month": "2027-04"
+     }
+    ],
+    "best": "common",
+    "weak": [
+     "rare"
+    ],
+    "on_sale": {
+     "on_sale_rating": 10.0,
+     "on_sale_cost": 410,
+     "enough": true,
+     "firm": false
+    }
+   },
+   {
+    "key": "nhl:2025:player:9007",
+    "sport": "nhl",
+    "season": 2025,
+    "season_label": "2024-25",
+    "season_state": "past",
+    "player_id": 9007,
+    "player_name": "Firm",
+    "team_id": null,
+    "position": null,
+    "kind": "player",
+    "base_1x": 900.0,
+    "season_progress": 1.0,
+    "game_days": 82,
+    "game_days_measured": true,
+    "month_share": [
+     0.111112,
+     0.111111,
+     0.111111,
+     0.111111,
+     0.111111,
+     0.111111,
+     0.0,
+     0.0,
+     0.0,
+     0.111111,
+     0.111111,
+     0.111111
+    ],
+    "month_share_estimated": false,
+    "rate_traded": 30.0,
+    "rate_sales": 20,
+    "shelf": [
+     [
+      2.0,
+      80
+     ],
+     [
+      3.0,
+      120
+     ],
+     [
+      3.0,
+      120
+     ],
+     [
+      4.0,
+      160
+     ]
+    ],
+    "shelf_count": 4,
+    "mint_cost": 200,
+    "mintable": true,
+    "rate_bucket": "3-5",
+    "rate_build": 20.0,
+    "rate_build_from": {
+     "bucket": "3-5",
+     "rarity": "common",
+     "sales": 8
+    },
+    "offers": [
+     [
+      "3-5",
+      null,
+      12.0,
+      10,
+      30.0
+     ],
+     [
+      "3-5",
+      "common",
+      11.0,
+      6,
+      20.0
+     ]
+    ],
+    "auctions": [
+     [
+      2.0,
+      20,
+      0
+     ],
+     [
+      4.0,
+      60,
+      1
+     ],
+     [
+      3.0,
+      48,
+      1
+     ],
+     [
+      3.0,
+      48,
+      1
+     ]
+    ],
+    "rungs": [
+     {
+      "tier": "common",
+      "rating": 10,
+      "mult": 2,
+      "limit": 1000,
+      "limit_estimated": false,
+      "rating_to_add": 10,
+      "cost": 400,
+      "route": "mint+cards",
+      "year_rax": 1000,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 22.0,
+      "years_to_limit": 0.56,
+      "year_per_rax": 2.5,
+      "lifetime_per_rax": 2.5,
+      "pays_back": true,
+      "payback_months": 2.0,
+      "payback_month": "2027-01"
+     },
+     {
+      "tier": "uncommon",
+      "rating": 30,
+      "mult": 3,
+      "limit": 1500,
+      "limit_estimated": false,
+      "rating_to_add": 30,
+      "cost": 800,
+      "route": "mint+cards",
+      "year_rax": 1500,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 32.9,
+      "years_to_limit": 0.56,
+      "year_per_rax": 1.88,
+      "lifetime_per_rax": 1.88,
+      "pays_back": true,
+      "payback_months": 2.7,
+      "payback_month": "2027-02"
+     },
+     {
+      "tier": "rare",
+      "rating": 80,
+      "mult": 4,
+      "limit": 2000,
+      "limit_estimated": false,
+      "rating_to_add": 80,
+      "cost": 1800,
+      "route": "mint+cards",
+      "year_rax": 2000,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 43.9,
+      "years_to_limit": 0.56,
+      "year_per_rax": 1.11,
+      "lifetime_per_rax": 1.11,
+      "pays_back": true,
+      "payback_months": 4.5,
+      "payback_month": "2027-04"
+     },
+     {
+      "tier": "epic",
+      "rating": 180,
+      "mult": 10,
+      "limit": 5000,
+      "limit_estimated": false,
+      "rating_to_add": 180,
+      "cost": 3800,
+      "route": "mint+cards",
+      "year_rax": 5000,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 109.8,
+      "years_to_limit": 0.56,
+      "year_per_rax": 1.32,
+      "lifetime_per_rax": 1.32,
+      "pays_back": true,
+      "payback_months": 3.8,
+      "payback_month": "2027-03"
+     },
+     {
+      "tier": "legendary",
+      "rating": 380,
+      "mult": 25,
+      "limit": 12500,
+      "limit_estimated": false,
+      "rating_to_add": 380,
+      "cost": 7800,
+      "route": "mint+cards",
+      "year_rax": 12500,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 274.4,
+      "years_to_limit": 0.56,
+      "year_per_rax": 1.6,
+      "lifetime_per_rax": 1.6,
+      "pays_back": true,
+      "payback_months": 3.1,
+      "payback_month": "2027-02"
+     },
+     {
+      "tier": "mystic",
+      "rating": 1380,
+      "mult": 75,
+      "limit": 37500,
+      "limit_estimated": false,
+      "rating_to_add": 1380,
+      "cost": 27800,
+      "route": "mint+cards",
+      "year_rax": 37500,
+      "year_capped": true,
+      "projected": false,
+      "per_game_day": 823.2,
+      "years_to_limit": 0.56,
+      "year_per_rax": 1.35,
+      "lifetime_per_rax": 1.35,
+      "pays_back": true,
+      "payback_months": 3.7,
+      "payback_month": "2027-03"
+     },
+     {
+      "tier": "iconic",
+      "rating": 3380,
+      "mult": 150,
+      "limit": null,
+      "limit_estimated": false,
+      "rating_to_add": 3380,
+      "cost": 67800,
+      "route": "mint+cards",
+      "year_rax": 135000,
+      "year_capped": false,
+      "projected": false,
+      "per_game_day": 1646.3,
+      "years_to_limit": null,
+      "year_per_rax": 1.99,
+      "lifetime_per_rax": 5.97,
+      "pays_back": true,
+      "payback_months": 4.5,
+      "payback_month": "2027-04"
+     }
+    ],
+    "best": "common",
+    "weak": [
+     "rare"
+    ],
+    "on_sale": {
+     "on_sale_rating": 12.0,
+     "on_sale_cost": 176,
+     "enough": true,
+     "firm": false
+    }
+   }
+  ],
+  "current_markets": [
+   {
+    "key": "nba:2027:player:9001",
+    "sport": "nba",
+    "season": 2027,
+    "season_label": "2026-27",
+    "season_state": "current",
+    "player_id": 9001,
+    "player_name": "Wembanyama",
+    "team_id": null,
+    "position": null,
+    "kind": "player",
+    "base_1x": 812.4,
+    "season_progress": 0.18,
+    "game_days": 82,
+    "game_days_measured": false,
+    "month_share": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "month_share_estimated": true,
+    "rate_traded": 38.46,
+    "rate_sales": 100,
+    "shelf": [
+     [
+      2.3,
+      110
+     ],
+     [
+      5.3,
+      270
+     ],
+     [
+      3.7,
+      190
+     ],
+     [
+      3.7,
+      190
+     ],
+     [
+      5.7,
+      300
+     ],
+     [
+      3.8,
+      200
+     ],
+     [
+      5.2,
+      280
+     ],
+     [
+      2.9,
+      160
+     ],
+     [
+      5.6,
+      310
+     ],
+     [
+      8.3,
+      500
+     ]
+    ],
+    "shelf_count": 694,
+    "mint_cost": 200,
+    "mintable": true,
+    "rate_bucket": "5-7",
+    "rate_build": 30.36,
+    "rate_build_from": {
+     "bucket": "5-7",
+     "rarity": "common",
+     "sales": 11
+    },
+    "offers": [
+     [
+      "3-5",
+      null,
+      9.38,
+      50,
+      40.54
+     ],
+     [
+      "3-5",
+      "common",
+      9.52,
+      31,
+      37.8
+     ],
+     [
+      "3-5",
+      "uncommon",
+      8.7,
+      10,
+      44.42
+     ],
+     [
+      "3-5",
+      "rare",
+      8.51,
+      6,
+      44.23
+     ],
+     [
+      "5-7",
+      null,
+      9.18,
+      50,
+      38.46
+     ],
+     [
+      "5-7",
+      "common",
+      8.93,
+      23,
+      30.36
+     ],
+     [
+      "5-7",
+      "uncommon",
+      8.96,
+      13,
+      36.84
+     ],
+     [
+      "5-7",
+      "rare",
+      9.19,
+      6,
+      42.31
+     ]
+    ],
+    "auctions": [
+     [
+      2.9,
+      110,
+      1
+     ],
+     [
+      5.2,
+      200,
+      1
+     ],
+     [
+      3.7,
+      150,
+      1
+     ],
+     [
+      3.7,
+      150,
+      1
+     ],
+     [
+      5.6,
+      230,
+      1
+     ],
+     [
+      2.3,
+      110,
+      1
+     ],
+     [
+      5.3,
+      270,
+      1
+     ],
+     [
+      3.8,
+      200,
+      1
+     ],
+     [
+      8.3,
+      500,
+      1
+     ]
+    ],
+    "rungs": [
+     {
+      "tier": "general",
+      "rating": 0,
+      "mult": 1,
+      "limit": 0,
+      "limit_estimated": false,
+      "rating_to_add": 0,
+      "cost": 200,
+      "route": "mint",
+      "year_rax": 3701,
+      "year_capped": false,
+      "projected": true,
+      "per_game_day": 55.0,
+      "years_to_limit": null,
+      "year_per_rax": 18.5,
+      "lifetime_per_rax": 18.5,
+      "pays_back": true,
+      "payback_months": 0.5,
+      "payback_month": "2026-12"
+     },
+     {
+      "tier": "common",
+      "rating": 10,
+      "mult": 2,
+      "limit": 1000,
+      "limit_estimated": false,
+      "rating_to_add": 10,
+      "cost": 504,
+      "route": "mint+cards",
+      "year_rax": 7402,
+      "year_capped": true,
+      "projected": true,
+      "per_game_day": 110.1,
+      "years_to_limit": 0.11,
+      "year_per_rax": 14.7,
+      "lifetime_per_rax": 14.7,
+      "pays_back": true,
+      "payback_months": 0.5,
+      "payback_month": "2026-12"
+     },
+     {
+      "tier": "uncommon",
+      "rating": 30,
+      "mult": 3,
+      "limit": 1500,
+      "limit_estimated": false,
+      "rating_to_add": 30,
+      "cost": 1111,
+      "route": "mint+cards",
+      "year_rax": 11103,
+      "year_capped": true,
+      "projected": true,
+      "per_game_day": 165.1,
+      "years_to_limit": 0.11,
+      "year_per_rax": 10.0,
+      "lifetime_per_rax": 10.0,
+      "pays_back": true,
+      "payback_months": 0.7,
+      "payback_month": "2026-12"
+     },
+     {
+      "tier": "rare",
+      "rating": 80,
+      "mult": 4,
+      "limit": 2000,
+      "limit_estimated": false,
+      "rating_to_add": 80,
+      "cost": 2629,
+      "route": "mint+cards",
+      "year_rax": 14804,
+      "year_capped": true,
+      "projected": true,
+      "per_game_day": 220.2,
+      "years_to_limit": 0.11,
+      "year_per_rax": 5.63,
+      "lifetime_per_rax": 5.63,
+      "pays_back": true,
+      "payback_months": 1.3,
+      "payback_month": "2026-12"
+     },
+     {
+      "tier": "epic",
+      "rating": 180,
+      "mult": 10,
+      "limit": 5000,
+      "limit_estimated": false,
+      "rating_to_add": 180,
+      "cost": 5665,
+      "route": "mint+cards",
+      "year_rax": 37009,
+      "year_capped": true,
+      "projected": true,
+      "per_game_day": 550.4,
+      "years_to_limit": 0.11,
+      "year_per_rax": 6.53,
+      "lifetime_per_rax": 6.53,
+      "pays_back": true,
+      "payback_months": 1.1,
+      "payback_month": "2026-12"
+     },
+     {
+      "tier": "legendary",
+      "rating": 380,
+      "mult": 25,
+      "limit": 12500,
+      "limit_estimated": false,
+      "rating_to_add": 380,
+      "cost": 11737,
+      "route": "mint+cards",
+      "year_rax": 92523,
+      "year_capped": true,
+      "projected": true,
+      "per_game_day": 1376.0,
+      "years_to_limit": 0.11,
+      "year_per_rax": 7.88,
+      "lifetime_per_rax": 7.88,
+      "pays_back": true,
+      "payback_months": 0.9,
+      "payback_month": "2026-12"
+     },
+     {
+      "tier": "mystic",
+      "rating": 1380,
+      "mult": 75,
+      "limit": 37500,
+      "limit_estimated": false,
+      "rating_to_add": 1380,
+      "cost": 42097,
+      "route": "mint+cards",
+      "year_rax": 277570,
+      "year_capped": true,
+      "projected": true,
+      "per_game_day": 4128.0,
+      "years_to_limit": 0.11,
+      "year_per_rax": 6.59,
+      "lifetime_per_rax": 6.59,
+      "pays_back": true,
+      "payback_months": 1.1,
+      "payback_month": "2026-12"
+     },
+     {
+      "tier": "iconic",
+      "rating": 3380,
+      "mult": 150,
+      "limit": null,
+      "limit_estimated": false,
+      "rating_to_add": 3380,
+      "cost": 102817,
+      "route": "mint+cards",
+      "year_rax": 677000,
+      "year_capped": false,
+      "projected": true,
+      "per_game_day": 8256.1,
+      "years_to_limit": null,
+      "year_per_rax": 6.58,
+      "lifetime_per_rax": 19.75,
+      "pays_back": true,
+      "payback_months": 1.4,
+      "payback_month": "2026-12"
+     }
+    ],
+    "best": "general",
+    "weak": [
+     "rare"
+    ],
+    "on_sale": null
+   },
+   {
+    "key": "nba:2027:player:9002",
+    "sport": "nba",
+    "season": 2027,
+    "season_label": "2026-27",
+    "season_state": "current",
+    "player_id": 9002,
+    "player_name": "Wembanyama as served today",
+    "team_id": null,
+    "position": null,
+    "kind": "player",
+    "base_1x": 812.4,
+    "season_progress": 0.18,
+    "game_days": 82,
+    "game_days_measured": false,
+    "month_share": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "month_share_estimated": true,
+    "rate_traded": 38.46,
+    "rate_sales": 100,
+    "shelf": [
+     [
+      5.8,
+      50
+     ],
+     [
+      4.5,
+      40
+     ],
+     [
+      5.5,
+      50
+     ],
+     [
+      5.1,
+      50
+     ],
+     [
+      3.7,
+      40
+     ]
+    ],
+    "shelf_count": 694,
+    "mint_cost": 200,
+    "mintable": true,
+    "rungs": [
+     {
+      "tier": "general",
+      "rating": 0,
+      "mult": 1,
+      "limit": 0,
+      "limit_estimated": false,
+      "rating_to_add": 0,
+      "cost": 200,
+      "route": "mint",
+      "year_rax": 3701,
+      "year_capped": false,
+      "projected": true,
+      "per_game_day": 55.0,
+      "years_to_limit": null,
+      "year_per_rax": 18.5,
+      "lifetime_per_rax": 18.5,
+      "pays_back": true,
+      "payback_months": 0.5,
+      "payback_month": "2026-12"
+     },
+     {
+      "tier": "common",
+      "rating": 10,
+      "mult": 2,
+      "limit": 1000,
+      "limit_estimated": false,
+      "rating_to_add": 10,
+      "cost": 585,
+      "route": "mint+cards",
+      "year_rax": 7402,
+      "year_capped": true,
+      "projected": true,
+      "per_game_day": 110.1,
+      "years_to_limit": 0.11,
+      "year_per_rax": 12.66,
+      "lifetime_per_rax": 12.66,
+      "pays_back": true,
+      "payback_months": 0.6,
+      "payback_month": "2026-12"
+     },
+     {
+      "tier": "uncommon",
+      "rating": 30,
+      "mult": 3,
+      "limit": 1500,
+      "limit_estimated": false,
+      "rating_to_add": 30,
+      "cost": 1354,
+      "route": "mint+cards",
+      "year_rax": 11103,
+      "year_capped": true,
+      "projected": true,
+      "per_game_day": 165.1,
+      "years_to_limit": 0.11,
+      "year_per_rax": 8.2,
+      "lifetime_per_rax": 8.2,
+      "pays_back": true,
+      "payback_months": 0.9,
+      "payback_month": "2026-12"
+     },
+     {
+      "tier": "rare",
+      "rating": 80,
+      "mult": 4,
+      "limit": 2000,
+      "limit_estimated": false,
+      "rating_to_add": 80,
+      "cost": 3277,
+      "route": "mint+cards",
+      "year_rax": 14804,
+      "year_capped": true,
+      "projected": true,
+      "per_game_day": 220.2,
+      "years_to_limit": 0.11,
+      "year_per_rax": 4.52,
+      "lifetime_per_rax": 4.52,
+      "pays_back": true,
+      "payback_months": 1.6,
+      "payback_month": "2027-01"
+     },
+     {
+      "tier": "epic",
+      "rating": 180,
+      "mult": 10,
+      "limit": 5000,
+      "limit_estimated": false,
+      "rating_to_add": 180,
+      "cost": 7123,
+      "route": "mint+cards",
+      "year_rax": 37009,
+      "year_capped": true,
+      "projected": true,
+      "per_game_day": 550.4,
+      "years_to_limit": 0.11,
+      "year_per_rax": 5.2,
+      "lifetime_per_rax": 5.2,
+      "pays_back": true,
+      "payback_months": 1.4,
+      "payback_month": "2026-12"
+     },
+     {
+      "tier": "legendary",
+      "rating": 380,
+      "mult": 25,
+      "limit": 12500,
+      "limit_estimated": false,
+      "rating_to_add": 380,
+      "cost": 14815,
+      "route": "mint+cards",
+      "year_rax": 92523,
+      "year_capped": true,
+      "projected": true,
+      "per_game_day": 1376.0,
+      "years_to_limit": 0.11,
+      "year_per_rax": 6.25,
+      "lifetime_per_rax": 6.25,
+      "pays_back": true,
+      "payback_months": 1.2,
+      "payback_month": "2026-12"
+     },
+     {
+      "tier": "mystic",
+      "rating": 1380,
+      "mult": 75,
+      "limit": 37500,
+      "limit_estimated": false,
+      "rating_to_add": 1380,
+      "cost": 53275,
+      "route": "mint+cards",
+      "year_rax": 277570,
+      "year_capped": true,
+      "projected": true,
+      "per_game_day": 4128.0,
+      "years_to_limit": 0.11,
+      "year_per_rax": 5.21,
+      "lifetime_per_rax": 5.21,
+      "pays_back": true,
+      "payback_months": 1.4,
+      "payback_month": "2026-12"
+     },
+     {
+      "tier": "iconic",
+      "rating": 3380,
+      "mult": 150,
+      "limit": null,
+      "limit_estimated": false,
+      "rating_to_add": 3380,
+      "cost": 130195,
+      "route": "mint+cards",
+      "year_rax": 677000,
+      "year_capped": false,
+      "projected": true,
+      "per_game_day": 8256.1,
+      "years_to_limit": null,
+      "year_per_rax": 5.2,
+      "lifetime_per_rax": 15.6,
+      "pays_back": true,
+      "payback_months": 1.7,
+      "payback_month": "2027-01"
+     }
+    ],
+    "best": "general",
+    "weak": [
+     "rare"
+    ],
+    "on_sale": null
+   }
+  ]
+ }
+}

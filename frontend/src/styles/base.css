@@ -1,0 +1,1089 @@
+/* OTD Palace base: the ground, the type, the browser's own surfaces themed from the palette, and the small
+   controls every screen shares (buttons, chips, tags, the ⓘ, the star, popovers, sheets). The shapes follow the Real
+   app (the internal research notes): one filled pill for the action that leaves for Real, outlines and bold
+   accent text for the rest, 3 px badges, and a control that dims under the finger. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-bg);
+  scrollbar-color: var(--color-scroll) transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: 400 14px/1.45 var(--font-ui);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 38%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+main:focus {
+  outline: none;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-scroll);
+  border-radius: var(--radius-sm);
+}
+@media (hover: hover) {
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-scroll-hi);
+  }
+}
+
+h1,
+h2,
+h3,
+.jn {
+  font-family: var(--font-display);
+  margin: 0;
+}
+
+p,
+ol,
+ul,
+dl,
+dd,
+figure {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+input {
+  caret-color: var(--color-accent);
+}
+
+input::placeholder {
+  color: var(--color-faint);
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
+small {
+  display: block;
+  color: var(--color-muted);
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+
+b {
+  font-weight: var(--weight-strong);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Icons: one 24-unit grid, one stroke. */
+svg.i {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+
+/* Rarity: each card frame takes its colour from --c. */
+.rar-0 { --c: var(--rarity-0); }
+.rar-1 { --c: var(--rarity-1); }
+.rar-2 { --c: var(--rarity-2); }
+.rar-3 { --c: var(--rarity-3); }
+.rar-4 { --c: var(--rarity-4); }
+.rar-5 { --c: var(--rarity-5); }
+.rar-6 { --c: var(--rarity-6); }
+.rar-7 { --c: var(--rarity-7); }
+
+/* A rarity (RarityTag): the card-shaped swatch in Real's colour, then Real's name for it. One look on every screen;
+   a dense line (a row's meta) may only tighten the gap and the weight. */
+.rar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: var(--weight-strong);
+  white-space: nowrap;
+}
+
+.sw {
+  display: inline-block;
+  width: 9px;
+  height: 12px;
+  border-radius: var(--radius-xs);
+  border: 2px solid var(--c);
+  background: color-mix(in srgb, var(--c) 30%, var(--color-bg));
+  flex: none;
+}
+
+/* A player's face (PlayerAvatar): the photo, or the initials, on the tint, in a thin ring of the card's rarity. Its
+   size is fixed by its class, so the row it sits in keeps its height whether the photo loads or not. */
+.tint-0 { --team: var(--team-0); }
+.tint-1 { --team: var(--team-1); }
+.tint-2 { --team: var(--team-2); }
+.tint-3 { --team: var(--team-3); }
+.tint-4 { --team: var(--team-4); }
+.tint-5 { --team: var(--team-5); }
+.tint-6 { --team: var(--team-6); }
+.tint-7 { --team: var(--team-7); }
+
+.pav {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(
+    circle at 50% 30%,
+    color-mix(in srgb, var(--team) 82%, #fff),
+    color-mix(in srgb, var(--team) 70%, #000) 74%
+  );
+  font: 700 12px/1 var(--font-ui);
+  letter-spacing: 0.01em;
+  color: #fff;
+  user-select: none;
+}
+
+/* The ring sits over the photo, so a cut-out never covers it. */
+.pav::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 2px var(--c);
+  pointer-events: none;
+}
+
+/* A face without a rarity (a price move) is ringed by a plain line. */
+.pav.ring {
+  --c: var(--color-line-hi);
+}
+
+.pav img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0;
+}
+
+.pav.s28 {
+  width: 28px;
+  height: 28px;
+  font-size: 11px;
+}
+
+.pav.s40 {
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+}
+
+/* The faces on Today's top tiles: the next two, then the best one; their ring is a little heavier. */
+.pav.s56 {
+  width: 56px;
+  height: 56px;
+  font-size: 19px;
+}
+
+.pav.s76 {
+  width: 76px;
+  height: 76px;
+  font-size: 26px;
+}
+
+.pav.s56::after,
+.pav.s76::after {
+  box-shadow: inset 0 0 0 3px var(--c);
+}
+
+/* The brand mark: our own name in our own face, the one place the site does not use the device's */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 0;
+  font-family: var(--font-brand);
+  font-size: 21px;
+  font-weight: var(--weight-heavy);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--color-accent);
+  display: grid;
+  place-items: center;
+  color: var(--color-on-accent);
+  flex: none;
+}
+
+.mark .i {
+  stroke-width: 2.1;
+}
+
+/* Tags and chips */
+.tag {
+  font-size: 12px;
+  line-height: 1;
+  font-weight: var(--weight-strong);
+  padding: 6px 9px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--color-line);
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.how-chip {
+  font-size: 12px;
+  line-height: 1;
+  font-weight: var(--weight-medium);
+  padding: 2px 6px 3px;
+  border-radius: var(--radius-xs);
+  color: var(--color-muted);
+  border: 1px solid var(--color-line-hi);
+  white-space: nowrap;
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+
+.how-chip.start {
+  background: var(--color-raise);
+  border-color: var(--color-raise);
+  color: var(--color-text);
+}
+
+@media (hover: hover) {
+  button.how-chip:hover {
+    border-color: var(--color-muted);
+  }
+}
+
+.falling {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: var(--weight-strong);
+  padding: 2px 6px 3px;
+  border-radius: var(--radius-xs);
+  color: var(--color-fall);
+  background: color-mix(in srgb, var(--color-fall) 14%, transparent);
+  white-space: nowrap;
+}
+
+.falling .i {
+  width: 12px;
+  height: 12px;
+  stroke-width: 2.4;
+}
+
+.new {
+  flex: none;
+  margin-left: 3px;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: var(--weight-strong);
+  padding: 3px 6px 4px;
+  border-radius: var(--radius-xs);
+  color: var(--color-text);
+  background: var(--color-raise);
+}
+
+.optag {
+  margin-left: 6px;
+  font-size: 11.5px;
+  font-weight: var(--weight-strong);
+  padding: 1px 5px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--color-line-hi);
+  color: var(--color-muted);
+}
+
+.fit {
+  font-size: 12px;
+  line-height: 1;
+  font-weight: var(--weight-strong);
+  padding: 4px 7px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--color-line-hi);
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+/* Numbers that carry meaning */
+.pct {
+  color: var(--color-good);
+  font-weight: var(--weight-strong);
+}
+.pct.grey,
+.thin {
+  color: var(--color-faint);
+}
+.loss {
+  color: var(--color-bad);
+}
+
+/* Small buttons */
+.ib {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: var(--color-faint);
+  flex: none;
+  transition: color var(--dur-base), background-color var(--dur-base);
+}
+
+@media (hover: hover) {
+  .ib:hover {
+    color: var(--color-text);
+    background: var(--color-raise);
+  }
+}
+
+.ib .i {
+  width: 15px;
+  height: 15px;
+}
+
+/* A Real word in a sentence with its ⓘ (components/InfoTip.tsx Term): the two never split over a line break, and the
+   ⓘ sits on the text's middle instead of pushing the line taller. */
+.rterm {
+  white-space: nowrap;
+}
+
+.rterm .ib {
+  width: 18px;
+  height: 18px;
+  margin-left: 1px;
+  vertical-align: -3px;
+}
+
+.rterm .ib .i {
+  width: 13px;
+  height: 13px;
+}
+
+.x {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-md);
+  color: var(--color-muted);
+  flex: none;
+  transition: background-color var(--dur-base), color var(--dur-base);
+}
+
+@media (hover: hover) {
+  .x:hover {
+    background: var(--color-raise);
+    color: var(--color-text);
+  }
+}
+
+.x .i {
+  width: 16px;
+  height: 16px;
+}
+
+.icb {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--color-text);
+  flex: none;
+  transition: background-color var(--dur-base), opacity var(--dur-fast);
+}
+
+.icb:active {
+  background: var(--color-raise);
+  opacity: var(--press);
+}
+
+@media (hover: hover) {
+  .icb:hover {
+    background: var(--color-raise);
+  }
+}
+
+.icb .i {
+  width: 20px;
+  height: 20px;
+}
+
+.lnk {
+  min-height: 32px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: var(--weight-strong);
+  color: var(--color-accent);
+  white-space: nowrap;
+  text-decoration: none;
+  flex: none;
+  transition: background-color var(--dur-base) var(--ease-out), border-color var(--dur-base), opacity var(--dur-fast);
+}
+
+@media (hover: hover) {
+  .lnk:hover {
+    background: color-mix(in srgb, var(--color-accent) 14%, transparent);
+  }
+}
+
+.lnk:active {
+  opacity: var(--press);
+}
+
+.lnk .i {
+  width: 15px;
+  height: 15px;
+}
+
+.lnk.box {
+  border: 1px solid var(--color-accent);
+  background: none;
+}
+
+.btn {
+  height: 42px;
+  padding: 0 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--radius-md);
+  font-weight: var(--weight-strong);
+  font-size: 15px;
+  text-decoration: none;
+  transition: background-color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out),
+    opacity var(--dur-fast);
+}
+
+.btn.fill {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border-radius: var(--radius-pill);
+}
+
+@media (hover: hover) {
+  .btn.fill:hover {
+    background: var(--color-accent-hover);
+  }
+}
+
+.btn.ghost {
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  background: none;
+}
+
+@media (hover: hover) {
+  .btn.ghost:hover {
+
+    background: color-mix(in srgb, var(--color-accent) 14%, transparent);
+  }
+}
+
+.btn.ghost .i {
+  color: inherit;
+}
+
+.btn:active {
+  opacity: var(--press);
+}
+
+.btn[aria-disabled="true"] {
+  cursor: default;
+}
+
+/* Tabs, as Real draws them: bold words, and the chosen one takes the accent and a 2 px accent line. One look for
+   every tab, segment and chip row on the site (the sports: .tabs, .chips; a level or a budget: .seg, .lvl; a view:
+   .views; a season, risers or fallers: .mini, .mvtabs). The weight never changes with the choice, so a row keeps its
+   width; each sheet only sizes its own row. */
+.tabs button,
+.chips button,
+.seg button,
+.lvl button,
+.views button,
+.mini button,
+.mvtabs button {
+  position: relative;
+  color: var(--color-text);
+  font-weight: var(--weight-strong);
+  white-space: nowrap;
+  transition: color var(--dur-base) var(--ease-out), opacity var(--dur-fast);
+}
+
+.tabs button::after,
+.chips button::after,
+.seg button::after,
+.lvl button::after,
+.views button::after,
+.mini button::after,
+.mvtabs button::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--color-accent);
+  opacity: 0;
+  transform: scaleX(0.4);
+  transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out);
+  pointer-events: none;
+}
+
+.tabs button[aria-selected="true"],
+.chips button[aria-selected="true"],
+.views button[aria-selected="true"],
+.mvtabs button[aria-selected="true"],
+.seg button[aria-pressed="true"],
+.seg button[aria-checked="true"],
+.lvl button[aria-checked="true"],
+.mini button[aria-pressed="true"] {
+  color: var(--color-accent);
+}
+
+.tabs button[aria-selected="true"]::after,
+.chips button[aria-selected="true"]::after,
+.views button[aria-selected="true"]::after,
+.mvtabs button[aria-selected="true"]::after,
+.seg button[aria-pressed="true"]::after,
+.seg button[aria-checked="true"]::after,
+.lvl button[aria-checked="true"]::after,
+.mini button[aria-pressed="true"]::after {
+  opacity: 1;
+  transform: none;
+}
+
+.tabs button:active,
+.chips button:active,
+.seg button:active,
+.lvl button:active,
+.views button:active,
+.mini button:active,
+.mvtabs button:active {
+  opacity: var(--press);
+}
+
+/* A count beside a tab's word ("NBA 6") stays quiet in either state. */
+.tabs button span,
+.chips button span,
+.views .n {
+  font-weight: var(--weight-medium);
+  color: var(--color-faint);
+}
+
+/* The rows that span their column sit on a hairline, like Real's Feed / Game tabs. */
+.seg,
+.lvl,
+.views {
+  border-bottom: 1px solid var(--color-line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs button::after,
+  .chips button::after,
+  .seg button::after,
+  .lvl button::after,
+  .views button::after,
+  .mini button::after,
+  .mvtabs button::after {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* The follow star */
+.star {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  color: var(--color-faint);
+  flex: none;
+  transition: color var(--dur-base) var(--ease-out), background-color var(--dur-base);
+}
+
+@media (hover: hover) {
+  .star:hover {
+    color: var(--color-text);
+    background: var(--color-raise);
+  }
+}
+
+.star .i {
+  width: 15px;
+  height: 15px;
+}
+
+.star.lg {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+}
+
+.star.lg .i {
+  width: 21px;
+  height: 21px;
+}
+
+.star[aria-pressed="true"] {
+  color: var(--color-accent);
+}
+
+.star[aria-pressed="true"] .i {
+  fill: currentColor;
+}
+
+/* Empty state */
+.empty {
+  margin-top: 8px;
+  padding: 16px;
+  border: 1px dashed var(--color-line-hi);
+  border-radius: var(--radius-lg);
+  color: var(--color-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.empty b {
+  color: var(--color-text);
+}
+
+.eacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* Popover (desktop) */
+.pop {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 30;
+  width: 276px;
+  max-width: calc(100vw - 16px);
+  padding: 12px 14px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 22px 44px -14px rgb(0 0 0 / 0.85);
+}
+
+.pop.wide {
+  width: 360px;
+}
+
+.pop.narrow {
+  width: 220px;
+}
+
+.pophd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pophd b {
+  font-size: 14.5px;
+}
+
+.poptx {
+  margin-top: 6px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.poptx b {
+  color: var(--color-text);
+}
+
+.menu {
+  display: grid;
+  gap: 2px;
+  margin-top: 6px;
+}
+
+.menu button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  text-align: left;
+  color: var(--color-muted);
+  transition: background-color var(--dur-fast), color var(--dur-fast);
+}
+
+@media (hover: hover) {
+  .menu button:hover {
+    background: var(--color-raise);
+    color: var(--color-text);
+  }
+}
+
+.menu button[aria-checked="true"] {
+  color: var(--color-text);
+  font-weight: var(--weight-strong);
+}
+
+.menu .i,
+.opt .i {
+  width: 15px;
+  height: 15px;
+  color: var(--color-accent);
+  visibility: hidden;
+}
+
+.menu [aria-checked="true"] .i,
+.opt[aria-checked="true"] .i {
+  visibility: visible;
+}
+
+.gl {
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.gl dt {
+  margin-top: 9px;
+  font-weight: var(--weight-strong);
+  color: var(--color-text);
+}
+
+.gl dd {
+  margin-top: 1px;
+  color: var(--color-muted);
+}
+
+.qrwrap {
+  margin: 8px auto 2px;
+  width: 172px;
+  height: 172px;
+  padding: 0; /* the quiet zone is drawn into the code's own view box */
+  background: #f2f1ee;
+  border-radius: var(--radius-md);
+}
+
+.qrwrap svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.qrwrap path {
+  fill: #0e0e10;
+}
+
+/* Sheet (phone): a <dialog> rising from the bottom edge */
+dialog.sheet {
+  position: fixed;
+  inset: auto 0 0 0;
+  width: 100%;
+  max-width: 100%;
+  max-height: 84dvh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-top: 1px solid var(--color-line-hi);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: 0 -24px 48px -20px rgb(0 0 0 / 0.85);
+  overflow: hidden;
+}
+
+dialog.sheet::backdrop {
+  background: rgb(5 5 7 / 0.62);
+}
+
+.sheet-in {
+  max-height: 84dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px 16px calc(26px + env(safe-area-inset-bottom, 0px));
+}
+
+.grab {
+  width: 40px;
+  height: 4px;
+  border-radius: var(--radius-xs);
+  background: var(--color-line-hi);
+  margin: 0 auto 2px;
+}
+
+.shd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.shd h3 {
+  font-size: 19px;
+  font-weight: var(--weight-strong);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.shd .icb {
+  margin-right: -10px;
+  color: var(--color-muted);
+}
+
+.sheet .poptx,
+.tx {
+  margin-top: 4px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--color-muted);
+}
+
+.opts {
+  display: grid;
+  gap: 2px;
+  margin-top: 6px;
+}
+
+.opt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 50px;
+  padding: 0 14px;
+  border-radius: var(--radius-lg);
+  font-size: 15px;
+  color: var(--color-muted);
+  text-align: left;
+}
+
+.opt small {
+  font-size: 12.5px;
+  color: var(--color-faint);
+  font-weight: 400;
+}
+
+.opt[aria-checked="true"] {
+  background: var(--color-raise);
+  color: var(--color-text);
+  font-weight: var(--weight-strong);
+}
+
+.sheet .gl,
+.sheet .steps {
+  font-size: 15px;
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  margin-top: 8px;
+  display: grid;
+  gap: 12px;
+}
+
+.steps li {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.sheet .steps li {
+  font-size: 15px;
+}
+
+.steps li b {
+  color: var(--color-text);
+}
+
+.steps em {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--color-raise);
+  font: 700 14px/1 var(--font-display);
+  font-style: normal;
+  color: var(--color-text);
+}
+
+.sfield {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 48px;
+  margin-top: 8px;
+  padding: 0 14px;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-faint);
+}
+
+.sfield input {
+  flex: 1;
+  width: 0;
+  background: none;
+  border: 0;
+  outline: none;
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+.sres {
+  margin-top: 6px;
+  display: grid;
+}
+
+.res {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 52px;
+  padding: 6px 4px;
+  border-bottom: 1px solid var(--color-line);
+  text-align: left;
+}
+
+.res b {
+  display: block;
+  font-size: 15px;
+}
+
+.res .pav + span {
+  flex: 1;
+  min-width: 0;
+}
+
+.res small {
+  color: var(--color-faint);
+}
+
+.res .rc {
+  font-size: 13px;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+/* A deal under its usual price that leaves nothing after fees if resold: a quiet note, not an alarm. */
+.noprofit {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: var(--weight-medium);
+  padding: 2px 5px 3px;
+  border-radius: var(--radius-sm);
+  color: var(--color-muted);
+  background: color-mix(in srgb, var(--color-muted) 14%, transparent);
+  white-space: nowrap;
+}
+
+.prow .ln.noprofit-l {
+  color: var(--color-muted);
+  white-space: normal; /* the whole sentence, on two lines if it must */
+}
+
+/* One 44 px tap area for every small control, wide screens too: drawn around the control, so the layout does not move.
+   A control already 44 px high or wide gets no more in that direction. */
+:where(.ib, .star, .icb, .tlink, .plink, .foot a, .foot button, .seg button, .lvl button, .chips button, .sortbtn, .howlink, .lnk, .tabs button, .mini button, .tgl, .hs, .accbtn, .buddybtn, .rchip, .rarer) {
+  position: relative;
+}
+
+:is(.ib, .star, .icb, .tlink, .plink, .foot a, .foot button, .seg button, .lvl button, .chips button, .sortbtn, .howlink, .lnk, .tabs button, .mini button, .tgl, .hs, .accbtn, .buddybtn, .rchip, .rarer)::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100%, 44px);
+  height: max(100%, 44px);
+  translate: -50% -50%;
+}

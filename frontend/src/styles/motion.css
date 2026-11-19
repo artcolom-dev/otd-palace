@@ -1,0 +1,367 @@
+/* OTD Palace motion. One authored moment (the hand of cards re-dealing for a new best deal, in JS) and small,
+   quick feedback around it: rows that dim when a deal goes, a "new" tag that settles, a star that pops, a live
+   dot that breathes, a loading block that shimmers. The timings are Real's (200 to 500 ms), and a control dims under
+   the finger as Real's do (--press, in base.css). Nothing flashes, shakes or spins, nothing loops in a hidden tab, and
+   every effect has a reduced-motion path of opacity or colour only (the live dot and the shimmer then stand still). */
+
+/* A tab the visitor moves to settles in: a short fade and a small rise, once. Not on the first paint of a visit
+   (App sets data-navigated after the first move), so what the visitor opens on is simply there. */
+:root[data-navigated] .main > .page {
+  animation: view-in var(--dur-slow) var(--ease-out) both;
+}
+
+@keyframes view-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The live dot breathes, only while live and while the tab is visible. 2.4 s is a slow ambient loop, not an
+   interaction, so it is not one of the duration tokens (and it stands still under reduced motion, below). */
+.dot.on::after {
+  animation: breathe 2.4s var(--ease-out) infinite;
+}
+
+:root[data-tab-hidden] .dot::after {
+  animation: none;
+}
+
+@keyframes breathe {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  75%,
+  100% {
+    transform: scale(2.9);
+    opacity: 0;
+  }
+}
+
+/* Loading: the grey blocks carry Real's shimmer, a soft band of light that crosses each one (1.6 s, in and out). An
+   ambient loop like the live dot, so not a duration token: it stands still under reduced motion and in a hidden tab. */
+.sk,
+.sk-hero {
+  background: linear-gradient(90deg, var(--color-row) 25%, var(--color-raise) 50%, var(--color-row) 75%) 0 0 / 200% 100%;
+  animation: shimmer var(--dur-shimmer) var(--ease-in-out) infinite;
+}
+
+:root[data-tab-hidden] :is(.sk, .sk-hero) {
+  animation: none;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+/* A photo fades in over its tint: opacity only, so it is the same path for everyone (--dur-base is 0ms under reduced
+   motion, which leaves the photo simply there). It starts from the visible state, so a cached photo never flashes. */
+.pav img,
+.jn.face img {
+  animation: fade-in var(--dur-base) var(--ease-out);
+}
+
+/* The star pops with a small accent ring. */
+.star.pop .i {
+  animation: pop var(--dur-base) var(--ease-out);
+}
+
+.star.pop::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: ring var(--dur-slow) var(--ease-out) forwards;
+}
+
+@keyframes pop {
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+@keyframes ring {
+  from {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 60%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--color-accent) 0%, transparent);
+  }
+}
+
+/* A row that arrived with a tap on the pill: its "new" tag starts orange and settles over 1.2 s. */
+.new.flash {
+  animation: newflash var(--dur-hold) var(--ease-out) both;
+}
+
+@keyframes newflash {
+  0%,
+  30% {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+  100% {
+    background: var(--color-raise);
+    color: var(--color-text);
+  }
+}
+
+/* A deal that went away dims over 300 ms, in place, and its reason slides in. */
+.tr,
+.prow {
+  transition: background-color var(--dur-slow) var(--ease-out), border-color var(--dur-slow) var(--ease-out);
+}
+
+.tr :is(b, .nmt, small, .pct),
+.prow :is(b, .nmt, .pc b) {
+  transition: color var(--dur-slow) var(--ease-out);
+}
+
+.reason,
+.taken-line {
+  animation: reason-in var(--dur-slow) var(--ease-out) both;
+}
+
+@keyframes reason-in {
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* A countdown turning orange, and "+1 min" when a late bid adds a minute. */
+.clock {
+  transition: color var(--dur-slow) var(--ease-out);
+}
+
+/* "+1 min" stays readable for 2.4 s: a notice, not an interaction, so it keeps its time under reduced motion too. */
+.plus {
+  animation: plus 2.4s ease-out forwards;
+}
+
+@keyframes plus {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.9);
+  }
+  10%,
+  80% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+}
+
+/* The pill eases in. */
+.pill {
+  animation: pill-in var(--dur-slow) var(--ease-out);
+}
+
+@keyframes pill-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.floating .pill {
+  animation-name: pill-up;
+}
+
+@keyframes pill-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The live dot stands still: its solid fill says live. */
+  .dot.on::after {
+    animation: none;
+  }
+
+  /* The loading blocks are plain grey: no band of light, moving or still. */
+  .sk,
+  .sk-hero {
+    background: var(--color-row);
+    animation: none;
+  }
+
+  .star.pop .i {
+    animation: none;
+  }
+
+  .star.pop::after {
+    /* The one confirmation kept under reduced motion: a colour-only ring, so its 0.5 s is not zeroed. */
+    animation: ring-rm 0.5s ease-out forwards;
+  }
+
+  .reason,
+  .taken-line {
+    animation-name: fade-in;
+  }
+
+  .said-in {
+    animation-name: fade-in;
+  }
+
+  .plus {
+    animation-name: plus-rm;
+  }
+
+  .pill,
+  .floating .pill {
+    animation-name: fade-in;
+  }
+
+  :root[data-navigated] .main > .page {
+    animation-name: fade-in;
+  }
+}
+
+@keyframes ring-rm {
+  from {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 70%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 0%, transparent);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes plus-rm {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  10%,
+  80% {
+    opacity: 1;
+  }
+}
+
+/* A figure that counts (components/CountUp.tsx). Digits are tabular so they do not jitter, and a ghost of the final
+   text (data-final, never read aloud) holds the width, so nothing beside the figure moves while it counts. */
+.cu {
+  position: relative;
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
+
+.cu::before {
+  content: attr(data-final);
+  visibility: hidden;
+}
+
+.cu > span {
+  position: absolute;
+  inset: 0;
+  text-align: end;
+  white-space: nowrap;
+}
+
+/* A figure that changed (components/Chg.tsx): a wash of the accent behind it that fades out. It sits behind the text
+   (z-index -1 inside an isolated box), so the digits keep their contrast, and only its opacity moves. */
+.chg {
+  position: relative;
+  isolation: isolate;
+}
+
+.chg::after {
+  content: "";
+  position: absolute;
+  inset: -2px -5px;
+  z-index: -1;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent);
+  pointer-events: none;
+  animation: chg var(--dur-hold) var(--ease-out) both;
+}
+
+@keyframes chg {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* A message that just arrived ("Copied.", "Unlinked.", components/Said.tsx): it settles in, and a good one draws its
+   check in 300 ms. Under reduced motion the message fades and the check is simply there. */
+.said-in {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 6px;
+  animation: reason-in var(--dur-slow) var(--ease-out) both;
+}
+
+.said-in .tick {
+  flex: none;
+  inline-size: 14px;
+  block-size: 14px;
+  margin-block-start: 2px;
+  color: var(--color-accent);
+}
+
+.said-in .tick path {
+  stroke-dasharray: 20;
+  animation: tick-draw var(--dur-slow) var(--ease-out) var(--dur-fast) both;
+}
+
+@keyframes tick-draw {
+  from {
+    stroke-dashoffset: 20;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Pressed, everywhere. Every control that has no pressed state of its own dims to --press under the finger, as Real's
+   do (:where keeps this at zero weight, so any look a sheet gives its own control still wins). A disabled control does
+   not answer. Under reduced motion --press is 1, so nothing dims. */
+:where(a[href], button, summary, [role="button"], [role="tab"], [role="switch"], [role="radio"], label[for]):where(
+    :active
+  ):not(:disabled, [aria-disabled="true"]) {
+  opacity: var(--press);
+}
+
+:where(a[href], button, summary, [role="button"], [role="tab"], [role="switch"], [role="radio"]) {
+  transition: opacity var(--dur-fast);
+}

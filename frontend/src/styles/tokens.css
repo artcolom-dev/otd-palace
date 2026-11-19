@@ -1,0 +1,174 @@
+/* OTD Palace design tokens. Dark is the default theme; light is secondary.
+   The look follows the Real app's own visual language, read from public sources (the internal research notes):
+   a black ground, hairlines instead of filled boxes, the system's own typeface in bold, tabular numerals, one accent
+   used as text, outline or underline, and Real's radii, spacing and timings. The name, the mark and the orange are
+   ours: nothing here is Real's logo, art or font. */
+
+/* Type: the interface uses the device's own face, as Real does (San Francisco on an iPhone or a Mac, Roboto on
+   Android, Segoe UI on Windows), so nothing is fetched and nothing swaps. One face is served by the site itself, for
+   our own name only: Bricolage Grotesque v9 (weights 600 to 800, optical size 12 to 96; SIL Open Font License 1.1, the
+   licence sits next to the files in src/fonts), as variable woff2 subsets. Nothing preloads it; the latin-ext file
+   loads only when a name needs it. The latin file holds only what the name is written with (A-Z, a-z, 0-9, space), weight
+   600 to 800 and optical size 12 to 24 (the name is set between 12 and 21 px): 16 KB instead of 77 KB, the same
+   outlines. Made with fontTools (instancer, then pyftsubset) from the v9 file; a name with other letters falls back to
+   the device's face for them, as any missing glyph does. */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 600 800;
+  font-display: swap;
+  src: url("../fonts/bricolage-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 600 800;
+  font-display: swap;
+  src: url("../fonts/bricolage-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  color-scheme: dark;
+
+  /* Ground and surfaces: Real's dark theme (black, with #151515 for what must stand off it) */
+  --color-bg: #000000;
+  --color-side: #000000;
+  --color-surface: #151515; /* a sheet, a popover, a field, a boxed control */
+  --color-row: #101112; /* a quiet block on the ground: a note, a skeleton, a chosen option */
+  --color-raise: #1d1f21; /* the raised state of a small control */
+  --color-line: #25282a; /* hairlines: a section's edge, the line between two rows */
+  --color-line-hi: #3a3f42; /* a control's outline: fields, chips, ghost buttons, dashed rows */
+  --color-hover: #17191a; /* a row under the pointer */
+  --color-scroll: #333333;
+  --color-scroll-hi: #555555;
+
+  /* Text: Real's primary and secondary; the faint one stays readable (4.5:1) on every surface above */
+  --color-text: #d9d9d9;
+  --color-muted: #8a8e94;
+  --color-faint: #82878d;
+
+  /* The one accent, and the ink that sits on it. Ours (Real lets each player pick theirs; orange is one of them). */
+  --color-accent: #f5893a;
+  --color-accent-hover: #f89b55;
+  --color-on-accent: #1b1004;
+
+  /* Meaning only: under fair value / rising, falling, paused data. Real's green; its reds lifted to read as text. */
+  --color-good: #00a163;
+  --color-bad: #e5534b;
+  --color-fall: #df7272; /* the "falling" tag: the bad hue, lifted to read as small text on its tint */
+  --color-stale: #5c6367;
+
+  /* Card rarity, by Real's rarity index 0..7: Real's own colour for each rarity (src/content/real.ts names the source;
+     tests keep this, real.ts and advisor/real.py equal). Swatches, rings and frames only, always beside the name. */
+  --rarity-0: #c9cbd1; /* General */
+  --rarity-1: #3f8cf0; /* Common */
+  --rarity-2: #45b35a; /* Uncommon */
+  --rarity-3: #ee8a2a; /* Rare */
+  --rarity-4: #e5484d; /* Epic */
+  --rarity-5: #a071f0; /* Legendary */
+  --rarity-6: #f0c232; /* Mystic */
+  --rarity-7: #72d3f2; /* Iconic */
+
+  /* The tint behind a player's photo or initials. Real's data names no team colours: a team's id picks the tint when
+     it is known, else the player's own id, so a face keeps its tint. Deep enough for white initials in both themes. */
+  --team-0: #1f3b68; /* navy */
+  --team-1: #5f2331; /* maroon */
+  --team-2: #155a57; /* teal */
+  --team-3: #44316b; /* violet */
+  --team-4: #24502f; /* forest */
+  --team-5: #5f4317; /* bronze */
+  --team-6: #2e4a62; /* steel */
+  --team-7: #552443; /* plum */
+
+  /* Type */
+  --font-ui: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  --font-display: var(--font-ui); /* headings and big figures: the same face, heavier, as in Real */
+  --font-brand: "Bricolage Grotesque", var(--font-ui); /* our own name, nothing else */
+  --weight-medium: 500;
+  --weight-strong: 700; /* Real's bold: names, figures, labels, the chosen tab */
+  --weight-heavy: 800; /* the few big figures */
+  --text-xs: 0.75rem;   /* 12px: captions, tags (desktop floor) */
+  --text-sm: 0.8125rem; /* 13px */
+  --text-md: 0.9375rem; /* 15px: body, nav */
+  --text-lg: 1.125rem;  /* 18px */
+  --text-xl: 1.375rem;  /* 22px: panel titles */
+  --text-2xl: 2rem;     /* 32px */
+  --text-hero: clamp(2.25rem, 1.4rem + 2.6vw, 3.5rem); /* 36–56px: hero headline */
+
+  /* Space (4px base; Real's screen padding is 16, its rows 12) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --gutter: 16px;
+
+  /* Shape: Real's 3 (badges), 8 (controls), 16 (large), and a pill for the one filled action */
+  --radius-xs: 3px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 999px;
+
+  /* Motion: Real's timings (200 to 500 ms) and its pressed state (the touched thing dims to 70 %) */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.5, 0, 0.75, 0); /* an exit: faster than its entrance, gone before it is noticed */
+  --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1); /* a loop that breathes: the loading shimmer */
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1); /* a sheet let go by the finger: fast away, soft landing, no bounce */
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 300ms;
+  --dur-glide: 400ms; /* a bar or a chart moving to a new value */
+  --dur-enter: 500ms; /* a bar growing the first time it is shown */
+  --dur-hold: 1200ms; /* a highlight that settles back (a "new" tag, a row an alert points at) */
+  --dur-shimmer: 1600ms; /* one pass of the loading shimmer */
+  --press: 0.7; /* how far a control dims under the finger */
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  /* Real's light theme: white, with a cool grey for what must stand off it */
+  --color-bg: #ffffff;
+  --color-side: #ffffff;
+  --color-surface: #f7f9f9;
+  --color-row: #f7f9f9;
+  --color-raise: #e4eaec;
+  --color-line: #d5dee0;
+  --color-line-hi: #abb8ba;
+  --color-hover: #f0f4f5;
+  --color-scroll: #c3ccce;
+  --color-scroll-hi: #abb8ba;
+  --color-text: #252829;
+  --color-muted: #5b6668;
+  --color-faint: #5f6b6d;
+  --color-accent: #b34d00;
+  --color-accent-hover: #9a4200;
+  --color-on-accent: #ffffff; /* white on this orange is 5.3:1 (the ribbon, filled buttons) */
+  --color-good: #006e44;
+  --color-bad: #c21a22;
+  --color-fall: #c21a22;
+  --color-stale: #8b9799;
+  /* The pale rarities, deepened so a swatch or a ring holds 3:1 on the light ground */
+  --rarity-0: #8e9099;
+  --rarity-6: #c29a0a;
+  --rarity-7: #2aa5d0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-base: 0ms;
+    --dur-slow: 0ms;
+    --dur-glide: 0ms;
+    --dur-enter: 0ms;
+    --dur-hold: 0ms;
+    --press: 1;
+  }
+}

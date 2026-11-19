@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="t">
+  <title id="t">OTD Palace</title>
+  <rect width="64" height="64" rx="18" fill="#F5893A"/>
+  <g fill="none" stroke="#1B1004" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M13 26 32 14l19 12"/>
+    <path d="M19 29v15M28 29v15M36 29v15M45 29v15"/>
+    <path d="M12 50h40"/>
+  </g>
+</svg>
